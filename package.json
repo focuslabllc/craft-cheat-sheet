@@ -1,0 +1,25 @@
+{
+  "name": "Craft-Field-Cheat-Sheet",
+  "version": "0.1.0",
+  "description": "Readmes are great.",
+  "main": "gruntfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-watch": "^0.6.0",
+    "grunt-includes": "^0.4.4",
+    "grunt-svgmin": "^0.4.0",
+    "matchdep": "~0.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/focuslabllc/craft-field-cheat-sheet.git"
+  },
+  "author": "Focus Lab, LLC <dev@focuslabllc.com> (http://focuslabllc.com/dev)",
+  "bugs": {
+    "url": "https://github.com/focuslabllc/craft-field-cheat-sheet/issues"
+  },
+  "homepage": "https://github.com/focuslabllc/craft-field-cheat-sheet"
+}

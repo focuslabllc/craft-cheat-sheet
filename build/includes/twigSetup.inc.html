@@ -1,0 +1,72 @@
+{# ---------------------------------------------
+
+Inspired by http://straightupcraft.com/search/results?q=cheat+sheet
+
+Available methods within craft.fields:
+
+ - getAllGroups($indexBy = null)
+ - getGroupById($groupId)
+ - getFieldById($fieldId)
+ - getFieldByHandle($handle)
+ - getAllFields($indexBy = null)
+ - getFieldsByGroupId($groupId, $indexBy = null)
+ - getLayoutById($layoutId)
+ - getLayoutByType($type)
+ - getAllFieldTypes()
+ - getFieldType($class)
+ - populateFieldType(FieldModel $field, $element = null)
+
+Include Globals too? http://buildwithcraft.com/docs/globals
+
+CP views for reference:
+
+- craft/app/templates/settings/fields/index.html
+- craft/app/templates/settings/fields/_edit.html
+- craft/app/templates/_components/fieldtypes/{fieldType}/input.html
+- craft/app/templates/_components/fieldtypes/{fieldType}/settings.html
+
+Available values:
+
+	required; bool; example: false
+	translatable; string; example: 0 ('0' is what I've seen so far)
+	id; string (the field ID); example: 1
+	groupId; string; example: 1
+	name; string; example: Body
+	handle; string; example: body
+	context; string; example: global (What is this?)
+	instructions; string; example: "These are the field instructions."
+	type; string; example: RichText (these are the fieldtype names)
+	settings; array ; example: Array
+	    (
+	        [configFile] => Standard.json
+	        [cleanupHtml] => 1
+	        [purifyHtml] =>
+	        [columnType] => text
+	    )
+
+--------------------------------------------- #}
+{# Only render this template in dev mode #}
+{%- if not craft.config.devMode %}{% exit 404 %}{% endif -%}
+
+{# Settings #}
+{%- set gameGenie = {
+
+} -%}
+{%- set version = '0.1' -%}
+{%- set pageTitle = 'The Craft Field Cheatsheet ' ~ version -%}
+{%- set groups = craft.fields.getAllGroups() -%}
+{%- set fields = craft.fields.getAllFields() -%}
+
+{%- set whitespace = '	' -%}
+{%- set cpBase = siteUrl ~ craft.config.cpTrigger ~ '/' -%}
+
+{%- set tagContexts = [
+	{ 'title': 'Assets',     'tag': 'asset'},
+	{ 'title': 'Categories', 'tag': 'category'},
+	{ 'title': 'Entries',    'tag': 'entry'},
+	{ 'title': 'Globals',    'tag': 'globalSet'},
+	{ 'title': 'Tags',       'tag': 'tag'},
+	{ 'title': 'Users',      'tag': 'user'},
+] -%}
+{%- set currentContext = craft.request.getParam('context')|default(2) -%}
+{%- set sampleTag = tagContexts[currentContext].tag -%}
