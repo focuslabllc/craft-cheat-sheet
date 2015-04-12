@@ -127,6 +127,7 @@
 
 	<hr/>
 
+
 {% case 'Color' %}
 
 	<h4>Field name</h4>
@@ -146,6 +147,41 @@
 
 	<hr/>
 
+
+{% case 'Dropdown' %}
+
+	<h4>Field name</h4>
+	<pre><code>{{
+		  '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' }}'
+	}}</code></pre>
+
+
+	<h4>Field label</h4>
+	<pre><code>{{
+		  '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.label }}'
+	}}</code></pre>
+
+
+	<h4>Loop through the options</h4>
+	<pre><code>{{
+		  '&lt;ul&gt;<br/>'
+		~ whitespace
+		~ '{% for option in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.options %}<br/>'
+		~ whitespace ~ whitespace
+		~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>&lt;/ul&gt;'
+	}}</code></pre>
+
+	<hr/>
+
+
 {% case 'Lightswitch' %}
 
 	<h4>Boolean Conditional</h4>
@@ -156,6 +192,7 @@
 	}}</code></pre>
 
 	<hr/>
+
 
 {% case 'Matrix' %}
 
@@ -216,6 +253,7 @@
 
 	<hr/>
 
+
 {% case 'Number' %}
 
 	<h4>Field name</h4>
@@ -244,6 +282,7 @@
 
 	<hr/>
 
+
 {% case 'PlainText' %}
 
 	<h4>Field name</h4>
@@ -262,6 +301,7 @@
 	}}</code></pre>
 
 	<hr/>
+
 
 {% case 'RichText' %}
 

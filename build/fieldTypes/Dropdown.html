@@ -14,7 +14,7 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'PlainText' %}
+{% case 'Dropdown' %}
 
 	<h4>Field name</h4>
 	<pre><code>{{
@@ -24,9 +24,23 @@
 	}}</code></pre>
 
 
-	<h4>"If exists" conditional</h4>
+	<h4>Field label</h4>
 	<pre><code>{{
-		  '{% if '
+		  '{{ '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+		~ '.label }}'
+	}}</code></pre>
+
+
+	<h4>Loop through the options</h4>
+	<pre><code>{{
+		  '&lt;ul&gt;<br/>'
+		~ whitespace
+		~ '{% for option in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.options %}<br/>'
+		~ whitespace ~ whitespace
+		~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>&lt;/ul&gt;'
 	}}</code></pre>

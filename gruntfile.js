@@ -6,12 +6,12 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		includes: {
 			files: {
-				src: ['build/*.html','build/*.css','build/*.js'],
+				src: ['build/*.html'],
 				dest: './',
 				flatten: true,
 				cwd: '.',
 				options: {
-					silent: false,
+					silent: true,
 					includePath: 'build/includes'
 				}
 			}
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 				src: ['build/fieldTypes/*.html'],
 				dest: 'build/includes/fieldTypes.inc.html',
 				options: {
-					separator: '\n\n\t<hr/>\n\n'
+					separator: '\n\n\t<hr/>\n\n\n'
 				}
 			},
 			js: {
@@ -47,17 +47,31 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
+		replace: {
+			comments: {
+				src: ['build/includes/fieldTypes.inc.html'],
+				overwrite: true,
+				replacements: [{
+					from: /\{#-?(.|\n)*?-?#\}\s+\{% case/g,
+					to: '{% case'
+				}]
+			}
+		},
 		watch: {
 			css: {
 				files: 'build/**/*.scss',
 				tasks: ['sass', 'includes']
 			},
 			js: {
-				files: 'build/**/*.js',
-				tasks: ['concat', 'includes']
+				files: 'build/js/*.js',
+				tasks: ['concat:js', 'includes']
 			},
-			html: {
-				files: 'build/**/*.html',
+			fieldTypes: {
+				files: 'build/fieldTypes/*.html',
+				tasks: ['concat:fields', 'replace', 'includes']
+			},
+			core: {
+				files: 'build/*.html',
 				tasks: ['concat','includes']
 			}
 		}
