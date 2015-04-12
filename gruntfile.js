@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 				src: ['build/fieldTypes/*.html'],
 				dest: 'build/includes/fieldTypes.inc.html',
 				options: {
-					separator: '\n\n'
+					separator: '\n\n\t<hr/>\n\n'
 				}
 			},
 			js: {
