@@ -14,12 +14,12 @@ We're tracking:
 
 --------------------------------------------- #}*/
 
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('set', 'dimension1', '{{ version }}');       // version
-ga('set', 'dimension2', '{{ groups|length }}'); // field group count
-ga('set', 'dimension3', '{{ fields|length }}'); // field count
-ga('create', 'UA-3994429-34', 'auto');
-ga('send', 'pageview');
+// (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+// ga('set', 'dimension1', '{{ version }}');       // version
+// ga('set', 'dimension2', '{{ groups|length }}'); // field group count
+// ga('set', 'dimension3', '{{ fields|length }}'); // field count
+// ga('create', 'UA-3994429-34', 'auto');
+// ga('send', 'pageview');
 
 /*{# ---------------------------------------------
    Remember that twig tags within the JS below
