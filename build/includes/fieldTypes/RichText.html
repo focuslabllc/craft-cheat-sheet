@@ -1,0 +1,30 @@
+<table class="u-full-width">
+	<thead>
+		<tr>
+			<th>Code Type</th>
+			<th>Code Sample</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Field name</td>
+			<td>
+				<pre><code>{{
+					  '{{ '
+					~ sampleTag ~ '.' ~ field.handle
+					~ ' }}'
+				}}</code></pre>
+			</td>
+		</tr>
+		<tr>
+			<td>"If exists" conditional</td>
+			<td>
+				<pre><code>{{
+					  '{% if '
+					~ sampleTag ~ '.' ~ field.handle
+					~ '|length %} ... {% endif %}'
+				}}</code></pre>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -66,170 +66,23 @@ include "twigSetup.inc.html"
 
 					{% case 'PlainText' %}
 
-						<table class="u-full-width">
-							<thead>
-								<tr>
-									<th>Code Type</th>
-									<th>Code Sample</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Field name</td>
-									<td>
-										<pre><code>{{
-											  '{{ '
-											~ sampleTag ~ '.' ~ field.handle
-											~ ' }}'
-										}}</code></pre>
-									</td>
-								</tr>
-								<tr>
-									<td>"If exists" conditional</td>
-									<td>
-										<pre><code>{{
-											  '{% if '
-											~ sampleTag ~ '.' ~ field.handle
-											~ '|length %} ... {% endif %}'
-										}}</code></pre>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						include "fieldTypes/PlainText.html"
 
 					{% case 'RichText' %}
 
-						<table class="u-full-width">
-							<thead>
-								<tr>
-									<th>Code Type</th>
-									<th>Code Sample</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Field name</td>
-									<td>
-										<pre><code>{{
-											  '{{ '
-											~ sampleTag ~ '.' ~ field.handle
-											~ ' }}'
-										}}</code></pre>
-									</td>
-								</tr>
-								<tr>
-									<td>"If exists" conditional</td>
-									<td>
-										<pre><code>{{
-											  '{% if '
-											~ sampleTag ~ '.' ~ field.handle
-											~ '|length %} ... {% endif %}'
-										}}</code></pre>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						include "fieldTypes/RichText.html"
 
 					{% case 'Color' %}
 
-						<table class="u-full-width">
-							<thead>
-								<tr>
-									<th>Code Type</th>
-									<th>Code Sample</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Field name</td>
-									<td>
-										<pre><code>{{
-											  '{{ '
-											~ sampleTag ~ '.' ~ field.handle
-											~ ' }}'
-										}}</code></pre>
-									</td>
-								</tr>
-								<tr>
-									<td>"If exists" conditional</td>
-									<td>
-										<pre><code>{{
-											  '{% if '
-											~ sampleTag ~ '.' ~ field.handle
-											~ '|length %} ... {% endif %}'
-										}}</code></pre>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						include "fieldTypes/Color.html"
 
 					{% case 'Number' %}
 
-						<table class="u-full-width">
-							<thead>
-								<tr>
-									<th>Code Type</th>
-									<th>Code Sample</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Field name</td>
-									<td>
-										<pre><code>{{
-											  '{{ '
-											~ sampleTag ~ '.' ~ field.handle
-											~ ' }}'
-										}}</code></pre>
-									</td>
-								</tr>
-								<tr>
-									<td>Comparison conditional</td>
-									<td>
-										<pre><code>{{
-											  '{% if '
-											~ sampleTag ~ '.' ~ field.handle
-											~ ' > 0 %} ... {% endif %}'
-										}}</code></pre>
-									</td>
-								</tr>
-								<tr>
-									<td>Operations</td>
-									<td>
-										<pre><code>{{
-											  '{% set myResult = 42 * '
-											~ sampleTag ~ '.' ~ field.handle
-											~ ' %}'
-											~ '<br/><br/>The total is {{ myResult }}'
-										}}</code></pre>
-									</td>
-								</tr>
-
-							</tbody>
-						</table>
+						include "fieldTypes/Number.html"
 
 					{% case 'Lightswitch' %}
 
-						<table class="u-full-width">
-							<thead>
-								<tr>
-									<th>Code Type</th>
-									<th>Code Sample</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Boolean Conditional</td>
-									<td>
-										<pre><code>{{
-											  '{% if '
-											~ sampleTag ~ '.' ~ field.handle
-											~ ' %} ... {% endif %}'
-										}}</code></pre>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						include "fieldTypes/Lightswitch.html"
 
 					{% case 'Matrix' %}
 
