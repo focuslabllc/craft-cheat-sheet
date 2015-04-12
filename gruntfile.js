@@ -17,13 +17,20 @@ module.exports = function(grunt) {
 			}
 		},
 		concat: {
-			dist: {
+			fields: {
+				src: ['build/fieldTypes/*.html'],
+				dest: 'build/includes/fieldTypes.inc.html',
+				options: {
+					separator: '\n\n'
+				}
+			},
+			js: {
 				src: ['build/js/ga.js', 'build/js/core.js'],
 				dest: 'build/includes/scripts.inc.js',
 				options: {
 					separator: '\n\n'
 				}
-			}
+			},
 		},
 		sass: {
 			options: {
@@ -51,12 +58,10 @@ module.exports = function(grunt) {
 			},
 			html: {
 				files: 'build/**/*.html',
-				tasks: ['includes']
+				tasks: ['concat','includes']
 			}
 		}
 	});
 
-	// grunt.registerTask('css',['watch']);
-	// grunt.registerTask('svg',['svgmin']);
 	grunt.registerTask('default',['watch']);
 };

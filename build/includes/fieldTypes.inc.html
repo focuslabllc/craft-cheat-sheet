@@ -1,0 +1,400 @@
+{% case 'Assets' %}
+
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Code Type</th>
+				<th>Code Sample</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Total number of assets</td>
+				<td>
+					<pre><code>{{
+						  '{{ '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '|length }}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Common conditional</td>
+				<td>
+					<pre><code>{{
+						  '{% if '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '|length %}<br/>'
+						~ whitespace
+						~ '...<br/>{% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Loop through assets</td>
+				<td>
+					<pre><code>{{
+						  '{% for myAsset in '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' %}<br/>'
+						~ whitespace
+						~ '{{ myAsset.url }}<br/>{% endfor %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Only return the first asset</td>
+				<td>
+					<pre><code>{{
+						  '{% set myAsset = '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '.first() %}<br/>{% if myAsset %}<br/>'
+						~ whitespace
+						~ '{{ myAsset.url }}<br/>{% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Adjusting the limit</td>
+				<td>
+					<pre><code>{{
+						  '{% for block in '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '.limit(5) %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>All asset variables</td>
+				<td>
+					<pre><code>{{
+						  '{% set myAsset = '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '.first() %}<br/>{% if myAsset %}<br/>'
+						~ whitespace
+						~ '{{ myAsset.dateCreated }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.dateUpdated }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.extension }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.filename }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.folder }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.folderId }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.height }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.id }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.img }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.kind }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.locale }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.link }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.mimeType }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.next }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.prev }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.size }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.source }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.sourceId }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.url }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.width }}<br/>{% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>All asset methods</td>
+				<td>
+					<pre><code>{{
+						  '{% set myAsset = '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '.first() %}<br/>{% if myAsset %}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getExtension() }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getFolder() }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getHeight( transform ) }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getImg() }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getLink() }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getMimeType() }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getNext( params ) }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getPrev( params ) }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getSource() }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getUrl( transform ) }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.getWidth( transform ) }}<br/>'
+						~ whitespace
+						~ '{{ myAsset.setTransform( transform ) }}<br/>{% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+{% case 'Color' %}
+
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Code Type</th>
+				<th>Code Sample</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Field name</td>
+				<td>
+					<pre><code>{{
+						  '{{ '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' }}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>"If exists" conditional</td>
+				<td>
+					<pre><code>{{
+						  '{% if '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '|length %} ... {% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+{% case 'Lightswitch' %}
+
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Code Type</th>
+				<th>Code Sample</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Boolean Conditional</td>
+				<td>
+					<pre><code>{{
+						  '{% if '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' %} ... {% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+{% case 'Matrix' %}
+
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Code Type</th>
+				<th>Code Sample</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Total number of blocks</td>
+				<td>
+					<pre><code>{{
+						  '{{ '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '|length }}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Loop through blocks</td>
+				<td>
+					<pre><code>{{
+						  '{% for block in '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' %}<br/>'
+						~ whitespace
+						~ '...<br/>{% endfor %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Filtering by block type</td>
+				<td>
+					<pre><code>{{
+						  '{% for block in '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '.type(\'text\') %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Adjusting the limit</td>
+				<td>
+					<pre><code>{{
+						  '{% for block in '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '.limit(5) %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>All block types</td>
+				<td>
+					<pre><code>{{
+						  '{% for block in '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' %}<br/>'
+						~ whitespace
+						~ '...<br/>{% endfor %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td><em>In progress...</em></td>
+				<td>
+				{% for blockType in field.getFieldType().getSettings().getBlockTypes() %}
+					<h5>Block: {{ blockType.name }} ({{ blockType.handle }})</h5>
+					<p><strong>Details:</strong></p>
+					<ul>
+					{% for matrixField in blockType.getFields() %}
+						<li>{{ matrixField.name }} ({{ matrixField.handle }})</li>
+					{% endfor %}
+					</ul>
+				{% endfor %}
+			</td>
+			</tr>
+		</tbody>
+	</table>
+
+{% case 'Number' %}
+
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Code Type</th>
+				<th>Code Sample</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Field name</td>
+				<td>
+					<pre><code>{{
+						  '{{ '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' }}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Comparison conditional</td>
+				<td>
+					<pre><code>{{
+						  '{% if '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' > 0 %} ... {% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>Operations</td>
+				<td>
+					<pre><code>{{
+						  '{% set myResult = 42 * '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' %}'
+						~ '<br/><br/>The total is {{ myResult }}'
+					}}</code></pre>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+{% case 'PlainText' %}
+
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Code Type</th>
+				<th>Code Sample</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Field name</td>
+				<td>
+					<pre><code>{{
+						  '{{ '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' }}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>"If exists" conditional</td>
+				<td>
+					<pre><code>{{
+						  '{% if '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '|length %} ... {% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+{% case 'RichText' %}
+
+	<table class="u-full-width">
+		<thead>
+			<tr>
+				<th>Code Type</th>
+				<th>Code Sample</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Field name</td>
+				<td>
+					<pre><code>{{
+						  '{{ '
+						~ sampleTag ~ '.' ~ field.handle
+						~ ' }}'
+					}}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td>"If exists" conditional</td>
+				<td>
+					<pre><code>{{
+						  '{% if '
+						~ sampleTag ~ '.' ~ field.handle
+						~ '|length %} ... {% endif %}'
+					}}</code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
