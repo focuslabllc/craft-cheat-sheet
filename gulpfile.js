@@ -81,6 +81,12 @@ gulp.task('watch', function(){
 });
 
 
+// Just a simple build-only task
+gulp.task('build', function(){
+	gulp.start('js', 'sass', 'fieldTypes');
+});
+
+
 /*
  Default is to run our tasks as though they've never been run before,
  then watch for changes as we go.
