@@ -86,9 +86,9 @@ module.exports = function(grunt) {
 				files: 'build/fieldTypes/*.html',
 				tasks: ['concat:fields', 'replace', 'includes']
 			},
-			core: {
+			coreHTML: {
 				files: 'build/*.html',
-				tasks: ['concat','includes']
+				tasks: ['includes']
 			}
 		}
 	});
