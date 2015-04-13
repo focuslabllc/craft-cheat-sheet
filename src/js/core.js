@@ -1,7 +1,7 @@
 /*{# ---------------------------------------------
    Remember that twig tags within the JS below
    will be parsed by twig before the DOM reads
-   and runs the JS.  Keep an eye out for:
+   and runs the JS. Keep an eye out for:
 
    {{ }} sets
    {% %} sets
@@ -25,12 +25,12 @@ function switchContext(e) {
 	var target = e.target || e.srcElement;
 
 	if (target.className.match(/\bcontext\b/)) {
-		{% verbatim -%}
+		{% verbatim -%} // jshint ignore:line
 		document.body.innerHTML = document.body.innerHTML.replace(
 			new RegExp('([{%].*?)(' + currentContext + ')(.*?[%}])','g'),
 			'$1' + newContext +'$3'
 		);
-		{% endverbatim -%}
+		{% endverbatim -%} // jshint ignore:line
 		currentContext = newContext;
 		document.getElementsByClassName('activeContext')[0].className = 'context';
 		document.querySelectorAll('[data-tag=' + newContext +']')[0].className += ' activeContext';
@@ -55,4 +55,4 @@ window.onload = function () {
 	} else {
 		document.body.attachEvent('onclick', clickListen);
 	}
-}
+};

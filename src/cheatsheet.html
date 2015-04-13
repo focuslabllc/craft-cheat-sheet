@@ -1,4 +1,4 @@
-include "twigSetup.inc.html"
+//= include includes/twigSetup.inc.html
 
 <html>
 <head>
@@ -10,7 +10,7 @@ include "twigSetup.inc.html"
 	<link rel="stylesheet" href="https://raw.githubusercontent.com/dhg/Skeleton/master/css/skeleton.css">
 
 	<style type="text/css">
-		include "styles.inc.css"
+		//= include includes/styles.inc.css
 	</style>
 
 </head>
@@ -64,7 +64,7 @@ include "twigSetup.inc.html"
 
 				{% switch field.type %}
 
-					include "fieldTypes.inc.html"
+					//= include includes/fieldTypes.inc.html
 
 						<hr/>
 
@@ -92,7 +92,7 @@ include "twigSetup.inc.html"
 </div>
 
 <script type="text/javascript">
-	include "scripts.inc.js"
+	//= include includes/scripts.inc.js
 </script>
 
 </body>
