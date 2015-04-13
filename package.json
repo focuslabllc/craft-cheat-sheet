@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
 
   "devDependencies": {
-    "gulp":           "^3,8,11",
+    "gulp":           "^3.8.11",
     "gulp-concat":    "2.4.2",
     "gulp-include":   "^1.1.1",
     "gulp-jsmin":     "^0.1.4",
