@@ -65,10 +65,14 @@ gulp.task('sass', function(){
  working on the template.
 */
 gulp.task('includes', function(){
-	return gulp.src('src/*.html')
-	.pipe(plumber())
-	.pipe(include())
-	.pipe(gulp.dest('./'));
+	gulp.src('src/cheatsheet.html')
+		.pipe(plumber())
+		.pipe(include())
+		.pipe(gulp.dest('./downloads/'));
+	gulp.src('src/index.html')
+		.pipe(plumber())
+		.pipe(include())
+		.pipe(gulp.dest('./'));
 });
 
 
