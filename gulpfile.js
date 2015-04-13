@@ -1,13 +1,26 @@
 var gulp    = require('gulp'),
+    plumber = require('gulp-plumber'),
     sass    = require('gulp-sass'),
-    jshint  = require('gulp-jshint'),
     concat  = require('gulp-concat'),
+    del     = require('del'),
     rename  = require('gulp-rename'),
     jsmin   = require('gulp-jsmin'),
+    jshint  = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
-    plumber = require('gulp-plumber'),
     include = require('gulp-include'),
     replace = require('gulp-replace');
+
+
+
+gulp.task('clean', function(){
+	del([
+		'downloads',
+		'src/includes/*.html',
+		'src/includes/*.js',
+		'src/includes/*.css',
+		'!src/includes/twigSetup*'
+		]);
+});
 
 
 /*
@@ -86,7 +99,7 @@ gulp.task('watch', function(){
 
 
 // Just a simple build-only task
-gulp.task('build', function(){
+gulp.task('build', ['clean'], function(){
 	gulp.start('js', 'sass', 'fieldTypes');
 });
 
@@ -96,5 +109,5 @@ gulp.task('build', function(){
  then watch for changes as we go.
 */
 gulp.task('default', function(){
-	gulp.start('js', 'sass', 'fieldTypes', 'watch');
+	gulp.start('build', 'watch');
 });
