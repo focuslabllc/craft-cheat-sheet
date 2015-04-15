@@ -21,7 +21,6 @@
 				<nav class="element_type">
 					<ul class="types">
 						<li>
-							
 							<input type="radio" name="type_tab" id="common">
 							<label for="common">Common Elements</label>
 							<div class="element_type_tab">
@@ -38,14 +37,20 @@
 							</div>
 						</li>
 						<li>
-							
 							<input type="radio" name="type_tab" id="custom">
 							<label for="custom">Custom Elements</label>
 							<div class="element_type_tab">
 								<div class="contain">
 									<ul>
-										<li><a href="#">Custom One</a></li>
-										<li><a href="#">Custom Two</a></li>
+										<li class="custom_input">
+											<div class="input_contain">
+												<input type="text" placeholder="Enter Custom Element">
+												<input type="submit" value="+">	
+											</div>
+										</li>
+										<li class="custom_element"><a href="#">Custom One<span class="remove_custom">x</span></a></li>
+										<li class="custom_element"><a href="#">Custom Two<span class="remove_custom">x</span></a></li>
+										<li class="custom_element"><a href="#">Custom Three<span class="remove_custom">x</span></a></li>
 									</ul>
 								</div>
 							</div>
