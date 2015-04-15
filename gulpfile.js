@@ -49,7 +49,7 @@ gulp.task('js', function(){
  samples and remove top-most comment blocks that follow a particular pattern.
 */
 gulp.task('fieldTypes', function(){
-	return gulp.src('./src/fieldTypes/*.html')
+	return gulp.src(['./src/fieldTypes/*.html','!_*.html'])
 	.pipe(plumber())
 	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n\t<hr/>\r\n\r\n\r\n' }))
 	.pipe(replace(/\{#-?(.|\n)*?-?#\}\s+\{% case/g, '{% case'))
