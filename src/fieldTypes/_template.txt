@@ -16,6 +16,8 @@
 
 {% case 'YourFieldType' %}
 
+	<p class="todo">Not real code samples yet.</p>
+
 	<h4>Field name</h4>
 	<pre><code>{{
 		  '{{ '
