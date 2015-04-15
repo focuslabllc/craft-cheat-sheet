@@ -1,13 +1,14 @@
-var gulp    = require('gulp'),
-    sass    = require('gulp-sass'),
-    jshint  = require('gulp-jshint'),
-    concat  = require('gulp-concat'),
-    rename  = require('gulp-rename'),
-    jsmin   = require('gulp-jsmin'),
-    stylish = require('jshint-stylish'),
-    plumber = require('gulp-plumber'),
-    include = require('gulp-include'),
-    replace = require('gulp-replace');
+var gulp 			= require('gulp'),
+    sass 			= require('gulp-sass'),
+    autoprefixer 	= require('gulp-autoprefixer'),
+    jshint 			= require('gulp-jshint'),
+    concat 			= require('gulp-concat'),
+    rename  		= require('gulp-rename'),
+    jsmin   		= require('gulp-jsmin'),
+    stylish 		= require('jshint-stylish'),
+    plumber 		= require('gulp-plumber'),
+    include 		= require('gulp-include'),
+    replace 		= require('gulp-replace');
 
 
 /*
