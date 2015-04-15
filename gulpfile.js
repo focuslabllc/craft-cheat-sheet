@@ -16,10 +16,10 @@ var gulp    = require('gulp'),
 gulp.task('clean', function(){
 	del([
 		'downloads',
-		'src/includes/*.html',
-		'src/includes/*.js',
-		'src/includes/*.css',
-		'!src/includes/twigSetup*'
+		'./src/includes/*.html',
+		'./src/includes/*.js',
+		'./src/includes/*.css',
+		'!./src/includes/twigSetup*'
 		]);
 });
 
@@ -29,13 +29,13 @@ gulp.task('clean', function(){
  concatenate them by 2 line breaks for the include within cheatsheet.html
 */
 gulp.task('js', function(){
-	return gulp.src('src/js/*.js')
+	return gulp.src('./src/js/*.js')
 	.pipe(plumber())
 	.pipe(jshint())
 	.pipe(jshint.reporter('jshint-stylish'))
 	.pipe(concat('scripts.inc.js', { newLine: '\r\n\r\n' }))
 	// .pipe(jsmin())
-	.pipe(gulp.dest('src/includes'))
+	.pipe(gulp.dest('./src/includes'))
 	.on('end', function(){
 		gulp.start('includes');
 	});
@@ -49,11 +49,11 @@ gulp.task('js', function(){
  samples and remove top-most comment blocks that follow a particular pattern.
 */
 gulp.task('fieldTypes', function(){
-	return gulp.src('src/fieldTypes/*.html')
+	return gulp.src('./src/fieldTypes/*.html')
 	.pipe(plumber())
 	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n\t<hr/>\r\n\r\n\r\n' }))
 	.pipe(replace(/\{#-?(.|\n)*?-?#\}\s+\{% case/g, '{% case'))
-	.pipe(gulp.dest('src/includes'))
+	.pipe(gulp.dest('./src/includes'))
 	.on('end', function(){
 		gulp.start('includes');
 	});
@@ -62,7 +62,7 @@ gulp.task('fieldTypes', function(){
 
 // Nothin special here. Just good ole Sass compiling
 gulp.task('sass', function(){
-	return gulp.src('src/sass/*.scss')
+	return gulp.src('./src/sass/*.scss')
 	.pipe(plumber())
 	.pipe(sass({outputStyle: 'compressed'}))
 	.pipe(rename('styles.inc.css'))
@@ -79,11 +79,11 @@ gulp.task('sass', function(){
  working on the template.
 */
 gulp.task('includes', function(){
-	gulp.src('src/cheatsheet.html')
+	gulp.src('./src/cheatsheet.html')
 		.pipe(plumber())
 		.pipe(include())
 		.pipe(gulp.dest('./downloads/'));
-	gulp.src('src/index.html')
+	gulp.src('./src/index.html')
 		.pipe(plumber())
 		.pipe(include())
 		.pipe(gulp.dest('./'));
@@ -116,10 +116,10 @@ gulp.task('newField', function(params){
 
 // The magic of watching files for changes
 gulp.task('watch', function(){
-	gulp.watch('src/js/*.js', ['js']);
-	gulp.watch('src/sass/*.scss', ['sass']);
-	gulp.watch('src/fieldTypes/*.html', ['fieldTypes']);
-	gulp.watch('src/*.html', ['includes']);
+	gulp.watch('./src/js/*.js', ['js']);
+	gulp.watch('./src/sass/*.scss', ['sass']);
+	gulp.watch('./src/fieldTypes/*.html', ['fieldTypes']);
+	gulp.watch('./src/*.html', ['includes']);
 });
 
 
