@@ -9,6 +9,7 @@ var gulp    = require('gulp'),
     stylish = require('jshint-stylish'),
     include = require('gulp-include'),
     replace = require('gulp-replace');
+    args    = require('yargs').argv;
 
 
 
@@ -86,6 +87,30 @@ gulp.task('includes', function(){
 		.pipe(plumber())
 		.pipe(include())
 		.pipe(gulp.dest('./'));
+});
+
+
+/*
+ This task is for creating a simple fieldType starter file
+ based on the src/fieldTypes/_template.txt document.
+ You run `gulp newField --name [FieldName]` to have the document
+ created and the {% case '[FieldName]' %} tag updated and ready
+ to rock. More for laziness really. Still fun though.
+*/
+gulp.task('newField', function(params){
+	if (args.name !== undefined)
+	{
+		gulp.src('./src/fieldTypes/_template.txt')
+		.pipe(plumber())
+		.pipe(replace(/YourFieldType/g, args.name))
+		.pipe(rename(args.name + '.html'))
+		.pipe(gulp.dest('./src/fieldTypes'))
+		.on('end', function(){
+			gulp.start('includes');
+		});
+	} else {
+		console.log('Error: No fieldname value was provided. Try running again with `gulp newField --name YOURNAME`');
+	}
 });
 
 
