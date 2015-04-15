@@ -8,6 +8,7 @@
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://raw.githubusercontent.com/dhg/Skeleton/master/css/normalize.css">
 	<link rel="stylesheet" href="https://raw.githubusercontent.com/dhg/Skeleton/master/css/skeleton.css">
+	<title>{{ cs.pageTitle }} — for {{ siteName }}</title>
 
 	<style type="text/css">
 		//= include includes/styles.inc.css
@@ -37,7 +38,7 @@
 		<div class="three columns">
 			<nav>
 				<ul>
-				{% for field in fields %}
+				{% for field in cs.fields %}
 					<li><a href="#{{ field.handle }}">{{ field.name }}</a></li>
 				{% endfor %}
 				</ul>
@@ -47,13 +48,13 @@
 
 		<div class="nine columns">
 
-			{% for field in fields %}
+			{% for field in cs.fields %}
 
 {# Dev conditional to single out 1 field while building code #}
 {# {% if field.handle == 'customMeta' %} #}
 
 				<h3 id="{{ field.handle }}">{{ field.name }}</h3>
-				<p>Type: {{ field.type|replace('/(.)([A-Z])/', '$1 $2') }} (<a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag documentation</a> | <a href="{{ cpBase }}/settings/fields/edit/{{ field.id }}">View in control panel</a>)</p>
+				<p>Type: {{ field.type|replace('/(.)([A-Z])/', '$1 $2') }} (<a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag documentation</a> | <a href="{{ cpUrl('/settings/fields/edit/' ~ field.id) }}">View in control panel</a>)</p>
 
 				{# ---------------------------------------------
 
@@ -84,7 +85,7 @@
 	</div>
 
 	<footer>
-		<p>{{ pageTitle }}</p>
+		<p>{{ cs.pageTitle }} &emdash; {{ cs.version }}</p>
 		<p>Provided by your friends at <a href="http://twitter.com/focuslabllc">Focus Lab</a>.</p>
 	</footer>
 

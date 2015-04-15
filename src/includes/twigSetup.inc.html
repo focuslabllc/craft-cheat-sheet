@@ -16,15 +16,6 @@ Available methods within craft.fields:
  - getFieldType($class)
  - populateFieldType(FieldModel $field, $element = null)
 
-Include Globals too? http://buildwithcraft.com/docs/globals
-
-CP views for reference:
-
-- craft/app/templates/settings/fields/index.html
-- craft/app/templates/settings/fields/_edit.html
-- craft/app/templates/_components/fieldtypes/{fieldType}/input.html
-- craft/app/templates/_components/fieldtypes/{fieldType}/settings.html
-
 Available values:
 
 	required; bool; example: false
@@ -48,25 +39,32 @@ Available values:
 {# Only render this template in dev mode #}
 {%- if not craft.config.devMode %}{% exit 404 %}{% endif -%}
 
-{# Settings #}
-{%- set gameGenie = {
 
+
+{# ---------------------------------------------
+	Settings that don't need changing
+	blah blah blah
+--------------------------------------------- #}
+{%- set cs = {
+	pageTitle: 'The Craft Field Cheatsheet',
+	version:   '0.1',
+	groups:    craft.fields.getAllGroups(),
+	fields:    craft.fields.getAllFields(),
+	currentContext: craft.request.getParam('context')|default('entry'),
+	tagContexts: {
+		asset:  { 'title': 'Assets',     'tag': 'asset' },
+		cat:    { 'title': 'Categories', 'tag': 'category' },
+		entry:  { 'title': 'Entries',    'tag': 'entry' },
+		global: { 'title': 'Globals',    'tag': 'globalSet' },
+		tag:    { 'title': 'Tags',       'tag': 'tag' },
+		user:   { 'title': 'Users',      'tag': 'user' }
+	}
 } -%}
-{%- set version = '0.1' -%}
-{%- set pageTitle = 'The Craft Field Cheatsheet ' ~ version -%}
-{%- set groups = craft.fields.getAllGroups() -%}
-{%- set fields = craft.fields.getAllFields() -%}
 
+
+
+{# ---------------------------------------------
+	blah blah blah
+--------------------------------------------- #}
 {%- set whitespace = '	' -%}
-{%- set cpBase = siteUrl ~ craft.config.cpTrigger ~ '/' -%}
-
-{%- set tagContexts = [
-	{ 'title': 'Assets',     'tag': 'asset'},
-	{ 'title': 'Categories', 'tag': 'category'},
-	{ 'title': 'Entries',    'tag': 'entry'},
-	{ 'title': 'Globals',    'tag': 'globalSet'},
-	{ 'title': 'Tags',       'tag': 'tag'},
-	{ 'title': 'Users',      'tag': 'user'},
-] -%}
-{%- set currentContext = craft.request.getParam('context')|default(2) -%}
-{%- set sampleTag = tagContexts[currentContext].tag -%}
+{%- set sampleTag  = cs.tagContexts[cs.currentContext].tag -%}
