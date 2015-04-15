@@ -106,7 +106,7 @@ gulp.task('newField', function(params){
 		.pipe(rename(args.name + '.html'))
 		.pipe(gulp.dest('./src/fieldTypes'))
 		.on('end', function(){
-			gulp.start('includes');
+			gulp.start('fieldTypes');
 		});
 	} else {
 		console.log('Error: No fieldname value was provided. Try running again with `gulp newField --name YOURNAME`');
