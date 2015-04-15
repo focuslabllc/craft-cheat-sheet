@@ -1,0 +1,7 @@
+// Media Query Mixin
+
+@mixin fl-break($query) {
+	@media ( min-width: + $query ) {
+		@content;
+	}
+}
