@@ -1,0 +1,62 @@
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{% case 'Tags' %}
+
+	<h4>Set a variable for future template use</h4>
+	<pre><code>{{
+		  '{% set myTags = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}'
+	}}</code></pre>
+
+
+	<h4>Check if any tags exist</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '|length %} ... {% endif %}'
+	}}</code></pre>
+
+
+	<h4>Loop through the selected tags</h4>
+	<pre><code>{{
+		  '{% for myTag in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endfor %}'
+	}}</code></pre>
+
+
+	<h4>Order by parameters</h4>
+	<pre><code>{{
+		'{% set myTags = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.order(\'title\') %}'
+	}}</code></pre>
+
+
+	<h4>Avoid a loop if your field limits to 1 user</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.first() %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>

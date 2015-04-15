@@ -128,6 +128,115 @@
 	<hr/>
 
 
+{% case 'Categories' %}
+
+	<h4>Check if entry has categories</h4>
+	<pre><code>{{
+
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '|length %}<br/>'
+		~ whitespace ~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
+	<h4>Rename for easier access</h4>
+	<pre><code>{{
+		  '{% set categories = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br>'
+		~ '{% if categories|length %}<br/>'
+		~ whitespace ~ '&lt;h3&gt;My Categories&lt;h3/&gt;<br/>'
+		~ whitespace
+		~ '{% nav myCategory in categories %}<br/>'
+		~ whitespace ~ whitespace ~ '...<br/>'
+		~ whitespace ~ '{% endnav %}<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
+	<h4>Pass parameters to the ElementCriteria Model</h4>
+	<pre><code>{{
+		  '{% set myCategories = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.order(\'name\') %}'
+	}}</code></pre>
+
+
+	<h4>Select just the first category</h4>
+	<p>(particularly if it's the only category you expect)</p>
+	<pre><code>{{
+		  '{% set myCategory = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.first() %}<br/>'
+		~ '{% if myCategory %}<br/>'
+		~ whitespace ~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+	<hr/>
+
+
+{% case 'Checkboxes' %}
+
+	<h4>Field name</h4>
+	<pre><code>{{
+		  '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' }}'
+	}}</code></pre>
+
+
+	<h4>Single checkbox conditional</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '|length %} ... {% endif %}'
+	}}</code></pre>
+
+
+	<h4>Loop through the <em>selected</em> options</h4>
+	<pre><code>{{
+		'&lt;ul&gt;<br/>'
+		~ whitespace ~ '{% for option in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>'
+		~ '&lt;/ul&gt;'
+	}}</code></pre>
+
+
+	<h4>Loop through <em>all</em> of the options</h4>
+	<pre><code>{{
+		'&lt;ul&gt;<br/>'
+		~ whitespace ~ '{% for option in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.options %}<br/>'
+		~ whitespace ~ whitespace
+		~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>'
+		~ '&lt;/ul&gt;'
+	}}</code></pre>
+
+
+	<h4>See if a specific option is selected</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.contains(\'value\') %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+	<hr/>
+
+
 {% case 'Color' %}
 
 	<h4>Field name</h4>
@@ -144,6 +253,34 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
 	}}</code></pre>
+
+	<hr/>
+
+
+{% case 'Date' %}
+
+	<h4>Sample date formatting</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace
+		~ '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' | date(\'M j, Y\') }}<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
+	<h4>Get the Unix timestamp of the date</h4>
+	<pre><code>{{
+		  '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.getTimestamp() }}'
+	}}</code></pre>
+
+
+	<p class="info">There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
 
 	<hr/>
 
@@ -178,6 +315,72 @@
 		~ whitespace
 		~ '{% endfor %}<br/>&lt;/ul&gt;'
 	}}</code></pre>
+
+	<hr/>
+
+
+{% case 'Entries' %}
+
+	<h4>Set your entries to a variable</h4>
+	<pre><code>{{
+		  '{{ set entries = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' }}'
+	}}</code></pre>
+
+
+	<h4>Does your entries field have any entries?</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '|length %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
+	<h4>A simple loop for your entries</h4>
+	<pre><code>{{
+		  '{% for myEntry in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '|length %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endfor %}'
+	}}</code></pre>
+
+
+	<h4>Set variable, check for entries, then loop through them</h4>
+	<pre><code>{{
+		'{% set entries = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ '{% if entries|length %}<br/>'
+		~ whitespace
+		~ '&lt;h3&gt;List of Entries&lt;/h3&gt;<br/>'
+		~ whitespace
+		~ '{% for myEntry in entries %}<br/>'
+		~ whitespace ~ whitespace
+		~ '...<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
+	<h4>Just grab the first entry</h4>
+	<pre><code>{{
+		'{% set myEntry = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.first() %}<br/>'
+		~ '{% if myEntry %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
 
 	<hr/>
 
@@ -254,6 +457,49 @@
 	<hr/>
 
 
+{% case 'MultiSelect' %}
+
+	<h4>Loop through the <em>selected</em> options</h4>
+	<pre><code>{{
+		'&lt;ul&gt;<br/>'
+		~ whitespace ~ '{% for option in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>'
+		~ '&lt;/ul&gt;'
+	}}</code></pre>
+
+
+	<h4>Loop through <em>all</em> of the options</h4>
+	<pre><code>{{
+		'&lt;ul&gt;<br/>'
+		~ whitespace ~ '{% for option in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.options %}<br/>'
+		~ whitespace ~ whitespace
+		~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>'
+		~ '&lt;/ul&gt;'
+	}}</code></pre>
+
+
+	<h4>See if a specific option is selected</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.contains(\'value\') %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+	<hr/>
+
+
 {% case 'Number' %}
 
 	<h4>Field name</h4>
@@ -303,6 +549,101 @@
 	<hr/>
 
 
+{% case 'PositionSelect' %}
+
+	<h4>Adding to a class name</h4>
+	<pre><code>{{
+		  '&lt;div class="block {{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' }}"&gt;'
+	}}</code></pre>
+
+
+	<h4>Conditionals around position values</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' in [\'left\', \'right\'] %}<br/>'
+		~ whitespace
+		~ '{# ... #}<br/>'
+		~ '{% elseif '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' == \'center\' %}<br/>'
+		~ whitespace
+		~ '{# ... #}<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
+	<h4>Switch statement for all values</h4>
+	<pre><code>{{
+		  '{% switch '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace
+		~ '{% case \'left\' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '{# ... #}<br/>'
+		~ whitespace
+		~ '{% case \'center\' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '{# ... #}<br/>'
+		~ whitespace
+		~ '{% case \'right\' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '{# ... #}<br/>'
+		~ whitespace
+		~ '{% case \'full\' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '{# ... #}<br/>'
+		~ whitespace
+		~ '{% case \'drop-left\' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '{# ... #}<br/>'
+		~ whitespace
+		~ '{% case \'drop-right\' %}<br/>'
+		~ whitespace ~ whitespace
+		~ '{# ... #}<br/>'
+		~ '{% endswitch %}'
+	}}</code></pre>
+
+	<hr/>
+
+
+{% case 'RadioButtons' %}
+
+	<h4>The Selected value's option</h4>
+	<pre><code>{{
+		  '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' }}'
+	}}</code></pre>
+
+
+	<h4>The Selected value's label</h4>
+	<pre><code>{{
+		  '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.label }}'
+	}}</code></pre>
+
+
+	<h4>Loop through all available options</h4>
+	<pre><code>{{
+		'&lt;ul&gt;<br/>'
+		~ whitespace ~ '{% for option in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.options %}<br/>'
+		~ whitespace ~ whitespace
+		~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+		~ whitespace
+		~ '{% endfor %}<br/>'
+		~ '&lt;/ul&gt;'
+	}}</code></pre>
+
+	<hr/>
+
+
 {% case 'RichText' %}
 
 	<h4>Field name</h4>
@@ -318,4 +659,105 @@
 		  '{% if '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
+	}}</code></pre>
+
+	<hr/>
+
+
+{% case 'Tags' %}
+
+	<h4>Set a variable for future template use</h4>
+	<pre><code>{{
+		  '{% set myTags = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}'
+	}}</code></pre>
+
+
+	<h4>Check if any tags exist</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '|length %} ... {% endif %}'
+	}}</code></pre>
+
+
+	<h4>Loop through the selected tags</h4>
+	<pre><code>{{
+		  '{% for myTag in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endfor %}'
+	}}</code></pre>
+
+
+	<h4>Order by parameters</h4>
+	<pre><code>{{
+		'{% set myTags = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.order(\'title\') %}'
+	}}</code></pre>
+
+
+	<h4>Avoid a loop if your field limits to 1 user</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.first() %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+	<hr/>
+
+
+{% case 'Users' %}
+
+	<h4>Set a variable for future template use</h4>
+	<pre><code>{{
+		  '{% set myUsers = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}'
+	}}</code></pre>
+
+
+	<h4>Check if any users were selected</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '|length %} ... {% endif %}'
+	}}</code></pre>
+
+
+	<h4>Loop through the selected users</h4>
+	<pre><code>{{
+		  '{% for myUser in '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endfor %}'
+	}}</code></pre>
+
+
+	<h4>Filter by parameters</h4>
+	<pre><code>{{
+		'{% set authors = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.group(\'groupName\') %}'
+	}}</code></pre>
+
+
+	<h4>Avoid a loop if your field limits to 1 user</h4>
+	<pre><code>{{
+		'{% set myUser = '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.first() %}<br/>'
+		~ '{% if myUser %}<br/>'
+		~ whitespace
+		~ '...<br/>'
+		~ '{% endif %}'
 	}}</code></pre>

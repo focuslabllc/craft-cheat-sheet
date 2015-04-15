@@ -1,0 +1,44 @@
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+	TODO: this field has settings that limit the date selector
+	      so it might be nice to tell the user in the docs something
+	      like "this field only shows the date, not the time" or
+	      something along those lines. Check with Brandon/Brad?
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{% case 'Date' %}
+
+	<h4>Sample date formatting</h4>
+	<pre><code>{{
+		  '{% if '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' %}<br/>'
+		~ whitespace
+		~ '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ ' | date(\'M j, Y\') }}<br/>'
+		~ '{% endif %}'
+	}}</code></pre>
+
+
+	<h4>Get the Unix timestamp of the date</h4>
+	<pre><code>{{
+		  '{{ '
+		~ sampleTag ~ '.' ~ field.handle
+		~ '.getTimestamp() }}'
+	}}</code></pre>
+
+
+	<p class="info">There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
