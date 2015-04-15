@@ -97,28 +97,6 @@ nav.element_type {
 		margin: 0;
 		padding: 0;
 
-		li ul {
-			list-style-type: none;
-			margin: 0;
-			padding: 1em 0;
-
-			li {
-				display: inline-block;
-				padding: .5em 0;
-				font-size: .875em;
-				margin-right: 1em;
-
-				a {
-					float: left;
-					text-decoration: none;
-					color: white;
-					font-family: $bodyFont;
-					font-weight: 300;
-
-				}
-			}
-		}
-
 		&> li {
 			float: left;
 			margin-right: 1.5em;
@@ -138,6 +116,12 @@ nav.element_type {
 				padding-bottom: 2.285714286em;
 				overflow: hidden;
 				cursor: pointer;
+				-webkit-transition: color .3s ease;
+				transition: color .3s ease;
+
+				&:hover {
+					color: rgba(white, .8);
+				}
 
 				&::after {
 					content: "";
@@ -158,6 +142,15 @@ nav.element_type {
 			input[type="radio"] {
 				position: absolute;
 				left: -9999em;
+			}
+
+			a {
+				-webkit-transition: color .3s ease;
+				transition: color .3s ease;
+
+				&:hover {
+					color: rgba(white, .8);
+				}
 			}
 
 			.element_type_tab {
@@ -192,13 +185,121 @@ nav.element_type {
 				-webkit-transform: translateY(100%);
 				transform: translateY(100%);
 			}
+
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 1em 0;
+
+				li {
+					display: inline-block;
+					font-size: .875em;
+					margin-right: 1em;
+
+					a {
+						float: left;
+						text-decoration: none;
+						color: white;
+						font-family: $bodyFont;
+						font-weight: 300;
+						padding: .5em 0;
+						border-radius: 3em;
+						-webkit-transition: padding .3s ease, background .3s ease, color .3s ease;
+						transition: padding .3s ease, background .3s ease, color .3s ease;
+					}
+
+					&.custom_input {
+						display: block;
+						margin-right: 0;
+
+						.input_contain {
+							position: relative;
+							margin-bottom: 1em;
+
+
+							input[type="text"] {
+								border: none;
+								background: white;
+								outline: none;
+								display: block;
+								font-family: $bodyFont;
+								font-size: 1em;
+								padding: .75em 3.75em .75em .75em;
+								font-weight: 300;
+								width: 100%;
+								min-width: 17em;
+								margin: 0;
+								border-radius: .4em;
+								-webkit-box-shadow: 0 .142857143em .357142857em 0 rgba(black, .06);
+								-moz-box-shadow: 0 .142857143em .357142857em 0 rgba(black, .06);
+								box-shadow: 0 .142857143em .357142857em 0 rgba(black, .06);
+							}
+
+							input[type="submit"] {
+								position: absolute;
+								top: 0;
+								right: 0;
+								cursor: pointer;
+								color: white;
+								background: #ff3333;
+								font-family: $bodyFont;
+								font-size: 1em;
+								font-weight: 400;
+								padding: .75em 1.5em;
+								border: none;
+								outline: none;
+								margin: 0;
+								border-radius: 0 .4em .4em 0;
+							}
+						}
+					}
+
+					&.custom_element {
+						position: relative;
+
+						.remove_custom {
+							position: absolute;
+							opacity: 0;
+							top: 45%;
+							right: 1em;
+							font-weight: 400;
+							color: white;
+							-webkit-transform: translateY(-50%);
+							transform: translateY(-50%);
+							-webkit-transition: opacity .3s ease;
+							transition: opacity .3s ease;
+						}
+
+						a:hover {
+							background: rgba(black, .1);
+							padding: .5em 2.25em .5em 1em;
+
+							.remove_custom {
+								opacity: 1;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
-	@include fl-break(25.625em) {
-		ul.types > li .element_type_tab {
-			padding: 0 3.75em 0 1em;
-		}
+	@include fl-break(37.5em) {
+		ul.types > li ul li {
+			&.custom_input {
+				float: left;
+				margin-right: 1.5em;
+
+				.input_contain {
+					margin-bottom: 0;
+				}
+			}
+
+			&.custom_element {
+				margin-top: .25em;
+				margin-bottom: .4em;
+			}
+		}						
 	}
 
 	@include fl-break(50em) {
@@ -208,8 +309,33 @@ nav.element_type {
 		ul.types {
 			float: right;
 
-			&> li label {
-				padding-bottom: 2.5em;
+			&> li {
+				label {
+					padding-bottom: 2.5em;
+				}
+
+				.element_type_tab {
+					overflow: hidden;
+					padding: 0 3.75em 0 1em;
+				}
+
+				ul {
+					float: right;
+
+					li {
+						margin-right: 0;
+						margin-left: 2em;
+
+						&.custom_input {
+							float: right;
+							margin-right: 0;
+						}
+
+						&.custom_element {
+							float: right;
+						}
+					}
+				}
 			}
 		}
 	}
