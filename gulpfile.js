@@ -12,7 +12,10 @@ var gulp    = require('gulp'),
     args    = require('yargs').argv;
 
 
-
+/*
+ We occasionally need to delete the generated files
+ so we have a 'clean' task to knock this out.
+*/
 gulp.task('clean', function(){
 	del([
 		'downloads',
@@ -22,6 +25,7 @@ gulp.task('clean', function(){
 		'!./src/includes/twigSetup*'
 		]);
 });
+
 
 
 /*
@@ -42,6 +46,7 @@ gulp.task('js', function(){
 });
 
 
+
 /*
  FieldType sample code is broken down into one fieldtype per file for ease of
  management and contribution Each file starts with a comment block that we don't
@@ -60,6 +65,7 @@ gulp.task('fieldTypes', function(){
 });
 
 
+
 // Nothin special here. Just good ole Sass compiling
 gulp.task('sass', function(){
 	return gulp.src('./src/sass/*.scss')
@@ -71,6 +77,7 @@ gulp.task('sass', function(){
 		gulp.start('includes');
 	});
 });
+
 
 
 /*
@@ -88,6 +95,7 @@ gulp.task('includes', function(){
 		.pipe(include())
 		.pipe(gulp.dest('./'));
 });
+
 
 
 /*
@@ -114,13 +122,15 @@ gulp.task('newField', function(params){
 });
 
 
+
 // The magic of watching files for changes
 gulp.task('watch', function(){
 	gulp.watch('./src/js/*.js', ['js']);
 	gulp.watch('./src/sass/*.scss', ['sass']);
 	gulp.watch('./src/fieldTypes/*.html', ['fieldTypes']);
-	gulp.watch('./src/*.html', ['includes']);
+	gulp.watch(['./src/*.html', 'twigSetup.inc.html'], ['includes']);
 });
+
 
 
 // Just a simple build-only task
