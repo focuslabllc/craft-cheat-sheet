@@ -16,15 +16,6 @@ Available methods within craft.fields:
  - getFieldType($class)
  - populateFieldType(FieldModel $field, $element = null)
 
-Include Globals too? http://buildwithcraft.com/docs/globals
-
-CP views for reference:
-
-- craft/app/templates/settings/fields/index.html
-- craft/app/templates/settings/fields/_edit.html
-- craft/app/templates/_components/fieldtypes/{fieldType}/input.html
-- craft/app/templates/_components/fieldtypes/{fieldType}/settings.html
-
 Available values:
 
 	required; bool; example: false
@@ -48,55 +39,62 @@ Available values:
 {# Only render this template in dev mode #}
 {%- if not craft.config.devMode %}{% exit 404 %}{% endif -%}
 
-{# Settings #}
-{%- set gameGenie = {
 
+
+{# ---------------------------------------------
+	Settings that don't need changing
+	blah blah blah
+--------------------------------------------- #}
+{%- set cs = {
+	pageTitle: 'The Craft Field Cheat Sheet',
+	version:   '0.1.0',
+	groups:    craft.fields.getAllGroups(),
+	fields:    craft.fields.getAllFields(),
+	currentContext: craft.request.getParam('context')|default('entry'),
+	tagContexts: {
+		asset:  { 'title': 'Assets',     'tag': 'asset' },
+		cat:    { 'title': 'Categories', 'tag': 'category' },
+		entry:  { 'title': 'Entries',    'tag': 'entry' },
+		global: { 'title': 'Globals',    'tag': 'globalSet' },
+		tag:    { 'title': 'Tags',       'tag': 'tag' },
+		user:   { 'title': 'Users',      'tag': 'user' }
+	}
 } -%}
-{%- set version = '0.1' -%}
-{%- set pageTitle = 'The Craft Field Cheatsheet ' ~ version -%}
-{%- set groups = craft.fields.getAllGroups() -%}
-{%- set fields = craft.fields.getAllFields() -%}
 
+
+
+{# ---------------------------------------------
+	blah blah blah
+--------------------------------------------- #}
 {%- set whitespace = '	' -%}
-{%- set cpBase = siteUrl ~ craft.config.cpTrigger ~ '/' -%}
-
-{%- set tagContexts = [
-	{ 'title': 'Assets',     'tag': 'asset'},
-	{ 'title': 'Categories', 'tag': 'category'},
-	{ 'title': 'Entries',    'tag': 'entry'},
-	{ 'title': 'Globals',    'tag': 'globalSet'},
-	{ 'title': 'Tags',       'tag': 'tag'},
-	{ 'title': 'Users',      'tag': 'user'},
-] -%}
-{%- set currentContext = craft.request.getParam('context')|default(2) -%}
-{%- set sampleTag = tagContexts[currentContext].tag -%}
+{%- set sampleTag  = cs.tagContexts[cs.currentContext].tag -%}
 
 
 <html>
 <head>
 
-	<title>{{ pageTitle }} — for {{ siteName }}</title>
+	<title>{{ cs.pageTitle }} — for {{ siteName }}</title>
 
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://raw.githubusercontent.com/dhg/Skeleton/master/css/normalize.css">
 	<link rel="stylesheet" href="https://raw.githubusercontent.com/dhg/Skeleton/master/css/skeleton.css">
 
 	<style type="text/css">
-		@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Merriweather:400,300|Inconsolata);*{box-sizing:border-box}html,body{margin:0;padding:0}.clear{clear:both}.contain{max-width:62.5em;margin:0 auto}header.main{position:fixed;z-index:2;top:0;left:0;width:100%}header.main .header_bg{width:100%;padding:2em 1em 0;background:#ff3333}header.main .heading{float:left;margin-bottom:.5em}header.main h1{float:left;color:white;margin:0;font-family:'Merriweather',serif;font-weight:400;font-size:1em;text-transform:uppercase}header.main h1 span{display:none;position:relative;margin:0 1em;font-family:'Open Sans',sans-serif;font-weight:300;font-size:.45455em;top:-.35em}header.main .craft_logo{display:none;position:relative;float:left;width:2.75em;top:.25em}header.main .focus_logo{display:none;position:absolute;top:50%;right:1em;width:1.875em;margin-top:-.9375em}@media (min-width: 25.625em){header.main .header_bg{padding:2em 3.75em 0 1em}header.main h1{font-size:1.375em}header.main .focus_logo{display:block}}@media (min-width: 32em){header.main h1 span{display:inline-block}header.main .craft_logo{display:block}}@media (min-width: 72.5em){header.main .header_bg{padding:2em 1em 0}}nav.element_type{clear:both}nav.element_type ul.types{list-style-type:none;margin:0;padding:0}nav.element_type ul.types>li{float:left;margin-right:1.5em}nav.element_type ul.types>li:last-child{margin-right:0}nav.element_type ul.types>li label{position:relative;display:block;color:white;font-family:'Open Sans',sans-serif;font-weight:300;font-size:.875em;text-decoration:none;padding-bottom:2.28571em;overflow:hidden;cursor:pointer;-webkit-transition:color .3s ease;transition:color .3s ease}nav.element_type ul.types>li label:hover{color:rgba(255,255,255,0.8)}nav.element_type ul.types>li label::after{content:"";position:absolute;bottom:0;left:50%;margin-left:-.5em;border:.5em solid transparent;border-top:none;border-bottom-color:rgba(0,0,0,0.1);-webkit-transform:translateY(100%);transform:translateY(100%);-webkit-transition:-webkit-transform .3s ease-in-out;transition:transform .3s ease-in-out}nav.element_type ul.types>li input[type="radio"]{position:absolute;left:-9999em}nav.element_type ul.types>li a{-webkit-transition:color .3s ease;transition:color .3s ease}nav.element_type ul.types>li a:hover{color:rgba(255,255,255,0.8)}nav.element_type ul.types>li .element_type_tab{position:absolute;z-index:-1;bottom:0;left:0;width:100%;padding:0 1em;background:#ff3333;-webkit-transition:-webkit-transform .3s ease-in-out;transition:transform .3s ease-in-out}nav.element_type ul.types>li .element_type_tab::before{content:"";position:absolute;z-index:-1;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.1)}nav.element_type ul.types>li input[type="radio"]:checked ~ label:after{-webkit-transform:translateY(0);transform:translateY(0)}nav.element_type ul.types>li input[type="radio"]:checked ~ .element_type_tab{-webkit-transform:translateY(100%);transform:translateY(100%)}nav.element_type ul.types>li ul{list-style-type:none;margin:0;padding:1em 0}nav.element_type ul.types>li ul li{display:inline-block;font-size:.875em;margin-right:1em}nav.element_type ul.types>li ul li a{float:left;text-decoration:none;color:white;font-family:'Open Sans',sans-serif;font-weight:300;padding:.5em 0;border-radius:3em;-webkit-transition:padding .3s ease,background .3s ease,color .3s ease;transition:padding .3s ease,background .3s ease,color .3s ease}nav.element_type ul.types>li ul li.custom_input{display:block;margin-right:0}nav.element_type ul.types>li ul li.custom_input .input_contain{position:relative;margin-bottom:1em}nav.element_type ul.types>li ul li.custom_input .input_contain input[type="text"]{border:none;background:white;outline:none;display:block;font-family:'Open Sans',sans-serif;font-size:1em;padding:.75em 3.75em .75em .75em;font-weight:300;width:100%;min-width:17em;margin:0;border-radius:.4em;-webkit-box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06);-moz-box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06);box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06)}nav.element_type ul.types>li ul li.custom_input .input_contain input[type="submit"]{position:absolute;top:0;right:0;cursor:pointer;color:white;background:#ff3333;font-family:'Open Sans',sans-serif;font-size:1em;font-weight:400;padding:.75em 1.5em;border:none;outline:none;margin:0;border-radius:0 .4em .4em 0}nav.element_type ul.types>li ul li.custom_element{position:relative}nav.element_type ul.types>li ul li.custom_element .remove_custom{position:absolute;opacity:0;top:45%;right:1em;font-weight:400;color:white;-webkit-transform:translateY(-50%);transform:translateY(-50%);-webkit-transition:opacity .3s ease;transition:opacity .3s ease}nav.element_type ul.types>li ul li.custom_element a:hover{background:rgba(0,0,0,0.1);padding:.5em 2.25em .5em 1em}nav.element_type ul.types>li ul li.custom_element a:hover .remove_custom{opacity:1}@media (min-width: 37.5em){nav.element_type ul.types>li ul li.custom_input{float:left;margin-right:1.5em}nav.element_type ul.types>li ul li.custom_input .input_contain{margin-bottom:0}nav.element_type ul.types>li ul li.custom_element{margin-top:.25em;margin-bottom:.4em}}@media (min-width: 50em){nav.element_type{clear:none;float:right;}nav.element_type ul.types{float:right}nav.element_type ul.types>li label{padding-bottom:2.5em}nav.element_type ul.types>li .element_type_tab{overflow:hidden;padding:0 3.75em 0 1em}nav.element_type ul.types>li ul{float:right}nav.element_type ul.types>li ul li{margin-right:0;margin-left:2em}nav.element_type ul.types>li ul li.custom_input{float:right;margin-right:0}nav.element_type ul.types>li ul li.custom_element{float:right}}@media (min-width: 72.5em){nav.element_type ul.types>li .element_type_tab{padding:0 1em}}
+		body{margin:120px 0}header{width:100%;background:#fff;position:fixed;top:0px;left:0px;z-index:2;-webkit-transition:all 0.3s ease-in-out;border-bottom:1px solid #fff}header h1{margin:20px 0;font-size:3.5rem;-webkit-transition:all 0.3s ease-in-out}header.short{border-color:#ccc}header.short h1{font-size:2.5rem}header.short ul{top:0px}header ul{list-style:none;position:absolute;top:11px;right:0px;margin:0;padding:0;-webkit-transition:all 0.3s ease-in-out}header ul li{float:left}header ul li:first-of-type{margin-right:15px;padding:4px 0}header ul li a{display:inline-block;padding:4px 10px;margin:0 1px;text-decoration:none;border-radius:4px;background-color:#fff}header ul li a:hover{background-color:#efefef}header ul li a.activeContext{cursor:default;background-color:#dadada;color:#000}td pre{margin-bottom:0}nav{margin-top:10px}nav li{list-style:none}nav a{text-decoration:none}.todo{padding:12px 15px;border-radius:4px;background:#ffb2b2;border:1px solid #d56f6f}td.todo{border-radius:0;border:none}td p{margin:0}code{tab-size:4}footer{color:gray;margin:80px auto 20px;text-align:center;font-size:.8em}
 
 	</style>
 
 </head>
-<body>
+<body id="erik">
 
 <header id="header">
 	<div class="container">
 		<div class="row">
-			<h1>Field Syntax Cheatsheet</h1>
+			<h1>{{ cs.pageTitle }}</h1>
 			<ul>
 				<li>Context:</li>
-				{% for key, context in tagContexts %}
-				<li><a class="context{% if key == currentContext %} activeContext{% endif %}" href="{{ craft.request.url }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
+				{% for key, context in cs.tagContexts %}
+				<li><a class="context{% if key == cs.currentContext %} activeContext{% endif %}" href="{{ craft.request.url }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
@@ -110,7 +108,7 @@ Available values:
 		<div class="three columns">
 			<nav>
 				<ul>
-				{% for field in fields %}
+				{% for field in cs.fields %}
 					<li><a href="#{{ field.handle }}">{{ field.name }}</a></li>
 				{% endfor %}
 				</ul>
@@ -120,13 +118,13 @@ Available values:
 
 		<div class="nine columns">
 
-			{% for field in fields %}
+			{% for field in cs.fields %}
 
 {# Dev conditional to single out 1 field while building code #}
 {# {% if field.handle == 'customMeta' %} #}
 
 				<h3 id="{{ field.handle }}">{{ field.name }}</h3>
-				<p>Type: {{ field.type|replace('/(.)([A-Z])/', '$1 $2') }} (<a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag documentation</a> | <a href="{{ cpBase }}/settings/fields/edit/{{ field.id }}">View in control panel</a>)</p>
+				<p>Type: {{ field.type|replace('/(.)([A-Z])/', '$1 $2') }} (<a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag documentation</a> | <a href="{{ cpUrl('/settings/fields/edit/' ~ field.id) }}">View in control panel</a>)</p>
 
 				{# ---------------------------------------------
 
@@ -266,6 +264,114 @@ Available values:
 						<hr/>
 					
 					
+					{% case 'Categories' %}
+					
+						<h4>Check if entry has categories</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '|length %}<br/>'
+							~ whitespace ~ '...<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Rename for easier access</h4>
+						<pre><code>{{
+							  '{% set categories = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}<br>'
+							~ '{% if categories|length %}<br/>'
+							~ whitespace ~ '&lt;h3&gt;My Categories&lt;h3/&gt;<br/>'
+							~ whitespace
+							~ '{% nav myCategory in categories %}<br/>'
+							~ whitespace ~ whitespace ~ '...<br/>'
+							~ whitespace ~ '{% endnav %}<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Pass parameters to the ElementCriteria Model</h4>
+						<pre><code>{{
+							  '{% set myCategories = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.order(\'name\') %}'
+						}}</code></pre>
+					
+					
+						<h4>Select just the first category</h4>
+						<p>(particularly if it's the only category you expect)</p>
+						<pre><code>{{
+							  '{% set myCategory = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.first() %}<br/>'
+							~ '{% if myCategory %}<br/>'
+							~ whitespace ~ '...<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+						<hr/>
+					
+					
+					{% case 'Checkboxes' %}
+					
+						<h4>Field name</h4>
+						<pre><code>{{
+							  '{{ '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' }}'
+						}}</code></pre>
+					
+					
+						<h4>Single checkbox conditional</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '|length %} ... {% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Loop through the <em>selected</em> options</h4>
+						<pre><code>{{
+							'&lt;ul&gt;<br/>'
+							~ whitespace ~ '{% for option in '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+							~ whitespace
+							~ '{% endfor %}<br/>'
+							~ '&lt;/ul&gt;'
+						}}</code></pre>
+					
+					
+						<h4>Loop through <em>all</em> of the options</h4>
+						<pre><code>{{
+							'&lt;ul&gt;<br/>'
+							~ whitespace ~ '{% for option in '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.options %}<br/>'
+							~ whitespace ~ whitespace
+							~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+							~ whitespace
+							~ '{% endfor %}<br/>'
+							~ '&lt;/ul&gt;'
+						}}</code></pre>
+					
+					
+						<h4>See if a specific option is selected</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.contains(\'value\') %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+						<hr/>
+					
+					
 					{% case 'Color' %}
 					
 						<h4>Field name</h4>
@@ -282,6 +388,34 @@ Available values:
 							~ sampleTag ~ '.' ~ field.handle
 							~ '|length %} ... {% endif %}'
 						}}</code></pre>
+					
+						<hr/>
+					
+					
+					{% case 'Date' %}
+					
+						<h4>Sample date formatting</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}<br/>'
+							~ whitespace
+							~ '{{ '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' | date(\'M j, Y\') }}<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Get the Unix timestamp of the date</h4>
+						<pre><code>{{
+							  '{{ '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.getTimestamp() }}'
+						}}</code></pre>
+					
+					
+						<p class="info">There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
 					
 						<hr/>
 					
@@ -320,6 +454,72 @@ Available values:
 						<hr/>
 					
 					
+					{% case 'Entries' %}
+					
+						<h4>Set your entries to a variable</h4>
+						<pre><code>{{
+							  '{{ set entries = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' }}'
+						}}</code></pre>
+					
+					
+						<h4>Does your entries field have any entries?</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '|length %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>A simple loop for your entries</h4>
+						<pre><code>{{
+							  '{% for myEntry in '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '|length %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endfor %}'
+						}}</code></pre>
+					
+					
+						<h4>Set variable, check for entries, then loop through them</h4>
+						<pre><code>{{
+							'{% set entries = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}<br/>'
+							~ '{% if entries|length %}<br/>'
+							~ whitespace
+							~ '&lt;h3&gt;List of Entries&lt;/h3&gt;<br/>'
+							~ whitespace
+							~ '{% for myEntry in entries %}<br/>'
+							~ whitespace ~ whitespace
+							~ '...<br/>'
+							~ whitespace
+							~ '{% endfor %}<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Just grab the first entry</h4>
+						<pre><code>{{
+							'{% set myEntry = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.first() %}<br/>'
+							~ '{% if myEntry %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+					
+					
+						<hr/>
+					
+					
 					{% case 'Lightswitch' %}
 					
 						<h4>Boolean Conditional</h4>
@@ -332,62 +532,45 @@ Available values:
 						<hr/>
 					
 					
-					{% case 'Matrix' %}
+					{% case 'MultiSelect' %}
 					
-						<h4>Total number of blocks</h4>
+						<h4>Loop through the <em>selected</em> options</h4>
 						<pre><code>{{
-							  '{{ '
-							~ sampleTag ~ '.' ~ field.handle
-							~ '|length }}'
-						}}</code></pre>
-					
-					
-						<h4>Loop through blocks</h4>
-						<pre><code>{{
-							  '{% for block in '
+							'&lt;ul&gt;<br/>'
+							~ whitespace ~ '{% for option in '
 							~ sampleTag ~ '.' ~ field.handle
 							~ ' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
 							~ whitespace
-							~ '...<br/>{% endfor %}'
+							~ '{% endfor %}<br/>'
+							~ '&lt;/ul&gt;'
 						}}</code></pre>
 					
 					
-						<h4>Filtering by block type</h4>
+						<h4>Loop through <em>all</em> of the options</h4>
 						<pre><code>{{
-							  '{% for block in '
+							'&lt;ul&gt;<br/>'
+							~ whitespace ~ '{% for option in '
 							~ sampleTag ~ '.' ~ field.handle
-							~ '.type(\'text\') %}'
-						}}</code></pre>
-					
-					
-						<h4>Adjusting the limit</h4>
-						<pre><code>{{
-							  '{% for block in '
-							~ sampleTag ~ '.' ~ field.handle
-							~ '.limit(5) %}'
-						}}</code></pre>
-					
-					
-						<h4>All block types</h4>
-						<pre><code>{{
-							  '{% for block in '
-							~ sampleTag ~ '.' ~ field.handle
-							~ ' %}<br/>'
+							~ '.options %}<br/>'
+							~ whitespace ~ whitespace
+							~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
 							~ whitespace
-							~ '...<br/>{% endfor %}'
+							~ '{% endfor %}<br/>'
+							~ '&lt;/ul&gt;'
 						}}</code></pre>
 					
 					
-						<h4><em>In progress...</em></h4>
-						{% for blockType in field.getFieldType().getSettings().getBlockTypes() %}
-							<h5>Block: {{ blockType.name }} ({{ blockType.handle }})</h5>
-							<p><strong>Details:</strong></p>
-							<ul>
-							{% for matrixField in blockType.getFields() %}
-								<li>{{ matrixField.name }} ({{ matrixField.handle }})</li>
-							{% endfor %}
-							</ul>
-						{% endfor %}
+						<h4>See if a specific option is selected</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.contains(\'value\') %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
 					
 						<hr/>
 					
@@ -441,6 +624,101 @@ Available values:
 						<hr/>
 					
 					
+					{% case 'PositionSelect' %}
+					
+						<h4>Adding to a class name</h4>
+						<pre><code>{{
+							  '&lt;div class="block {{ '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' }}"&gt;'
+						}}</code></pre>
+					
+					
+						<h4>Conditionals around position values</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' in [\'left\', \'right\'] %}<br/>'
+							~ whitespace
+							~ '{# ... #}<br/>'
+							~ '{% elseif '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' == \'center\' %}<br/>'
+							~ whitespace
+							~ '{# ... #}<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Switch statement for all values</h4>
+						<pre><code>{{
+							  '{% switch '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}<br/>'
+							~ whitespace
+							~ '{% case \'left\' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '{# ... #}<br/>'
+							~ whitespace
+							~ '{% case \'center\' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '{# ... #}<br/>'
+							~ whitespace
+							~ '{% case \'right\' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '{# ... #}<br/>'
+							~ whitespace
+							~ '{% case \'full\' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '{# ... #}<br/>'
+							~ whitespace
+							~ '{% case \'drop-left\' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '{# ... #}<br/>'
+							~ whitespace
+							~ '{% case \'drop-right\' %}<br/>'
+							~ whitespace ~ whitespace
+							~ '{# ... #}<br/>'
+							~ '{% endswitch %}'
+						}}</code></pre>
+					
+						<hr/>
+					
+					
+					{% case 'RadioButtons' %}
+					
+						<h4>The Selected value's option</h4>
+						<pre><code>{{
+							  '{{ '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' }}'
+						}}</code></pre>
+					
+					
+						<h4>The Selected value's label</h4>
+						<pre><code>{{
+							  '{{ '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.label }}'
+						}}</code></pre>
+					
+					
+						<h4>Loop through all available options</h4>
+						<pre><code>{{
+							'&lt;ul&gt;<br/>'
+							~ whitespace ~ '{% for option in '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.options %}<br/>'
+							~ whitespace ~ whitespace
+							~ '&lt;li&gt;{{ option }}&lt;/li&gt;<br/>'
+							~ whitespace
+							~ '{% endfor %}<br/>'
+							~ '&lt;/ul&gt;'
+						}}</code></pre>
+					
+						<hr/>
+					
+					
 					{% case 'RichText' %}
 					
 						<h4>Field name</h4>
@@ -456,6 +734,107 @@ Available values:
 							  '{% if '
 							~ sampleTag ~ '.' ~ field.handle
 							~ '|length %} ... {% endif %}'
+						}}</code></pre>
+					
+						<hr/>
+					
+					
+					{% case 'Tags' %}
+					
+						<h4>Set a variable for future template use</h4>
+						<pre><code>{{
+							  '{% set myTags = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}'
+						}}</code></pre>
+					
+					
+						<h4>Check if any tags exist</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '|length %} ... {% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Loop through the selected tags</h4>
+						<pre><code>{{
+							  '{% for myTag in '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endfor %}'
+						}}</code></pre>
+					
+					
+						<h4>Order by parameters</h4>
+						<pre><code>{{
+							'{% set myTags = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.order(\'title\') %}'
+						}}</code></pre>
+					
+					
+						<h4>Avoid a loop if your field limits to 1 user</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.first() %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endif %}'
+						}}</code></pre>
+					
+						<hr/>
+					
+					
+					{% case 'Users' %}
+					
+						<h4>Set a variable for future template use</h4>
+						<pre><code>{{
+							  '{% set myUsers = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}'
+						}}</code></pre>
+					
+					
+						<h4>Check if any users were selected</h4>
+						<pre><code>{{
+							  '{% if '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '|length %} ... {% endif %}'
+						}}</code></pre>
+					
+					
+						<h4>Loop through the selected users</h4>
+						<pre><code>{{
+							  '{% for myUser in '
+							~ sampleTag ~ '.' ~ field.handle
+							~ ' %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endfor %}'
+						}}</code></pre>
+					
+					
+						<h4>Filter by parameters</h4>
+						<pre><code>{{
+							'{% set authors = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.group(\'groupName\') %}'
+						}}</code></pre>
+					
+					
+						<h4>Avoid a loop if your field limits to 1 user</h4>
+						<pre><code>{{
+							'{% set myUser = '
+							~ sampleTag ~ '.' ~ field.handle
+							~ '.first() %}<br/>'
+							~ '{% if myUser %}<br/>'
+							~ whitespace
+							~ '...<br/>'
+							~ '{% endif %}'
 						}}</code></pre>
 
 
@@ -477,7 +856,7 @@ Available values:
 	</div>
 
 	<footer>
-		<p>{{ pageTitle }}</p>
+		<p>{{ cs.pageTitle }} &mdash; {{ cs.version }}</p>
 		<p>Provided by your friends at <a href="http://twitter.com/focuslabllc">Focus Lab</a>.</p>
 	</footer>
 
@@ -561,9 +940,9 @@ Available values:
 	--------------------------------------------- #}*/
 	
 	// (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	// ga('set', 'dimension1', '{{ version }}');       // version
-	// ga('set', 'dimension2', '{{ groups|length }}'); // field group count
-	// ga('set', 'dimension3', '{{ fields|length }}'); // field count
+	// ga('set', 'dimension1', '{{ cs.version }}');       // version
+	// ga('set', 'dimension2', '{{ cs.groups|length }}'); // field group count
+	// ga('set', 'dimension3', '{{ cs.fields|length }}'); // field count
 	// ga('create', 'UA-3994429-34', 'auto');
 	// ga('send', 'pageview');
 
@@ -571,3 +950,16 @@ Available values:
 
 </body>
 </html>
+{# ---------------------------------------------
+
+The Craft Field Cheat Sheet
+
+Copyright (c) 2015 Focus Lab, LLC
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+--------------------------------------------- #}
