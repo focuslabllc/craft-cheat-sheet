@@ -21,7 +21,7 @@
 				<nav class="element_type">
 					<ul class="types">
 						<li>
-							<input type="radio" name="type_tab" id="common">
+							<input type="radio" name="type_tab" id="common" checked>
 							<label for="common">Common Elements</label>
 							<div class="element_type_tab">
 								<div class="contain">
@@ -65,6 +65,145 @@
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" enable-background="new 0 0 300 300"><path fill="#fff" d="M150 0C67.2 0 0 67.2 0 150c0 52.5 27 98.7 67.9 125.5 0 0 0-150.8 0-160.3 0-45.4 45.4-42.4 45.4-42.4h118.8V139h-93.9v160.6c3.9.3 7.8.5 11.7.5 82.8 0 150-67.2 150-150S232.8 0 150 0zm15 228.6v-60.8h65.6c0 .1 3 60.8-65.6 60.8z"></path></svg>
 		</div>
 	</header>
+
+	<section class="content">
+		<div class="contain">
+			<aside>
+				<div class="aside_contain">
+					<div class="fields_contain">
+						<h2>Fields</h2>
+						<input type="text" placeholder="Find a field...">
+						<ul>
+							<li>
+								<input type="checkbox" id="group1" checked>
+								<label for="group1">Group Name</label>
+								<ul>
+									<li><a href="#">Author Slug</a></li>
+									<li><a href="#">Body</a></li>
+									<li><a href="#">Custom Meta</a></li>
+									<li><a href="#">Custom Title</a></li>
+									<li><a href="#">Full Site Name</a></li>
+									<li><a href="#">Image Set</a></li>
+									<li><a href="#">Is New?</a></li>
+								</ul>
+							</li>
+							<li>
+								<input type="checkbox" id="group2">
+								<label for="group2">Group Name</label>
+								<ul>
+									<li><a href="#">Author Slug</a></li>
+									<li><a href="#">Body</a></li>
+									<li><a href="#">Custom Meta</a></li>
+									<li><a href="#">Custom Title</a></li>
+									<li><a href="#">Full Site Name</a></li>
+									<li><a href="#">Image Set</a></li>
+									<li><a href="#">Is New?</a></li>
+								</ul>
+							</li>
+							<li>
+								<input type="checkbox" id="group3">
+								<label for="group3">Group Name</label>
+								<ul>
+									<li><a href="#">Author Slug</a></li>
+									<li><a href="#">Body</a></li>
+									<li><a href="#">Custom Meta</a></li>
+									<li><a href="#">Custom Title</a></li>
+									<li><a href="#">Full Site Name</a></li>
+									<li><a href="#">Image Set</a></li>
+									<li><a href="#">Is New?</a></li>
+								</ul>
+							</li>
+							<li>
+								<input type="checkbox" id="group4">
+								<label for="group4">Group Name</label>
+								<ul>
+									<li><a href="#">Author Slug</a></li>
+									<li><a href="#">Body</a></li>
+									<li><a href="#">Custom Meta</a></li>
+									<li><a href="#">Custom Title</a></li>
+									<li><a href="#">Full Site Name</a></li>
+									<li><a href="#">Image Set</a></li>
+									<li><a href="#">Is New?</a></li>
+								</ul>
+							</li>
+							<li>
+								<input type="checkbox" id="group5">
+								<label for="group5">Group Name</label>
+								<ul>
+									<li><a href="#">Author Slug</a></li>
+									<li><a href="#">Body</a></li>
+									<li><a href="#">Custom Meta</a></li>
+									<li><a href="#">Custom Title</a></li>
+									<li><a href="#">Full Site Name</a></li>
+									<li><a href="#">Image Set</a></li>
+									<li><a href="#">Is New?</a></li>
+								</ul>
+							</li>
+							<li>
+								<input type="checkbox" id="group6">
+								<label for="group6">Group Name</label>
+								<ul>
+									<li><a href="#">Author Slug</a></li>
+									<li><a href="#">Body</a></li>
+									<li><a href="#">Custom Meta</a></li>
+									<li><a href="#">Custom Title</a></li>
+									<li><a href="#">Full Site Name</a></li>
+									<li><a href="#">Image Set</a></li>
+									<li><a href="#">Is New?</a></li>
+								</ul>
+							</li>
+						</ul>	
+					</div>	
+				</div>
+			</aside>
+
+			<section class="main_body">
+				<div class="field_group">
+					<header>
+						<h1>Author Slug<span class="field_type">Plain Text</span></h1>
+						<ul class="field_settings">
+							<li><a href="#">Tag Documentation</a></li>
+							<li><a href="#">View In Control Panel</a></li>
+						</ul>
+					</header>
+					<div class="code_block">
+						<h3>Field Name</h3>
+						<div class="code">
+							{{ asset.authorSlug }}
+						</div>
+					</div>
+					<div class="code_block">
+						<h3>"If Exists" Conditional</h3>
+						<div class="code">
+							{% if asset.authorSlug|length %} ... {% endif %}<br>{% if asset.authorSlug|length %} ... {% endif %}
+						</div>
+					</div>
+				</div>
+
+				<div class="field_group">
+					<header>
+						<h1>Body<span class="field_type">Rich Text</span></h1>
+						<ul class="field_settings">
+							<li><a href="#">Tag Documentation</a></li>
+							<li><a href="#">View In Control Panel</a></li>
+						</ul>
+					</header>
+					<div class="code_block">
+						<h3>Field Name</h3>
+						<div class="code">
+							{{ asset.authorSlug }}
+						</div>
+					</div>
+					<div class="code_block">
+						<h3>"If Exists" Conditional</h3>
+						<div class="code">
+							{% if asset.authorSlug|length %} ... {% endif %}<br>{% if asset.authorSlug|length %} ... {% endif %}
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</section>
 
 
 <script type="text/javascript">
