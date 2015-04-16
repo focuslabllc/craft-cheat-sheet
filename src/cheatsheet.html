@@ -3,12 +3,11 @@
 <html>
 <head>
 
-	<title>{{ pageTitle }} — for {{ siteName }}</title>
+	<title>{{ cs.pageTitle }} — for {{ siteName }}</title>
 
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://raw.githubusercontent.com/dhg/Skeleton/master/css/normalize.css">
 	<link rel="stylesheet" href="https://raw.githubusercontent.com/dhg/Skeleton/master/css/skeleton.css">
-	<title>{{ cs.pageTitle }} — for {{ siteName }}</title>
 
 	<style type="text/css">
 		//= include includes/styles.inc.css
@@ -23,8 +22,8 @@
 			<h1>Field Syntax Cheatsheet</h1>
 			<ul>
 				<li>Context:</li>
-				{% for key, context in tagContexts %}
-				<li><a class="context{% if key == currentContext %} activeContext{% endif %}" href="{{ craft.request.url }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
+				{% for key, context in cs.tagContexts %}
+				<li><a class="context{% if key == cs.currentContext %} activeContext{% endif %}" href="{{ craft.request.url }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
