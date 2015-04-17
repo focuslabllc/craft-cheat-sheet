@@ -524,6 +524,23 @@ aside {
 		}
 	}
 
+	.description {
+		position: relative;
+		border: 1px solid #dfdfdf;
+		border-radius: .25em .25em 0 0;
+		background: white;
+		padding: 1em;
+		margin-bottom: -.25em;
+
+		p {
+			margin: 0;
+			font-size: .875em;
+			line-height: 1.5em;
+			font-family: $bodyFont;
+			color: #4a4a4a;
+		}
+	}
+
 	.code {
 		border: 1px solid #dfdfdf;
 		border-radius: .25em;
