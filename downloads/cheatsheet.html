@@ -2,7 +2,9 @@
 	<div class="code_block">
 		<h3>{{ title }}</h3>
 		{% if helpText %}
-		<p>{{ helpText }}</p>
+		<div class="description">
+			<p>{{ helpText }}</p>
+		</div>
 		{% endif %}
 		<pre><code class="language-twig">{{ code|trim }}</code></pre>
 	</div>
@@ -129,9 +131,9 @@ Available values:
 												<input type="submit" value="+">
 											</div>
 										</li>
-										<li class="custom_element"><a href="#">Custom One<span class="remove_custom">x</span></a></li>
-										<li class="custom_element"><a href="#">Custom Two<span class="remove_custom">x</span></a></li>
-										<li class="custom_element"><a href="#">Custom Three<span class="remove_custom">x</span></a></li>
+										<li class="custom_element"><a href="#">Custom One<span class="remove_custom">&times;</span></a></li>
+										<li class="custom_element"><a href="#">Custom Two<span class="remove_custom">&times;</span></a></li>
+										<li class="custom_element"><a href="#">Custom Three<span class="remove_custom">&times;</span></a></li>
 									</ul>
 								</div>
 							</div>
