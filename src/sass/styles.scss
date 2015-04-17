@@ -4,6 +4,10 @@
 @import "base";
 @import "prism";
 
+html {
+	min-width: 50em;
+}
+
 header.main {
 	position: relative;
 	z-index: 2;
@@ -425,6 +429,8 @@ aside {
 					border: .4em solid transparent;
 					border-bottom: none;
 					border-top-color: #4a4a4a;
+					-webkit-transition: -webkit-transform .5s ease;
+					transition: transform .5s ease;
 				}
 			}
 
@@ -445,6 +451,11 @@ aside {
 
 			input[type="checkbox"]:checked ~ ul {
 				max-height: 30em;
+			}
+
+			input[type="checkbox"]:checked ~ label::after {
+				-webkit-transform: rotate(180deg);
+				transform: rotate(180deg);
 			}
 		}
 	}
@@ -489,6 +500,7 @@ aside {
 				font-weight: 700;
 				text-transform: uppercase;
 				color: #b5b5b5;
+				letter-spacing: 1;
 			}
 		}
 
@@ -525,6 +537,23 @@ aside {
 			font-family: $bodyFont;
 			margin-bottom: 1em;
 			font-weight: 700;
+		}
+	}
+
+	.description {
+		position: relative;
+		border: 1px solid #dfdfdf;
+		border-radius: .25em .25em 0 0;
+		background: white;
+		padding: 1em;
+		margin-bottom: -.25em;
+
+		p {
+			margin: 0;
+			font-size: .875em;
+			line-height: 1.5em;
+			font-family: $bodyFont;
+			color: #4a4a4a;
 		}
 	}
 
