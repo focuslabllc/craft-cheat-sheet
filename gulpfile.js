@@ -34,10 +34,10 @@ gulp.task('clean', function(){
  concatenate them by 2 line breaks for the include within cheatsheet.html
 */
 gulp.task('js', function(){
-	return gulp.src('./src/js/*.js')
+	return gulp.src('./src/js/[!_]*.js')
 	.pipe(plumber())
-	.pipe(jshint())
-	.pipe(jshint.reporter('jshint-stylish'))
+	// .pipe(jshint())
+	// .pipe(jshint.reporter('jshint-stylish'))
 	.pipe(concat('scripts.inc.js', { newLine: '\r\n\r\n' }))
 	// .pipe(jsmin())
 	.pipe(gulp.dest('./src/includes'))
@@ -57,7 +57,7 @@ gulp.task('js', function(){
 gulp.task('fieldTypes', function(){
 	return gulp.src('./src/fieldTypes/[!_]*.html')
 	.pipe(plumber())
-	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n\t<hr/>\r\n\r\n\r\n' }))
+	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n\r\n' }))
 	.pipe(replace(/\{#-?(.|\n)*?-?#\}\s+\{% case/g, '{% case'))
 	.pipe(gulp.dest('./src/includes'))
 	.on('end', function(){
@@ -90,11 +90,13 @@ gulp.task('includes', function(){
 	gulp.src('./src/cheatsheet.html')
 		.pipe(plumber())
 		.pipe(include())
-		.pipe(gulp.dest('./downloads/'));
+		.pipe(gulp.dest('./downloads/'))
+		.pipe(notify('Cheat Sheet file created.'));
 	gulp.src('./src/index.html')
 		.pipe(plumber())
 		.pipe(include())
-		.pipe(gulp.dest('./'));
+		.pipe(gulp.dest('./'))
+		.pipe(notify('Index file created.'));
 });
 
 
@@ -114,6 +116,7 @@ gulp.task('newField', function(params){
 		.pipe(replace(/YourFieldType/g, args.name))
 		.pipe(rename(args.name + '.html'))
 		.pipe(gulp.dest('./src/fieldTypes'))
+		.pipe(notify('New field (' + args.name + ') successfully created'))
 		.on('end', function(){
 			gulp.start('fieldTypes');
 		});
@@ -126,10 +129,10 @@ gulp.task('newField', function(params){
 
 // The magic of watching files for changes
 gulp.task('watch', function(){
-	gulp.watch('./src/js/*.js', ['js']);
+	gulp.watch('./src/js/[!_]*.js', ['js']);
 	gulp.watch('./src/sass/*.scss', ['sass']);
 	gulp.watch('./src/fieldTypes/[!_]*.html', ['fieldTypes']);
-	gulp.watch(['./src/*.html', 'twigSetup.inc.html'], ['includes']);
+	gulp.watch(['./src/*.html', './src/includes/twigSetup.inc.html'], ['includes']);
 });
 
 
