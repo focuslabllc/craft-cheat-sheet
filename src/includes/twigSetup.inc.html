@@ -2,7 +2,9 @@
 	<div class="code_block">
 		<h3>{{ title }}</h3>
 		{% if helpText %}
-		<p>{{ helpText }}</p>
+		<div class="description">
+			<p>{{ helpText }}</p>
+		</div>
 		{% endif %}
 		<pre><code class="language-twig">{{ code|trim }}</code></pre>
 	</div>
