@@ -424,6 +424,8 @@ aside {
 					border: .4em solid transparent;
 					border-bottom: none;
 					border-top-color: #4a4a4a;
+					-webkit-transition: -webkit-transform .5s ease;
+					transition: transform .5s ease;
 				}
 			}
 
@@ -444,6 +446,11 @@ aside {
 
 			input[type="checkbox"]:checked ~ ul {
 				max-height: 30em;
+			}
+
+			input[type="checkbox"]:checked ~ label::after {
+				-webkit-transform: rotate(180deg);
+				transform: rotate(180deg);	
 			}
 		}
 	}
@@ -477,6 +484,7 @@ aside {
 				font-weight: 700;
 				text-transform: uppercase;
 				color: #b5b5b5;
+				letter-spacing: 1;
 			}
 		}
 
