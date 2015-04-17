@@ -5,7 +5,7 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
-	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
 	Make sure you follow the syntax examples here:
 
 	TODO: github wiki link
@@ -16,52 +16,47 @@
 
 {% case 'Matrix' %}
 
-	<h4>Total number of blocks</h4>
-	<pre><code>{{
-		  '{{ '
+	{{ csMacro.codeBlock('Total number of blocks', '
+		{{ '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length }}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Loop through blocks</h4>
-	<pre><code>{{
-		  '{% for block in '
+	{{ csMacro.codeBlock('Loop through blocks', '
+		{% for block in '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br/>'
+		~ ' %}\n'
 		~ whitespace
-		~ '...<br/>{% endfor %}'
-	}}</code></pre>
+		~ '...\n{% endfor %}'
+	)}}
 
 
-	<h4>Filtering by block type</h4>
-	<pre><code>{{
-		  '{% for block in '
+	{{ csMacro.codeBlock('Filtering by block type', '
+		{% for block in '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '.type(\'text\') %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Adjusting the limit</h4>
-	<pre><code>{{
-		  '{% for block in '
+	{{ csMacro.codeBlock('Adjusting the limit', '
+		{% for block in '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '.limit(5) %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>All block types</h4>
-	<pre><code>{{
-		  '{% for block in '
+	{{ csMacro.codeBlock('All block types', '
+		{% for block in '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br/>'
+		~ ' %}\n'
 		~ whitespace
-		~ '...<br/>{% endfor %}'
-	}}</code></pre>
+		~ '...\n{% endfor %}'
+	)}}
 
 
-	<h4><em>In progress...</em></h4>
-	{% for blockType in field.getFieldType().getSettings().getBlockTypes() %}
+	{{ csMacro.codeBlock('<em>In progress...</em>', '
+		{% for blockType in field.getFieldType().getSettings().getBlockTypes() %}
 		<h5>Block: {{ blockType.name }} ({{ blockType.handle }})</h5>
 		<p><strong>Details:</strong></p>
 		<ul>

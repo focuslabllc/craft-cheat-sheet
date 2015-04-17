@@ -5,7 +5,7 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
-	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
 	Make sure you follow the syntax examples here:
 
 	TODO: github wiki link
@@ -16,127 +16,121 @@
 
 {% case 'Assets' %}
 
-	<h4>Total number of assets</h4>
-	<pre><code>{{
-		  '{{ '
+
+	{{ csMacro.codeBlock('Total number of assets', '
+		{{ '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length }}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Common conditional</h4>
-	<pre><code>{{
-		  '{% if '
+	{{ csMacro.codeBlock('Common conditional', '
+		{% if '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %}<br/>'
+		~ '|length %}\n'
 		~ whitespace
-		~ '...<br/>{% endif %}'
-	}}</code></pre>
+		~ '...\n{% endif %}'
+	)}}
 
 
-	<h4>Loop through assets</h4>
-	<pre><code>{{
-		  '{% for myAsset in '
+	{{ csMacro.codeBlock('Loop through assets', '
+		{% for myAsset in '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br/>'
+		~ ' %}\n'
 		~ whitespace
-		~ '{{ myAsset.url }}<br/>{% endfor %}'
-	}}</code></pre>
+		~ '{{ myAsset.url }}\n{% endfor %}'
+	)}}
 
 
-	<h4>Only return the first asset</h4>
-	<pre><code>{{
-		  '{% set myAsset = '
+	{{ csMacro.codeBlock('Only return the first asset', '
+		{% set myAsset = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '.first() %}<br/>{% if myAsset %}<br/>'
+		~ '.first() %}\n{% if myAsset %}\n'
 		~ whitespace
-		~ '{{ myAsset.url }}<br/>{% endif %}'
-	}}</code></pre>
+		~ '{{ myAsset.url }}\n{% endif %}'
+	)}}
 
 
-	<h4>Adjusting the limit</h4>
-	<pre><code>{{
-		  '{% for block in '
+	{{ csMacro.codeBlock('Adjusting the limit', '
+		{% for block in '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '.limit(5) %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>All asset variables</h4>
-	<pre><code>{{
-		  '{% set myAsset = '
+	{{ csMacro.codeBlock('All asset variables', '
+		{% set myAsset = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '.first() %}<br/>{% if myAsset %}<br/>'
+		~ '.first() %}\n{% if myAsset %}\n'
 		~ whitespace
-		~ '{{ myAsset.dateCreated }}<br/>'
+		~ '{{ myAsset.dateCreated }}\n'
 		~ whitespace
-		~ '{{ myAsset.dateUpdated }}<br/>'
+		~ '{{ myAsset.dateUpdated }}\n'
 		~ whitespace
-		~ '{{ myAsset.extension }}<br/>'
+		~ '{{ myAsset.extension }}\n'
 		~ whitespace
-		~ '{{ myAsset.filename }}<br/>'
+		~ '{{ myAsset.filename }}\n'
 		~ whitespace
-		~ '{{ myAsset.folder }}<br/>'
+		~ '{{ myAsset.folder }}\n'
 		~ whitespace
-		~ '{{ myAsset.folderId }}<br/>'
+		~ '{{ myAsset.folderId }}\n'
 		~ whitespace
-		~ '{{ myAsset.height }}<br/>'
+		~ '{{ myAsset.height }}\n'
 		~ whitespace
-		~ '{{ myAsset.id }}<br/>'
+		~ '{{ myAsset.id }}\n'
 		~ whitespace
-		~ '{{ myAsset.img }}<br/>'
+		~ '{{ myAsset.img }}\n'
 		~ whitespace
-		~ '{{ myAsset.kind }}<br/>'
+		~ '{{ myAsset.kind }}\n'
 		~ whitespace
-		~ '{{ myAsset.locale }}<br/>'
+		~ '{{ myAsset.locale }}\n'
 		~ whitespace
-		~ '{{ myAsset.link }}<br/>'
+		~ '{{ myAsset.link }}\n'
 		~ whitespace
-		~ '{{ myAsset.mimeType }}<br/>'
+		~ '{{ myAsset.mimeType }}\n'
 		~ whitespace
-		~ '{{ myAsset.next }}<br/>'
+		~ '{{ myAsset.next }}\n'
 		~ whitespace
-		~ '{{ myAsset.prev }}<br/>'
+		~ '{{ myAsset.prev }}\n'
 		~ whitespace
-		~ '{{ myAsset.size }}<br/>'
+		~ '{{ myAsset.size }}\n'
 		~ whitespace
-		~ '{{ myAsset.source }}<br/>'
+		~ '{{ myAsset.source }}\n'
 		~ whitespace
-		~ '{{ myAsset.sourceId }}<br/>'
+		~ '{{ myAsset.sourceId }}\n'
 		~ whitespace
-		~ '{{ myAsset.url }}<br/>'
+		~ '{{ myAsset.url }}\n'
 		~ whitespace
-		~ '{{ myAsset.width }}<br/>{% endif %}'
-	}}</code></pre>
+		~ '{{ myAsset.width }}\n{% endif %}'
+	)}}
 
 
-	<h4>All asset methods</h4>
-	<pre><code>{{
-		  '{% set myAsset = '
+	{{ csMacro.codeBlock('All asset methods', '
+		{% set myAsset = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '.first() %}<br/>{% if myAsset %}<br/>'
+		~ '.first() %}\n{% if myAsset %}\n'
 		~ whitespace
-		~ '{{ myAsset.getExtension() }}<br/>'
+		~ '{{ myAsset.getExtension() }}\n'
 		~ whitespace
-		~ '{{ myAsset.getFolder() }}<br/>'
+		~ '{{ myAsset.getFolder() }}\n'
 		~ whitespace
-		~ '{{ myAsset.getHeight( transform ) }}<br/>'
+		~ '{{ myAsset.getHeight( transform ) }}\n'
 		~ whitespace
-		~ '{{ myAsset.getImg() }}<br/>'
+		~ '{{ myAsset.getImg() }}\n'
 		~ whitespace
-		~ '{{ myAsset.getLink() }}<br/>'
+		~ '{{ myAsset.getLink() }}\n'
 		~ whitespace
-		~ '{{ myAsset.getMimeType() }}<br/>'
+		~ '{{ myAsset.getMimeType() }}\n'
 		~ whitespace
-		~ '{{ myAsset.getNext( params ) }}<br/>'
+		~ '{{ myAsset.getNext( params ) }}\n'
 		~ whitespace
-		~ '{{ myAsset.getPrev( params ) }}<br/>'
+		~ '{{ myAsset.getPrev( params ) }}\n'
 		~ whitespace
-		~ '{{ myAsset.getSource() }}<br/>'
+		~ '{{ myAsset.getSource() }}\n'
 		~ whitespace
-		~ '{{ myAsset.getUrl( transform ) }}<br/>'
+		~ '{{ myAsset.getUrl( transform ) }}\n'
 		~ whitespace
-		~ '{{ myAsset.getWidth( transform ) }}<br/>'
+		~ '{{ myAsset.getWidth( transform ) }}\n'
 		~ whitespace
-		~ '{{ myAsset.setTransform( transform ) }}<br/>{% endif %}'
-	}}</code></pre>
+		~ '{{ myAsset.setTransform( transform ) }}\n{% endif %}'
+	)}}

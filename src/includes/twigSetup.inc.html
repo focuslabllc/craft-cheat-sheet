@@ -1,3 +1,13 @@
+{% macro codeBlock(title, code, helpText) %}
+	<div class="code_block">
+		<h3>{{ title }}</h3>
+		{% if helpText %}
+		<p>{{ helpText }}</p>
+		{% endif %}
+		<pre><code class="language-twig">{{ code|trim }}</code></pre>
+	</div>
+{% endmacro %}
+{% import _self as csMacro %}
 {# ---------------------------------------------
 
 Inspired by http://straightupcraft.com/search/results?q=cheat+sheet

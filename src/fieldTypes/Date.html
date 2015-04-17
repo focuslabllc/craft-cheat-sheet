@@ -5,7 +5,7 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
-	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
 	Make sure you follow the syntax examples here:
 
 	TODO: github wiki link
@@ -20,25 +20,23 @@
 
 {% case 'Date' %}
 
-	<h4>Sample date formatting</h4>
-	<pre><code>{{
-		  '{% if '
+	{{ csMacro.codeBlock('Sample date formatting', '
+		{% if '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br/>'
+		~ ' %}\n'
 		~ whitespace
 		~ '{{ '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' | date(\'M j, Y\') }}<br/>'
+		~ ' | date(\'M j, Y\') }}\n'
 		~ '{% endif %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Get the Unix timestamp of the date</h4>
-	<pre><code>{{
-		  '{{ '
+	{{ csMacro.codeBlock('Get the Unix timestamp of the date', '
+		{{ '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '.getTimestamp() }}'
-	}}</code></pre>
+	)}}
 
 
 	<p class="info">There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>

@@ -5,7 +5,7 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
-	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
 	Make sure you follow the syntax examples here:
 
 	TODO: github wiki link
@@ -16,47 +16,42 @@
 
 {% case 'Tags' %}
 
-	<h4>Set a variable for future template use</h4>
-	<pre><code>{{
-		  '{% set myTags = '
+	{{ csMacro.codeBlock('Set a variable for future template use', '
+		{% set myTags = '
 		~ sampleTag ~ '.' ~ field.handle
 		~ ' %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Check if any tags exist</h4>
-	<pre><code>{{
-		  '{% if '
+	{{ csMacro.codeBlock('Check if any tags exist', '
+		{% if '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Loop through the selected tags</h4>
-	<pre><code>{{
-		  '{% for myTag in '
+	{{ csMacro.codeBlock('Loop through the selected tags', '
+		{% for myTag in '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br/>'
+		~ ' %}\n'
 		~ whitespace
-		~ '...<br/>'
+		~ '...\n'
 		~ '{% endfor %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Order by parameters</h4>
-	<pre><code>{{
-		'{% set myTags = '
+	{{ csMacro.codeBlock('Order by parameters', '
+		{% set myTags = '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '.order(\'title\') %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Avoid a loop if your field limits to 1 user</h4>
-	<pre><code>{{
-		  '{% if '
+	{{ csMacro.codeBlock('Avoid a loop if your field limits to 1 user', '
+		{% if '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '.first() %}<br/>'
+		~ '.first() %}\n'
 		~ whitespace
-		~ '...<br/>'
+		~ '...\n'
 		~ '{% endif %}'
-	}}</code></pre>
+	)}}

@@ -2,6 +2,7 @@
 @import "typography";
 @import "fl-break";
 @import "base";
+@import "prism";
 
 header.main {
 	position: relative;
@@ -14,7 +15,7 @@ header.main {
 	.header_bg {
 		width: 100%;
 		padding: 2em 1em 0;
-		background: #ff3333;	
+		background: #ff3333;
 	}
 
 	.heading {
@@ -29,13 +30,13 @@ header.main {
 		font-family: $headingFont;
 		font-weight: 400;
 		font-size: 1em;
-		text-transform: uppercase; 
+		text-transform: uppercase;
 
 		span {
 			display: none;
 			position: relative;
 			margin: 0 1em;
-			font-family: $bodyFont;	
+			font-family: $bodyFont;
 			font-weight: 300;
 			font-size: .454545455em;
 			top: -.35em;
@@ -66,7 +67,7 @@ header.main {
 
 		h1 {
 			font-size: 1.375em;
-		}	
+		}
 
 		.focus_logo {
 			display: block;
@@ -86,7 +87,7 @@ header.main {
 	@include fl-break(72.5em) {
 		.header_bg {
 			padding: 2em 1em 0;
-		}	
+		}
 	}
 }
 
@@ -111,7 +112,7 @@ nav.element_type {
 				display: block;
 				color: white;
 				font-family: $bodyFont;
-				font-weight: 300; 
+				font-weight: 300;
 				font-size: .875em;
 				text-decoration: none;
 				padding-bottom: 2.285714286em;
@@ -300,7 +301,7 @@ nav.element_type {
 				margin-top: .25em;
 				margin-bottom: .4em;
 			}
-		}						
+		}
 	}
 
 	@include fl-break(50em) {
@@ -344,7 +345,7 @@ nav.element_type {
 	@include fl-break(72.5em) {
 		ul.types > li .element_type_tab {
 			padding: 0 1em;
-		}	
+		}
 	}
 }
 
@@ -395,10 +396,14 @@ aside {
 		padding: 0;
 		font-family: $bodyFont;
 
+		&.hidden { display: none; }
+
 		li {
 			color: #4a4a4a;
 			font-weight: 400;
 			margin-bottom: .5em;
+
+			&.hidden { display: none; }
 
 			input[type="checkbox"] {
 				position: absolute;
@@ -447,11 +452,22 @@ aside {
 
 .main_body {
 	padding: 7em 0 3em 15.9375em;
+
+	p.notice {
+		font-size: .875em;
+		border: 1px solid #db5858;
+		border-radius: .25em;
+		background: #ffb2b2;
+		padding: 1em;
+	}
+
 }
 
 .field_group {
 	padding-left: 11.0067114%;
 	margin-bottom: 4.5em;
+
+	&.hidden { display: none; }
 
 	header {
 		overflow: hidden;
@@ -512,13 +528,18 @@ aside {
 		}
 	}
 
-	.code {
+	code, .code {
 		border: 1px solid #dfdfdf;
 		border-radius: .25em;
 		background: #f6f6f6;
 		padding: 1em;
 		font-family: $codeFont;
 		line-height: 1.5em;
+	}
+
+	pre > code {
+		display: block;
+		white-space: pre;
 	}
 
 	@include fl-break(43.75em) {

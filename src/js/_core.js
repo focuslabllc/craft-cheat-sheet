@@ -46,9 +46,9 @@ function selectCodeSnippet(elem) {
 }
 
 window.onload = function () {
-	// setInterval(function(){
-		// document.getElementById('header').className = (window.pageYOffset > 15) ? 'short' : '' ;
-	// }, 300);
+	setInterval(function(){
+		document.getElementById('header').className = (window.pageYOffset > 15) ? 'short' : '' ;
+	}, 300);
 
 	if (document.body.addEventListener) {
 		document.body.addEventListener('click', clickListen, false);

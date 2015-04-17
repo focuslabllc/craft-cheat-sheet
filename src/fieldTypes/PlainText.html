@@ -5,7 +5,7 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
-	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	using the twig macro provided within the src/twigSetup.inc.html file.
 	Make sure you follow the syntax examples here:
 
 	TODO: github wiki link
@@ -16,17 +16,15 @@
 
 {% case 'PlainText' %}
 
-	<h4>Field name</h4>
-	<pre><code>{{
-		  '{{ '
+
+	{{ csMacro.codeBlock('Field name', '
+		{{ '
 		~ sampleTag ~ '.' ~ field.handle
 		~ ' }}'
-	}}</code></pre>
+	)}}
 
-
-	<h4>"If exists" conditional</h4>
-	<pre><code>{{
-		  '{% if '
+	{{ csMacro.codeBlock('If exists" conditional', '
+		{% if '
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
-	}}</code></pre>
+	)}}

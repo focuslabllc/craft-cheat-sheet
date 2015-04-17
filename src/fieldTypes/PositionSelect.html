@@ -5,7 +5,7 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
-	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
 	Make sure you follow the syntax examples here:
 
 	TODO: github wiki link
@@ -17,58 +17,55 @@
 
 {% case 'PositionSelect' %}
 
-	<h4>Adding to a class name</h4>
-	<pre><code>{{
-		  '&lt;div class="block {{ '
+	{{ csMacro.codeBlock('Adding to a class name', '
+		<div class="block {{ '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}"&gt;'
-	}}</code></pre>
+		~ ' }}">'
+	)}}
 
 
-	<h4>Conditionals around position values</h4>
-	<pre><code>{{
-		  '{% if '
+	{{ csMacro.codeBlock('Conditionals around position values', '
+		{% if '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' in [\'left\', \'right\'] %}<br/>'
+		~ ' in [\'left\', \'right\'] %}\n'
 		~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ '{% elseif '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' == \'center\' %}<br/>'
+		~ ' == \'center\' %}\n'
 		~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ '{% endif %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Switch statement for all values</h4>
-	<pre><code>{{
-		  '{% switch '
+	{{ csMacro.codeBlock('Switch statement for all values', '
+		{% switch '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br/>'
+		~ ' %}\n'
 		~ whitespace
-		~ '{% case \'left\' %}<br/>'
+		~ '{% case \'left\' %}\n'
 		~ whitespace ~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ whitespace
-		~ '{% case \'center\' %}<br/>'
+		~ '{% case \'center\' %}\n'
 		~ whitespace ~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ whitespace
-		~ '{% case \'right\' %}<br/>'
+		~ '{% case \'right\' %}\n'
 		~ whitespace ~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ whitespace
-		~ '{% case \'full\' %}<br/>'
+		~ '{% case \'full\' %}\n'
 		~ whitespace ~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ whitespace
-		~ '{% case \'drop-left\' %}<br/>'
+		~ '{% case \'drop-left\' %}\n'
 		~ whitespace ~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ whitespace
-		~ '{% case \'drop-right\' %}<br/>'
+		~ '{% case \'drop-right\' %}\n'
 		~ whitespace ~ whitespace
-		~ '{# ... #}<br/>'
+		~ '{# ... #}\n'
 		~ '{% endswitch %}'
-	}}</code></pre>
+	)}}

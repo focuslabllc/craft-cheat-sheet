@@ -5,7 +5,7 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
-	with an <h4> tag and <pre><code></code></pre> tag blog per snippet.
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
 	Make sure you follow the syntax examples here:
 
 	TODO: github wiki link
@@ -16,62 +16,56 @@
 
 {% case 'Entries' %}
 
-	<h4>Set your entries to a variable</h4>
-	<pre><code>{{
-		  '{{ set entries = '
+	{{ csMacro.codeBlock('Set your entries to a variable', '
+		{% set entries = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
-	}}</code></pre>
+		~ ' %}'
+	)}}
 
 
-	<h4>Does your entries field have any entries?</h4>
-	<pre><code>{{
-		  '{% if '
+	{{ csMacro.codeBlock('Does your entries field have any entries?', '
+		{% if '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %}<br/>'
+		~ '|length %}\n'
 		~ whitespace
-		~ '...<br/>'
+		~ '...\n'
 		~ '{% endif %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>A simple loop for your entries</h4>
-	<pre><code>{{
-		  '{% for myEntry in '
+	{{ csMacro.codeBlock('A simple loop for your entries', '
+		{% for myEntry in '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %}<br/>'
+		~ '|length %}\n'
 		~ whitespace
-		~ '...<br/>'
+		~ '...\n'
 		~ '{% endfor %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Set variable, check for entries, then loop through them</h4>
-	<pre><code>{{
-		'{% set entries = '
+	{{ csMacro.codeBlock('Set variable, check for entries, then loop through them', '
+		{% set entries = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br/>'
-		~ '{% if entries|length %}<br/>'
+		~ ' %}\n'
+		~ '{% if entries|length %}\n'
 		~ whitespace
-		~ '&lt;h3&gt;List of Entries&lt;/h3&gt;<br/>'
+		~ '<h3>List of Entries</h3>\n'
 		~ whitespace
-		~ '{% for myEntry in entries %}<br/>'
+		~ '{% for myEntry in entries %}\n'
 		~ whitespace ~ whitespace
-		~ '...<br/>'
+		~ '...\n'
 		~ whitespace
-		~ '{% endfor %}<br/>'
+		~ '{% endfor %}\n'
 		~ '{% endif %}'
-	}}</code></pre>
+	)}}
 
 
-	<h4>Just grab the first entry</h4>
-	<pre><code>{{
-		'{% set myEntry = '
+	{{ csMacro.codeBlock('Just grab the first entry', '
+		{% set myEntry = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ '.first() %}<br/>'
-		~ '{% if myEntry %}<br/>'
+		~ '.first() %}\n'
+		~ '{% if myEntry %}\n'
 		~ whitespace
-		~ '...<br/>'
+		~ '...\n'
 		~ '{% endif %}'
-	}}</code></pre>
-
+	)}}
