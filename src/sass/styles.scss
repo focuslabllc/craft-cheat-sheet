@@ -3,6 +3,10 @@
 @import "fl-break";
 @import "base";
 
+html {
+	min-width: 50em;
+}
+
 header.main {
 	position: relative;
 	z-index: 2;
