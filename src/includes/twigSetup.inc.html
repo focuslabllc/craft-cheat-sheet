@@ -6,7 +6,9 @@
 			<p>{{ helpText }}</p>
 		</div>
 		{% endif %}
-		<pre><code class="language-twig">{{ code|trim }}</code></pre>
+		<div class="code">
+			<pre><code class="language-twig">{{ code|trim }}</code></pre>
+		</div>
 	</div>
 {% endmacro %}
 {% import _self as csMacro %}

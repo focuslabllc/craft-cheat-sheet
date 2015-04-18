@@ -24,7 +24,7 @@
 				<nav class="element_type">
 					<ul class="types">
 						<li>
-							<input type="radio" name="type_tab" id="common" checked>
+							<input type="radio" name="type_tab" id="common" checked="checked">
 							<label for="common">Common Elements</label>
 							<div class="element_type_tab">
 								<div class="contain">
@@ -41,16 +41,16 @@
 							<label for="custom">Custom Elements</label>
 							<div class="element_type_tab">
 								<div class="contain">
-									<ul>
+									<ul id="custom_element_list">
 										<li class="custom_input">
 											<div class="input_contain">
-												<input type="text" placeholder="Enter Custom Element">
-												<input type="submit" value="+">
+												<form id="newCustomElement">
+													<input type="text" placeholder="Enter Custom Element">
+													<input type="submit" value="+">
+												</form>
 											</div>
 										</li>
-										<li class="custom_element"><a href="#">Custom One<span class="remove_custom">&times;</span></a></li>
-										<li class="custom_element"><a href="#">Custom Two<span class="remove_custom">&times;</span></a></li>
-										<li class="custom_element"><a href="#">Custom Three<span class="remove_custom">&times;</span></a></li>
+										{# javascript inserts custom contextx here #}
 									</ul>
 								</div>
 							</div>
@@ -73,13 +73,12 @@
 				<div class="aside_contain">
 					<div class="fields_contain">
 						<h2>Fields</h2>
-						<input type="text" value="" id="field-filter" placeholder="Find a field...">
-						<ul id="group_list">
+						<ul id="groups_list">
 							{% for group in cs.groups %}
 							<li class="nav_group" data-group-id="{{ group.id }}" data-group="{{ group.name }}" data-group-handle="{{ group.name|lower|replace(' ', '') }}">
 								<input type="checkbox" id="group-{{ group.id }}" checked>
 								<label for="group-{{ group.id }}">{{ group.name }}</label>
-								<ul>
+								<ul class="group_list">
 									{% for field in craft.fields.getFieldsByGroupId(group.id) %}
 									<li class="field" data-group-id="{{ field.groupId }}" data-group="{{ field.group }}" data-group-handle="{{ field.group|lower|replace(' ', '') }}" data-field-id="{{ field.id }}" data-field-name="{{ field.name }}" data-field-handle="{{ field.handle }}" data-field-type="{{ field.type|lower }}"><a href="#{{ field.handle }}">{{ field.name }}</a></li>
 									{% endfor %}
@@ -95,7 +94,7 @@
 
 				{% for field in cs.fields %}
 
-				<div class="field_group" data-group-id="{{ field.groupId }}" data-group="{{ field.group }}" data-group-handle="{{ field.group|lower|replace(' ', '') }}" data-field-id="{{ field.id }}" data-field-name="{{ field.name }}" data-field-handle="{{ field.handle|lower }}" data-field-type="{{ field.type|lower }}">
+				<div class="field_block" data-group-id="{{ field.groupId }}" data-group="{{ field.group }}" data-group-handle="{{ field.group|lower|replace(' ', '') }}" data-field-id="{{ field.id }}" data-field-name="{{ field.name }}" data-field-handle="{{ field.handle|lower }}" data-field-type="{{ field.type|lower }}">
 
 					<header>
 						<h1 id="{{ field.handle }}">
@@ -104,7 +103,9 @@
 						</h1>
 
 						<ul class="field_settings">
+						{% if field.type in cs.nativeFields %}
 							<li><a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag Documentation</a></li>
+						{% endif %}
 							<li><a href="{{ cpUrl('/settings/fields/edit/' ~ field.id) }}">View In Control Panel</a></li>
 						</ul>
 					</header>
@@ -134,10 +135,10 @@
 		</div>
 	</section>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://focus.rocks/prism.js"></script>
 <script type="text/javascript">
-{%- verbatim -%}
 	//= include includes/scripts.inc.js
-{%- endverbatim -%}
 </script>
 
 {# ---------------------------------------------

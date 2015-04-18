@@ -212,6 +212,11 @@ nav.element_type {
 						border-radius: 3em;
 						-webkit-transition: padding .3s ease, background .3s ease, color .3s ease;
 						transition: padding .3s ease, background .3s ease, color .3s ease;
+
+						&.activeContext {
+							background: rgba(black, .1);
+							padding: .5em 1em;
+						}
 					}
 
 					&.custom_input {
@@ -474,7 +479,7 @@ aside {
 
 }
 
-.field_group {
+.field_block {
 	padding-left: 11.0067114%;
 	margin-bottom: 4.5em;
 
@@ -558,7 +563,7 @@ aside {
 	}
 
 	.code {
-		position: relative;		
+		position: relative;
 
 		.copy {
 			position: absolute;
@@ -619,7 +624,7 @@ aside {
 		border-radius: .25em;
 		background: #f6f6f6;
 		padding: 1em;
-		margin: 0;	
+		margin: 0;
 	}
 
 	code {
