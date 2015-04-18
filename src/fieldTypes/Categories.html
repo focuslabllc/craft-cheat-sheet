@@ -28,7 +28,7 @@
 	{{ csMacro.codeBlock('Rename for easier access', '
 		{% set categories = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br>'
+		~ ' %}\n'
 		~ '{% if categories|length %}\n'
 		~ whitespace ~ '<h3>My Categories<h3/>\n'
 		~ whitespace
@@ -53,4 +53,4 @@
 		~ '{% if myCategory %}\n'
 		~ whitespace ~ '...\n'
 		~ '{% endif %}'
-	, '(particularly if it\'s the only category you expect)')}}
+	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}

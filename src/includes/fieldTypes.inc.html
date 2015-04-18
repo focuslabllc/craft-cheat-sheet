@@ -119,8 +119,6 @@
 		~ '{{ myAsset.setTransform( transform ) }}\n{% endif %}'
 	)}}
 
-	<hr/>
-
 
 {% case 'Categories' %}
 
@@ -136,7 +134,7 @@
 	{{ csMacro.codeBlock('Rename for easier access', '
 		{% set categories = '
 		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}<br>'
+		~ ' %}\n'
 		~ '{% if categories|length %}\n'
 		~ whitespace ~ '<h3>My Categories<h3/>\n'
 		~ whitespace
@@ -161,9 +159,7 @@
 		~ '{% if myCategory %}\n'
 		~ whitespace ~ '...\n'
 		~ '{% endif %}'
-	, '(particularly if it\'s the only category you expect)')}}
-
-	<hr/>
+	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}
 
 
 {% case 'Checkboxes' %}
@@ -217,8 +213,6 @@
 		~ '{% endif %}'
 	)}}
 
-	<hr/>
-
 
 {% case 'Color' %}
 
@@ -234,8 +228,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
 	)}}
-
-	<hr/>
 
 
 {% case 'Date' %}
@@ -260,8 +252,6 @@
 
 
 	<p class="info">There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
-
-	<hr/>
 
 
 {% case 'Dropdown' %}
@@ -291,8 +281,6 @@
 		~ whitespace
 		~ '{% endfor %}\n</ul>'
 	)}}
-
-	<hr/>
 
 
 {% case 'Entries' %}
@@ -351,8 +339,6 @@
 		~ '{% endif %}'
 	)}}
 
-	<hr/>
-
 
 {% case 'Lightswitch' %}
 
@@ -361,8 +347,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ ' %} ... {% endif %}'
 	)}}
-
-	<hr/>
 
 
 {% case 'MultiSelect' %}
@@ -402,8 +386,6 @@
 		~ '{% endif %}'
 	)}}
 
-	<hr/>
-
 
 {% case 'Number' %}
 
@@ -428,8 +410,6 @@
 		~ '\n\nThe total is {{ myResult }}'
 	)}}
 
-	<hr/>
-
 
 {% case 'PlainText' %}
 
@@ -445,8 +425,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
 	)}}
-
-	<hr/>
 
 
 {% case 'PositionSelect' %}
@@ -504,8 +482,6 @@
 		~ '{% endswitch %}'
 	)}}
 
-	<hr/>
-
 
 {% case 'RadioButtons' %}
 
@@ -535,8 +511,6 @@
 		~ '</ul>'
 	)}}
 
-	<hr/>
-
 
 {% case 'RichText' %}
 
@@ -552,8 +526,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
 	)}}
-
-	<hr/>
 
 
 {% case 'Tags' %}
@@ -598,8 +570,6 @@
 		~ '{% endif %}'
 	)}}
 
-	<hr/>
-
 
 {% case 'Users' %}
 
@@ -643,58 +613,3 @@
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
-
-	<hr/>
-
-
-{% case 'Matrix' %}
-
-	{{ csMacro.codeBlock('Total number of blocks', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length }}'
-	)}}
-
-
-	{{ csMacro.codeBlock('Loop through blocks', '
-		{% for block in '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}\n'
-		~ whitespace
-		~ '...\n{% endfor %}'
-	)}}
-
-
-	{{ csMacro.codeBlock('Filtering by block type', '
-		{% for block in '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.type(\'text\') %}'
-	)}}
-
-
-	{{ csMacro.codeBlock('Adjusting the limit', '
-		{% for block in '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.limit(5) %}'
-	)}}
-
-
-	{{ csMacro.codeBlock('All block types', '
-		{% for block in '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}\n'
-		~ whitespace
-		~ '...\n{% endfor %}'
-	)}}
-
-
-	{{ csMacro.codeBlock('<em>In progress...</em>', '
-		{% for blockType in field.getFieldType().getSettings().getBlockTypes() %}
-		<h5>Block: {{ blockType.name }} ({{ blockType.handle }})</h5>
-		<p><strong>Details:</strong></p>
-		<ul>
-		{% for matrixField in blockType.getFields() %}
-			<li>{{ matrixField.name }} ({{ matrixField.handle }})</li>
-		{% endfor %}
-		</ul>
-	{% endfor %}
