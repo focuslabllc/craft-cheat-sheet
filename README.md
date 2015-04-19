@@ -1,17 +1,21 @@
-# **Craft Field Cheat Sheet**
+**Note: currently testing this as a beta through 4/24/2015. Post [issues](https://github.com/focuslabllc/craft-field-cheat-sheet/issues) as you find them.**
+
+---
+
+# The Craft Field Cheat Sheet
 
 If you're like me, it's not uncommon to be working on a project and need to reference the documentation for code samples and syntax. Sure, text editors like Sublime Text and the like have the ability to add bundles that can auto-complete and insert code for you; but those often are out of context and you have to change around code before anything is ready and right.
 
-The **Craft Field Cheat Sheet** brings code samples into context to the site you're actually working on. The code you're shown actually uses **your** custom field names rather than sample field names. Each custom field shows you the type of field and some common code snippets that you can copy and paste for quick use within your templates.
+The Craft Field Cheat Sheet brings code samples into context to the site you're actually working on. The code you're shown actually uses **your** custom field names rather than sample field names. Each custom field shows you the type of field and some common code snippets that you can copy and paste for quick use within your templates.
 
 ![Sample Field with code blocks](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-1.png)
 
-When you add a new Field in the Control Panel, the **Craft Field Cheat Sheet** is ready to show you the new sample code right away. It's designed to be a template you setup alongside your other templates. We recommend you put it in a location such as `templates/cheatsheet.html` so you can easily access it in your browser while you work. You'd simply open `yourdomain.com/cheatsheet` and you're ready to rock.
+When you add a new Field in the Control Panel, The Craft Field Cheat Sheet is ready to show you the new sample code right away. It's designed to be a template you setup alongside your other templates. We recommend you put it in a location such as `templates/cheatsheet.html` so you can easily access it in your browser while you work. You would simply open `yourdomain.com/cheatsheet` and you're ready to rock.
 
 
 ## Visual Overview
 
-Here is a quick breakdown of what you can expect to see in the **Craft Field Cheat Sheet**.
+Here is a quick breakdown of what you can expect to see in The Craft Field Cheat Sheet.
 
 ![UI with numeric labels](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-2.png)
 
@@ -26,11 +30,7 @@ Here is a quick breakdown of what you can expect to see in the **Craft Field Che
 
 ## Setting it up
 
-Setting up the Cheat Sheet is very simple. Here's a [X second] video that walks you through the process.
-
->> [[ video embed or image that links to the video ]]
-
-Effectively, the steps are as follows:
+Setting up the Cheat Sheet is very simple. Effectively, the steps are as follows:
 
 1. Copy the contents of `downloads/cheatsheet.html` in this repository
 2. Create a template called `templates/cheatsheet.html` (or `.twig` if you prefer)
@@ -42,18 +42,18 @@ Effectively, the steps are as follows:
 
 ### Customizing the code samples
 
-The power of the Cheat Sheet comes in how little setup there is. Craft, by design, allows fields to be used in a number of contexts. You have Entries, Assets, Categories, Users, etc. All of these elements can use the same fields from within Craft. As a result the **Craft Field Cheat Sheet** allows you to toggle the element name you're using so your sample code is more context-aware. Regardless of the Element you're working with, the code samples will be ready to go.
+The power of the Cheat Sheet comes in how little setup there is. Craft, by design, allows fields to be used in a number of contexts. You have Entries, Assets, Categories, Users, etc. All of these elements can use the same fields from within Craft. As a result The Craft Field Cheat Sheet allows you to toggle the element name you're using so your sample code is more context-aware. Regardless of the Element you're working with, the code samples will be ready to go.
 
 Additionally, it's common to use Twig's `set` function to name an element; or use a unique name for an element in a `for` loop etc. That's why you can add your own Custom Element Names. Selecting your Custom Element name updates your code samples so you literally can copy / paste / and use without needing to change things around.
 
 ![Creating and using custom element names](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-3.gif)
 
-**Nerd info:** We're using your browsers `localStorage` to save your custom elements on a per-hostname basis so you shouldn't have to re-enter them too often.
+**Note:** We're using your browsers `localStorage` to save your custom elements on a per-hostname basis so you shouldn't have to re-enter them too often.
 
 
 ### Whitespace in code: Spaces or Tabs!??!?!?
 
-Let's face it. We all have preferences around how we indent our code. This was considered while we built out the **Craft Field Cheat Sheet**. You can easily customize the whitespace used in your code snippets so that when you paste them into your text editor you don't have to convert tabs to space or vise-versa.
+Let's face it. We all have preferences around how we indent our code. This was considered while we built out The Craft Field Cheat Sheet. You can easily customize the whitespace used in your code snippets so that when you paste them into your text editor you don't have to convert tabs to space or vise-versa.
 
 The default setting is to use a single tab for indentation. You can change this by updating the setting at the top of the `cheatsheet.html` file. Just look for this line:
 
@@ -69,7 +69,8 @@ You might prefer two spaces for indentation. Here's a screenshot of my Sublime T
 
 Does your site use any Field Types that didn't come with the original Craft install? (Or perhaps you've built one yourself.) No problem. These show up in the automated documentation as well. The trick is that we need to be aware of those to include code samples. We'll work diligently to cover our bases on making these code sample avaiable.
 
-If you're a Plugin developer and would like your plugin sample code included, follow [these instructions](#) to create a pull request having yours added in. There's a particular format to follow so we'll happily help you along the way. We want the **Craft Field Cheat Sheet** to be as inclusive as possible across the community.
+If you're a Plugin developer and would like your plugin sample code included, create a pull request to have yours added in. There's a particular format to follow so we'll happily help you along the way. We want The Craft Field Cheat Sheet to be as inclusive as possible across the community.
+
 
 
 ## General Feedback

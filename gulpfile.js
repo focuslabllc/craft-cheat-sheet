@@ -39,7 +39,7 @@ gulp.task('js', function(){
 	.pipe(jshint())
 	.pipe(jshint.reporter('jshint-stylish'))
 	.pipe(concat('scripts.inc.js', { newLine: '\r\n\r\n' }))
-	// .pipe(jsmin())
+	.pipe(jsmin())
 	.pipe(gulp.dest('./src/includes'))
 	.on('end', function(){
 		gulp.start('includes');

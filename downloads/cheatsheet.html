@@ -1,48 +1,21 @@
 {# ---------------------------------------------
+
+   The Craft Field Cheat Sheet
+
+   Author:     Focus Lab, LLC
+   Version:    0.9.0 (beta)
+   Repo/Help:  https://github.com/focuslabllc/craft-field-cheat-sheet
+
+--------------------------------------------- #}
+
+
+
+{# ---------------------------------------------
    Only render this template in dev mode
 --------------------------------------------- #}
 {%- if not craft.config.devMode %}
 	{% exit 404 %}
 {% endif -%}
-
-{# ---------------------------------------------
-
-Inspired by http://straightupcraft.com/search/results?q=cheat+sheet
-
-Available methods within craft.fields:
-
- - getAllGroups($indexBy = null)
- - getGroupById($groupId)
- - getFieldById($fieldId)
- - getFieldByHandle($handle)
- - getAllFields($indexBy = null)
- - getFieldsByGroupId($groupId, $indexBy = null)
- - getLayoutById($layoutId)
- - getLayoutByType($type)
- - getAllFieldTypes()
- - getFieldType($class)
- - populateFieldType(FieldModel $field, $element = null)
-
-Available values:
-
-	required; bool; example: false
-	translatable; string; example: 0 ('0' is what I've seen so far)
-	id; string (the field ID); example: 1
-	groupId; string; example: 1
-	name; string; example: Body
-	handle; string; example: body
-	context; string; example: global (What is this?)
-	instructions; string; example: "These are the field instructions."
-	type; string; example: RichText (these are the fieldtype names)
-	settings; array ; example: Array
-	    (
-	        [configFile] => Standard.json
-	        [cleanupHtml] => 1
-	        [purifyHtml] =>
-	        [columnType] => text
-	    )
-
---------------------------------------------- #}
 
 
 
@@ -61,7 +34,7 @@ Available values:
 --------------------------------------------- #}
 {%- set cs = {
 	pageTitle: 'The Craft Field Cheat Sheet',
-	version:   '0.1.0',
+	version:   '0.9.0',
 	groups:    craft.fields.getAllGroups(),
 	fields:    craft.fields.getAllFields(),
 	currentContext: craft.request.getParam('context')|default('entry'),
@@ -95,6 +68,7 @@ Available values:
 	],
 	remoteAssetRoot: 'http://shared.focus.build/craft-cheat-sheet/'
 } -%}
+{%- set sampleTag  = cs.tagContexts[cs.currentContext].tag -%}
 
 
 
@@ -115,7 +89,7 @@ Available values:
 		</div>
 	</div>
 {% endmacro %}
-{% import _self as csMacro %}
+{% import _self as csMacro -%}
 
 
 <!DOCTYPE html>
@@ -869,274 +843,19 @@ Available values:
 	</section>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="{{ cs.remoteAssetRoot }}prism.js"></script>
+<script src="{{ cs.remoteAssetRoot }}prism.min.js"></script>
 <script type="text/javascript">
-	/*{# ---------------------------------------------
-	   Remember that twig tags within the JS below
-	   will be parsed by twig before the DOM reads
-	   and runs the JS. Keep an eye out for:
 	
-	   {{ }} sets
-	   {% %} sets
-	--------------------------------------------- #}*/
-	
-	
-	// I couldn't create something called a Cheat Sheet without
-	// an object named Game Genie, could I?
-	GameGenie = {
-	
-		currentContext: '{{ sampleTag }}', // this one gets parsed by Twig later
-		newContext:     null,
-	
-		whichFilter:    '',
-		codeBlockCount: $('.field_block').length,
-		fieldNavCount:  $('li.field').length,
-		storagePrefix:  'Cheat-Sheet.' + window.location.hostname + '.',
-		customElements: [],
-	
-	
-		pageSetup: function() {
-	
-			// when a person hits "s", "f", or "/" the field search
-			// input is brought to :focus and there's a visual queue (css animation)
-			document.addEventListener('keyup', GameGenie.jumpToFilter, false);
-	
-	
-			// On read/load, focus on the filter input so a person
-			// can just start typing to find something specfic
-			$('<input type="text" value="" id="field_filter" placeholder="Find a field...">')
-				.hide()
-				.css('opacity', 0)
-				.insertBefore('#groups_list')
-				.slideDown(100, function(){
-					$(this).animate({ 'opacity': 1 }, 300)
-					.focus();
-				})
-				.on('blur', function(){
-					$(this).removeClass('lookAtMeInput');
-				})
-			;
-	
-	
-			// If we have custom elements in local store we'll add them to
-			// the DOM with the appropriate method
-			GameGenie.customElements = ggCE = JSON.parse(
-				localStorage.getItem(GameGenie.storagePrefix + 'customElements')
-			);
-			if (ggCE && ggCE.length > 0) {
-				for (var i = ggCE.length - 1; i >= 0; i--) {
-					GameGenie.addCustomElement(ggCE[i]);
-				}
-			}
-		},
-	
-	
-		jumpToFilter: function(e) {
-			// if filter box isn't focused, bring it to focus
-			if (
-				  (e.keyCode === 70 || e.keyCode === 191 || e.keyCode === 83)
-				  &&
-				  ! $(document.activeElement).is('input'))
-			{
-				$('#field_filter').focus().addClass('lookAtMeInput');
-			}
-		},
-	
-	
-		checkForNoCode: function() {
-			if ($('.field_block').filter(':visible').length === 0) {
-				$('#no_results').removeClass('hidden');
-			} else {
-				$('#no_results').addClass('hidden');
-			}
-		},
-	
-	
-		checkForNoNav: function() {
-			$('.group_list').each(function() {
-				var visibleCount = $(this).find('li').filter(':visible').length;
-				groupInput = $(this).parents('.nav_group').find('input');
-				if (visibleCount === 0 || visibleCount === undefined) {
-					groupInput.prop('checked', false);
-				} else {
-					groupInput.prop('checked', true);
-				}
-			});
-		},
-	
-	
-		addCustomElement: function(elementName) {
-			$('#custom_element_list').append('<li class="custom_element"><a href="#" class="context" data-element-name="'+elementName+'" data-tag="'+elementName+'">'+elementName+'<span class="remove_custom">&times;</span></a></li>');
-			this.addElementToStorage(elementName);
-		},
-	
-	
-		removeCustomElement: function(obj) {
-			var parent = obj.parents('.custom_element');
-			parent.animate({width: 0}, 'fast', function(){ $(this).remove(); });
-			this.removeElementFromStorage(parent.find('a').attr('data-element-name'));
-		},
-	
-	
-		setLocalStorage: function(key, value) {
-			key = this.storagePrefix + key;
-			value = (typeof value === 'object') ? JSON.stringify(value) : value ;
-			localStorage.setItem(key, value);
-		},
-	
-	
-		addElementToStorage: function(elementName) {
-			var index = GameGenie.customElements.indexOf(elementName);
-			if (index > -1) { return; }
-			GameGenie.customElements.push(elementName);
-			GameGenie.setLocalStorage('customElements', GameGenie.customElements);
-		},
-	
-	
-		removeElementFromStorage: function(elementName) {
-			var index = GameGenie.customElements.indexOf(elementName);
-			if (index > -1) {
-				GameGenie.customElements.splice(index, 1);
-				GameGenie.setLocalStorage('customElements', GameGenie.customElements);
-			}
-		},
-	
-	
-		supaFilter: function(filterType, find) {
-	
-			// There's a "no results" block that has a span element
-			// containing the "search phrase" so we'll keep that updated
-			if (find !== '') {
-				$('#search_replacement').text(find);
-			} else {
-				$('#search_replacement').text('that');
-			}
-	
-			switch(filterType) {
-				case 'field':
-					this.whichFilter = 'field-handle';
-					break;
-	
-				case 'group':
-					this.whichFilter = 'group';
-					break;
-	
-				default:
-					this.whichFilter = 'field-name';
-			}
-	
-	
-			// Filter content area
-			$('.field_block').not('#no_results').each(function() {
-				var name = $(this).attr('data-' + GameGenie.whichFilter).toLowerCase();
-				if (name.indexOf(find) === -1) {
-					$(this).fadeOut('fast', GameGenie.checkForNoCode);
-				} else if ($(this).is('visible') === false) {
-					$(this).fadeIn('fast', GameGenie.checkForNoCode);
-				}
-			});
-	
-	
-			// Show/hide nav sections
-			$('#groups_list li.field').each(function(){
-				var name = $(this).attr('data-' + GameGenie.whichFilter).toLowerCase();
-				if (name.indexOf(find) === -1) {
-					$(this).hide('fast', GameGenie.checkForNoNav);
-				} else if ($(this).is('visible') === false) {
-					$(this).show('fast', GameGenie.checkForNoNav);
-				}
-			});
-	
-		},
-	
-	};
-	
-	
-	
-	$(function(){
-	
-		var type, find, search;
-	
-		// Give jQuery a minute to run some stuff, then run our page setup
-		window.setTimeout(GameGenie.pageSetup, 500);
-	
-	
-		// Our awesomesauce filter trigger
-		// using .on() with 'body' because the #field_filter
-		// element is dynaically added to the DOM by javascript
-		$('body').on('keyup', '#field_filter', function(){
-	
-			var search = $(this).prop('value').toLowerCase().replace(/\s/g, '').split(':');
-	
-			if (search.length === 1){
-				type = 'field';
-				find = search[0];
-			} else {
-				type = search[0];
-				find = search[1];
-			}
-	
-			GameGenie.supaFilter(type, find);
-	
-		});
-	
-	
-		// Since Andy got soooo clever and used Radio buttons for the nav
-		// element switching we need some clever js to assign literal
-		// checked values. For some reason radio elements don't update
-		// the .prop('checked') value in the DOM so we can't set or check
-		// it dependably.
-		$('ul.types input[type=radio]').click(function(){
-			if ($(this).attr('checked') == 'checked') {
-				return;
-			} else {
-				$(this).parents('.types').find('input[checked="checked"]').attr('checked', null);
-				$(this).attr('checked', 'checked');
-			}
-		});
-	
-	
-		// New Custom Element Creation
-		$('#newCustomElement').submit(function(e){
-			e.preventDefault();
-			var inputField = $(this).find('input[type=text]');
-			var elementName = inputField.val().replace(/\s/g, '');
-			GameGenie.addCustomElement(elementName);
-			inputField.val('');
-		});
-	
-	
-		$('body').on('click', '.remove_custom', function(e){
-			e.preventDefault();
-			GameGenie.removeCustomElement($(this));
-		});
-	
-	
-		// Element switching
-		$('body').on('click', 'a.context', function(e){
-			e.preventDefault();
-			var gg = GameGenie;
-			var currentElem = $('a.activeContext');
-	
-			if ( ! $(this).attr('data-tag')) { return false; }
-	
-			gg.newContext = $(this).attr('data-tag');
-			if (gg.newContext === gg.currentContext) { return; }
-	
-			{% verbatim -%} // jshint ignore:line
-			$('section.main_body').html($('section.main_body').html().replace(
-				new RegExp('([{%].*?)(' + gg.currentContext + ')(.*?[%}])','g'),
-				'$1' + gg.newContext +'$3'
-			));
-			{% endverbatim -%} // jshint ignore:line
-	
-			$('a.context[data-tag="' + gg.currentContext + '"]').removeClass('activeContext');
-			$('a.context[data-tag="' + gg.newContext + '"]').addClass('activeContext');
-	
-			gg.currentContext = gg.newContext;
-		});
-	
-	});
+	GameGenie={currentContext:'{{ sampleTag }}',newContext:null,whichFilter:'',codeBlockCount:$('.field_block').length,fieldNavCount:$('li.field').length,storagePrefix:'Cheat-Sheet.'+window.location.hostname+'.',customElements:[],pageSetup:function(){document.addEventListener('keyup',GameGenie.jumpToFilter,false);$('<input type="text" value="" id="field_filter" placeholder="Find a field...">').hide().css('opacity',0).insertBefore('#groups_list').slideDown(100,function(){$(this).animate({'opacity':1},300).focus();}).on('blur',function(){$(this).removeClass('lookAtMeInput');});GameGenie.customElements=ggCE=JSON.parse(localStorage.getItem(GameGenie.storagePrefix+'customElements'));if(ggCE&&ggCE.length>0){for(var i=ggCE.length-1;i>=0;i--){GameGenie.addCustomElement(ggCE[i]);}}},jumpToFilter:function(e){if((e.keyCode===70||e.keyCode===191||e.keyCode===83)&&!$(document.activeElement).is('input'))
+	{$('#field_filter').focus().addClass('lookAtMeInput');}},checkForNoCode:function(){if($('.field_block').filter(':visible').length===0){$('#no_results').removeClass('hidden');}else{$('#no_results').addClass('hidden');}},checkForNoNav:function(){$('.group_list').each(function(){var visibleCount=$(this).find('li').filter(':visible').length;groupInput=$(this).parents('.nav_group').find('input');if(visibleCount===0||visibleCount===undefined){groupInput.prop('checked',false);}else{groupInput.prop('checked',true);}});},addCustomElement:function(elementName){$('#custom_element_list').append('<li class="custom_element"><a href="#" class="context" data-element-name="'+elementName+'" data-tag="'+elementName+'">'+elementName+'<span class="remove_custom">&times;</span></a></li>');this.addElementToStorage(elementName);},removeCustomElement:function(obj){var parent=obj.parents('.custom_element');parent.animate({width:0},'fast',function(){$(this).remove();});this.removeElementFromStorage(parent.find('a').attr('data-element-name'));},setLocalStorage:function(key,value){key=this.storagePrefix+key;value=(typeof value==='object')?JSON.stringify(value):value;localStorage.setItem(key,value);},addElementToStorage:function(elementName){var index=GameGenie.customElements.indexOf(elementName);if(index>-1){return;}
+	GameGenie.customElements.push(elementName);GameGenie.setLocalStorage('customElements',GameGenie.customElements);},removeElementFromStorage:function(elementName){var index=GameGenie.customElements.indexOf(elementName);if(index>-1){GameGenie.customElements.splice(index,1);GameGenie.setLocalStorage('customElements',GameGenie.customElements);}},supaFilter:function(filterType,find){if(find!==''){$('#search_replacement').text(find);}else{$('#search_replacement').text('that');}
+	switch(filterType){case'field':this.whichFilter='field-handle';break;case'group':this.whichFilter='group';break;default:this.whichFilter='field-name';}
+	$('.field_block').not('#no_results').each(function(){var name=$(this).attr('data-'+GameGenie.whichFilter).toLowerCase();if(name.indexOf(find)===-1){$(this).fadeOut('fast',GameGenie.checkForNoCode);}else if($(this).is('visible')===false){$(this).fadeIn('fast',GameGenie.checkForNoCode);}});$('#groups_list li.field').each(function(){var name=$(this).attr('data-'+GameGenie.whichFilter).toLowerCase();if(name.indexOf(find)===-1){$(this).hide('fast',GameGenie.checkForNoNav);}else if($(this).is('visible')===false){$(this).show('fast',GameGenie.checkForNoNav);}});},};$(function(){var type,find,search;window.setTimeout(GameGenie.pageSetup,500);$('body').on('keyup','#field_filter',function(){var search=$(this).prop('value').toLowerCase().replace(/\s/g,'').split(':');if(search.length===1){type='field';find=search[0];}else{type=search[0];find=search[1];}
+	GameGenie.supaFilter(type,find);});$('ul.types input[type=radio]').click(function(){if($(this).attr('checked')=='checked'){return;}else{$(this).parents('.types').find('input[checked="checked"]').attr('checked',null);$(this).attr('checked','checked');}});$('#newCustomElement').submit(function(e){e.preventDefault();var inputField=$(this).find('input[type=text]');var elementName=inputField.val().replace(/\s/g,'');GameGenie.addCustomElement(elementName);inputField.val('');});$('body').on('click','.remove_custom',function(e){e.preventDefault();GameGenie.removeCustomElement($(this));});$('body').on('click','a.context',function(e){e.preventDefault();var gg=GameGenie;var currentElem=$('a.activeContext');if(!$(this).attr('data-tag')){return false;}
+	gg.newContext=$(this).attr('data-tag');if(gg.newContext===gg.currentContext){return;}
+	{%verbatim-%}
+	$('section.main_body').html($('section.main_body').html().replace(new RegExp('([{%].*?)('+gg.currentContext+')(.*?[%}])','g'),'$1'+gg.newContext+'$3'));{%endverbatim-%}
+	$('a.context[data-tag="'+gg.currentContext+'"]').removeClass('activeContext');$('a.context[data-tag="'+gg.newContext+'"]').addClass('activeContext');gg.currentContext=gg.newContext;});});(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('set','metric1','{{ cs.version }}');ga('set','metric2','{{ cs.groups|length }}');ga('set','metric3','{{ cs.fields|length }}');ga('create','UA-3994429-34','auto');ga('send','pageview');
 
 </script>
 

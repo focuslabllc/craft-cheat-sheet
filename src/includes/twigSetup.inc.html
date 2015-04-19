@@ -1,48 +1,21 @@
 {# ---------------------------------------------
+
+   The Craft Field Cheat Sheet
+
+   Author:     Focus Lab, LLC
+   Version:    0.9.0 (beta)
+   Repo/Help:  https://github.com/focuslabllc/craft-field-cheat-sheet
+
+--------------------------------------------- #}
+
+
+
+{# ---------------------------------------------
    Only render this template in dev mode
 --------------------------------------------- #}
 {%- if not craft.config.devMode %}
 	{% exit 404 %}
 {% endif -%}
-
-{# ---------------------------------------------
-
-Inspired by http://straightupcraft.com/search/results?q=cheat+sheet
-
-Available methods within craft.fields:
-
- - getAllGroups($indexBy = null)
- - getGroupById($groupId)
- - getFieldById($fieldId)
- - getFieldByHandle($handle)
- - getAllFields($indexBy = null)
- - getFieldsByGroupId($groupId, $indexBy = null)
- - getLayoutById($layoutId)
- - getLayoutByType($type)
- - getAllFieldTypes()
- - getFieldType($class)
- - populateFieldType(FieldModel $field, $element = null)
-
-Available values:
-
-	required; bool; example: false
-	translatable; string; example: 0 ('0' is what I've seen so far)
-	id; string (the field ID); example: 1
-	groupId; string; example: 1
-	name; string; example: Body
-	handle; string; example: body
-	context; string; example: global (What is this?)
-	instructions; string; example: "These are the field instructions."
-	type; string; example: RichText (these are the fieldtype names)
-	settings; array ; example: Array
-	    (
-	        [configFile] => Standard.json
-	        [cleanupHtml] => 1
-	        [purifyHtml] =>
-	        [columnType] => text
-	    )
-
---------------------------------------------- #}
 
 
 
@@ -61,7 +34,7 @@ Available values:
 --------------------------------------------- #}
 {%- set cs = {
 	pageTitle: 'The Craft Field Cheat Sheet',
-	version:   '0.1.0',
+	version:   '0.9.0',
 	groups:    craft.fields.getAllGroups(),
 	fields:    craft.fields.getAllFields(),
 	currentContext: craft.request.getParam('context')|default('entry'),
@@ -95,6 +68,7 @@ Available values:
 	],
 	remoteAssetRoot: 'http://shared.focus.build/craft-cheat-sheet/'
 } -%}
+{%- set sampleTag  = cs.tagContexts[cs.currentContext].tag -%}
 
 
 
@@ -115,4 +89,4 @@ Available values:
 		</div>
 	</div>
 {% endmacro %}
-{% import _self as csMacro %}
+{% import _self as csMacro -%}
