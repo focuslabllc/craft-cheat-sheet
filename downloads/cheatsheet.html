@@ -1,17 +1,10 @@
-{% macro codeBlock(title, code, helpText) %}
-	<div class="code_block">
-		<h3>{{ title|md }}</h3>
-		{% if helpText %}
-		<div class="description">
-			<p>{{ helpText|md }}</p>
-		</div>
-		{% endif %}
-		<div class="code">
-			<pre><code class="language-twig">{{ code|trim }}</code></pre>
-		</div>
-	</div>
-{% endmacro %}
-{% import _self as csMacro %}
+{# ---------------------------------------------
+   Only render this template in dev mode
+--------------------------------------------- #}
+{%- if not craft.config.devMode %}
+	{% exit 404 %}
+{% endif -%}
+
 {# ---------------------------------------------
 
 Inspired by http://straightupcraft.com/search/results?q=cheat+sheet
@@ -50,14 +43,21 @@ Available values:
 	    )
 
 --------------------------------------------- #}
-{# Only render this template in dev mode #}
-{%- if not craft.config.devMode %}{% exit 404 %}{% endif -%}
 
 
 
 {# ---------------------------------------------
-	Settings that don't need changing
-	blah blah blah
+   Define your whitespace for when copying code
+   samples. The default is a tab character. You
+   can change this to a specific number of tabs
+   or spaces to suite your preference.
+--------------------------------------------- #}
+{%- set whitespace = '	' -%}
+
+
+
+{# ---------------------------------------------
+   Settings that don't need changing
 --------------------------------------------- #}
 {%- set cs = {
 	pageTitle: 'The Craft Field Cheat Sheet',
@@ -92,16 +92,30 @@ Available values:
 		'Table',
 		'Tags',
 		'Users'
-	]
+	],
+	remoteAssetRoot: 'http://shared.focus.build/craft-cheat-sheet/'
 } -%}
 
 
 
 {# ---------------------------------------------
-	blah blah blah
+   A little macro to extract code block
+   content from markup/form
 --------------------------------------------- #}
-{%- set whitespace = '	' -%}
-{%- set sampleTag  = cs.tagContexts[cs.currentContext].tag -%}
+{% macro codeBlock(title, code, helpText) %}
+	<div class="code_block">
+		<h3>{{ title|md }}</h3>
+		{% if helpText %}
+		<div class="description">
+			<p>{{ helpText|md }}</p>
+		</div>
+		{% endif %}
+		<div class="code">
+			<pre><code class="language-twig">{{ code|trim }}</code></pre>
+		</div>
+	</div>
+{% endmacro %}
+{% import _self as csMacro %}
 
 
 <!DOCTYPE html>
@@ -111,7 +125,7 @@ Available values:
 	<title>{{ cs.pageTitle }} &mdash; for {{ siteName }}</title>
 
 	<style type="text/css">
-		@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Merriweather:400,300|Inconsolata);*{box-sizing:border-box}html,body{margin:0;padding:0;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif}.clear{clear:both}.contain{max-width:62.5em;margin:0 auto}code[class*="language-"],pre[class*="language-"]{color:black;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]::-moz-selection,pre[class*="language-"] ::-moz-selection,code[class*="language-"]::-moz-selection,code[class*="language-"] ::-moz-selection{text-shadow:none;background:#fffedf}pre[class*="language-"]::selection,pre[class*="language-"] ::selection,code[class*="language-"]::selection,code[class*="language-"] ::selection{text-shadow:none;background:#fffedf}@media print{code[class*="language-"],pre[class*="language-"]{text-shadow:none}}pre[class*="language-"]{overflow:auto}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:#93a1a1}.token.punctuation,.token.attr-name{color:#657b83}.namespace{opacity:.7}.token.constant,.token.symbol,.token.deleted{color:#905}.token.number{color:#d33682}.token.boolean{color:#b58900}.token.tag,.token.property{color:#268bd2}.token.selector,.token.char,.token.builtin,.token.inserted{color:#690}.token.string,.token.attr-value{color:#2aa198}.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#a67f59;background:rgba(255,255,255,0.5)}.token.atrule{color:#07a}.token.keyword,.token.operator{color:#859900}.token.function{color:#DD4A68}.token.regex,.token.important,.token.variable{color:#e90}.token.important,.token.bold{font-weight:bold}.token.italic{font-style:italic}.token.entity{cursor:help}html{min-width:50em}header.main{position:relative;z-index:2;top:0;left:0;width:100%;-webkit-transform:translate3d(0, 0, 0)}header.main .header_bg{width:100%;padding:2em 1em 0;background:#ff3333}header.main .heading{float:left;margin-bottom:.5em}header.main h1{float:left;color:white;margin:0;font-family:'Merriweather',Palatino,Georgia,serif;font-weight:400;font-size:1em;text-transform:uppercase}header.main h1 span{display:none;position:relative;margin:0 1em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-weight:300;font-size:.45455em;top:-.35em}header.main .craft_logo{display:none;position:relative;float:left;width:2.75em;top:.25em}header.main .focus_logo{display:none;position:absolute;top:50%;right:1em;width:1.875em;margin-top:-.9375em}@media (min-width: 25.625em){header.main .header_bg{padding:2em 3.75em 0 1em}header.main h1{font-size:1.375em}header.main .focus_logo{display:block}}@media (min-width: 32em){header.main h1 span{display:inline-block}header.main .craft_logo{display:block}}@media (min-width: 72.5em){header.main .header_bg{padding:2em 1em 0}}nav.element_type{clear:both}nav.element_type ul.types{list-style-type:none;margin:0;padding:0}nav.element_type ul.types>li{float:left;margin-right:1.5em}nav.element_type ul.types>li:last-child{margin-right:0}nav.element_type ul.types>li label{position:relative;display:block;color:white;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-weight:300;font-size:.875em;text-decoration:none;padding-bottom:2.28571em;overflow:hidden;cursor:pointer;-webkit-transition:color .3s ease;transition:color .3s ease}nav.element_type ul.types>li label:hover{color:rgba(255,255,255,0.8)}nav.element_type ul.types>li label::after{content:"";position:absolute;bottom:0;left:50%;margin-left:-.5em;border:.5em solid transparent;border-top:none;border-bottom-color:rgba(0,0,0,0.1);-webkit-transform:translateY(100%);transform:translateY(100%);-webkit-transition:-webkit-transform .3s ease-in-out;transition:transform .3s ease-in-out}nav.element_type ul.types>li input[type="radio"]{position:absolute;left:-9999em}nav.element_type ul.types>li a{-webkit-transition:color .3s ease;transition:color .3s ease}nav.element_type ul.types>li a:hover{color:rgba(255,255,255,0.8)}nav.element_type ul.types>li .element_type_tab{position:absolute;z-index:-1;bottom:0;left:0;width:100%;padding:0 1em;background:#ff3333;-webkit-transition:-webkit-transform .3s ease-in-out;transition:transform .3s ease-in-out}nav.element_type ul.types>li .element_type_tab::before{content:"";position:absolute;z-index:-1;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.1)}nav.element_type ul.types>li input[type="radio"]:checked ~ label:after{-webkit-transform:translateY(0);transform:translateY(0)}nav.element_type ul.types>li input[type="radio"]:checked ~ .element_type_tab{-webkit-transform:translateY(100%);transform:translateY(100%)}nav.element_type ul.types>li ul{list-style-type:none;margin:0;padding:1em 0}nav.element_type ul.types>li ul li{display:inline-block;font-size:.875em;margin-right:1em}nav.element_type ul.types>li ul li a{float:left;text-decoration:none;color:white;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-weight:300;padding:.5em 0;border-radius:3em;-webkit-transition:padding .3s ease,background .3s ease,color .3s ease;transition:padding .3s ease,background .3s ease,color .3s ease}nav.element_type ul.types>li ul li a.activeContext{background:rgba(0,0,0,0.1);padding:.5em 1em}nav.element_type ul.types>li ul li.custom_input{display:block;margin-right:0}nav.element_type ul.types>li ul li.custom_input .input_contain{position:relative;margin-bottom:1em}nav.element_type ul.types>li ul li.custom_input .input_contain input[type="text"]{border:none;background:white;outline:none;display:block;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:1em;padding:.75em 3.75em .75em .75em;font-weight:300;width:100%;min-width:17em;margin:0;border-radius:.4em;-webkit-box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06);-moz-box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06);box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06)}nav.element_type ul.types>li ul li.custom_input .input_contain input[type="submit"]{position:absolute;top:0;right:0;cursor:pointer;color:white;background:#ff3333;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:1em;font-weight:400;padding:.75em 1.5em;border:none;outline:none;margin:0;border-radius:0 .4em .4em 0}nav.element_type ul.types>li ul li.custom_element{position:relative}nav.element_type ul.types>li ul li.custom_element .remove_custom{position:absolute;opacity:0;top:45%;right:1em;font-weight:400;color:white;-webkit-transform:translateY(-50%);transform:translateY(-50%);-webkit-transition:opacity .3s ease;transition:opacity .3s ease}nav.element_type ul.types>li ul li.custom_element a:hover{background:rgba(0,0,0,0.1);padding:.5em 2.25em .5em 1em}nav.element_type ul.types>li ul li.custom_element a:hover .remove_custom{opacity:1}@media (min-width: 37.5em){nav.element_type ul.types>li ul li.custom_input{float:left;margin-right:1.5em}nav.element_type ul.types>li ul li.custom_input .input_contain{margin-bottom:0}nav.element_type ul.types>li ul li.custom_element{margin-top:.25em;margin-bottom:.4em}}@media (min-width: 50em){nav.element_type{clear:none;float:right;}nav.element_type ul.types{float:right}nav.element_type ul.types>li label{padding-bottom:2.5em}nav.element_type ul.types>li .element_type_tab{overflow:hidden;padding:0 3.75em 0 1em}nav.element_type ul.types>li ul{float:right}nav.element_type ul.types>li ul li{margin-right:0;margin-left:2em}nav.element_type ul.types>li ul li.custom_input{float:right;margin-right:0}nav.element_type ul.types>li ul li.custom_element{float:right}}@media (min-width: 72.5em){nav.element_type ul.types>li .element_type_tab{padding:0 1em}}.content{padding:0 1em}.content .contain{position:relative}aside{position:absolute;top:0;left:0;width:15.9375em;max-width:80%}aside .fields_contain{border-right:1px solid #dfdfdf;padding:7em 32.15686% 3em 0;width:100%}aside h2{font-size:1.375em;font-weight:400;color:#d5d4d4;margin-top:0}aside input[type="text"]{width:100%;border:1px solid #dfdfdf;padding:1em;margin-bottom:1em;background:white;outline:none;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:.75em;font-weight:300;border-radius:.4em}aside ul{list-style-type:none;margin-bottom:0;padding:0;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif}aside ul.hidden{display:none}aside ul li{color:#4a4a4a;font-weight:400;margin-bottom:.5em}aside ul li.hidden{display:none}aside ul li input[type="checkbox"]{position:absolute;left:-9999em}aside ul li label{cursor:pointer;position:relative;display:block;font-weight:700;font-size:.875em}aside ul li label::after{content:"";position:absolute;top:.5em;right:.5em;border:.4em solid transparent;border-bottom:none;border-top-color:#4a4a4a;-webkit-transition:-webkit-transform .5s ease;transition:transform .5s ease}aside ul li a{color:#4a4a4a;font-size:.875em;text-decoration:none}aside ul li ul{margin-top:.5em;padding-left:1.5em;max-height:0;-webkit-transition:max-height .3s ease;transition:max-height .3s ease;overflow:hidden}aside ul li input[type="checkbox"]:checked ~ ul{max-height:30em}aside ul li input[type="checkbox"]:checked ~ label::after{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.main_body{padding:7em 0 3em 15.9375em}.main_body p.notice{font-size:.875em;border:1px solid #db5858;border-radius:.25em;background:#ffb2b2;padding:1em}.field_block,#no_results{padding-left:11.00671%;margin-bottom:4.5em;-webkit-transition:opacity .3s ease;transition:opacity .3s ease}.field_block.hidden,#no_results.hidden{display:none}.field_block header,#no_results header{overflow:hidden;margin-bottom:2em;padding-bottom:1em;border-bottom:1px solid #dfdfdf}.field_block header h1,#no_results header h1{font-size:2em;font-family:'Merriweather',Palatino,Georgia,serif;font-weight:400;color:#4a4a4a;margin:0}.field_block header h1 span,#no_results header h1 span{display:block;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:.375em;font-weight:700;text-transform:uppercase;color:#b5b5b5;letter-spacing:1}.field_block header h1 span span,#no_results header h1 span span{display:inline;font-size:1em;color:#000}.field_block header .field_settings,#no_results header .field_settings{list-style-type:none;margin:1em 0 0;padding:0}.field_block header .field_settings li,#no_results header .field_settings li{display:block;margin-bottom:.5em}.field_block header .field_settings li:last-child,#no_results header .field_settings li:last-child{margin-bottom:0}.field_block header .field_settings li a,#no_results header .field_settings li a{text-decoration:none;color:#fe4444;font-size:.8125em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif}.field_block .code_block,#no_results .code_block{margin-bottom:2.5em}.field_block .code_block h3,#no_results .code_block h3{color:#4a4a4a;text-transform:uppercase;font-size:.75em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;margin-bottom:1em;font-weight:700}.field_block .description,#no_results .description{position:relative;border:1px solid #dfdfdf;border-radius:.25em .25em 0 0;background:white;padding:1em;margin-bottom:-.25em}.field_block .description p,#no_results .description p{margin:0;font-size:.875em;line-height:1.5em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;color:#4a4a4a}.field_block .extra,#no_results .extra{border:1px solid #dad97a;border-radius:.25em;background:#fdfdc8;padding:1em}.field_block .extra a,.field_block .extra a:visited,#no_results .extra a,#no_results .extra a:visited{color:#fe4444}.field_block .extra>p,#no_results .extra>p{margin-top:0}.field_block .extra p,#no_results .extra p{font-size:.875em}.field_block .extra p:last-of-type,#no_results .extra p:last-of-type{margin-bottom:0}.field_block header+.extra,#no_results header+.extra{margin-bottom:2.5em}.field_block .code,#no_results .code{position:relative}.field_block .code .copy,#no_results .code .copy{position:absolute;top:50%;left:-2.25em;cursor:pointer;width:1.5em;opacity:.7;-webkit-transform:translateY(-50%);transform:translateY(-50%);-webkit-transition:opacity .3s ease;transition:opacity .3s ease}.field_block .code .copy .copy_label,#no_results .code .copy .copy_label{position:absolute;top:0;left:50%;background:#fffedf;border:1px solid #edeccb;color:#858585;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:.5em;text-transform:uppercase;padding:.25em .5em;border-radius:.4em;white-space:nowrap;opacity:0;-webkit-box-shadow:0 .5em .5em 0 rgba(0,0,0,0.06);-moz-box-shadow:0 .5em .5em 0 rgba(0,0,0,0.06);box-shadow:0 .5em .5em 0 rgba(0,0,0,0.06);-webkit-transform:translate(-50%, -2.5em);transform:translate(-50%, -2.5em);-webkit-transition:opacity .3s ease,-webkit-transform .3s ease;transition:opacity .3s ease,transform .3s ease}.field_block .code .copy:hover,#no_results .code .copy:hover{opacity:1}.field_block .code .copy:hover .copy_label,#no_results .code .copy:hover .copy_label{opacity:1;-webkit-transform:translate(-50%, -3.25em);transform:translate(-50%, -3.25em)}.field_block .code .copy svg,#no_results .code .copy svg{-webkit-transform:translate3d(0, 0, 0);-webkit-backface-visibility:hidden;-webkit-perspective:1000}.field_block pre,#no_results pre{border:1px solid #dfdfdf;border-radius:.25em;background:#f6f6f6;padding:1em;margin:0}.field_block code,#no_results code{padding:0;margin:0;font-family:'Inconsolata','Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace;line-height:1.5em}.field_block pre>code,#no_results pre>code{display:block;white-space:pre}@media (min-width: 43.75em){.field_block header .field_settings li,#no_results header .field_settings li{float:left;margin-right:1.5em}.field_block header .field_settings li:last-child,#no_results header .field_settings li:last-child{margin-right:0}}@media (min-width: 53em){.field_block header,#no_results header{position:relative}.field_block header .field_settings,#no_results header .field_settings{position:absolute;bottom:1em;right:0}.field_block header .field_settings li,#no_results header .field_settings li{margin-bottom:0}}#no_results p{text-align:center;background:url(http://shared.focus.build/craft-cheat-sheet/wishful_thinking.jpg) bottom center no-repeat;padding:0 50px 360px}#no_results p a{text-decoration:none;color:#fe4444}@-webkit-keyframes lookAtMeInputFade{0%{background-color:#fff}50%{background-color:#fffedf}100%{background-color:#fff}}@-moz-keyframes lookAtMeInputFade{0%{background-color:#fff}50%{background-color:#fffedf}100%{background-color:#fff}}@keyframes lookAtMeInputFade{0%{background-color:#fff}50%{background-color:#fffedf}100%{background-color:#fff}}.lookAtMeInput{-webkit-animation:lookAtMeInputFade .75s ease-in-out;-moz-animation:lookAtMeInputFade .75s ease-in-out;animation:lookAtMeInputFade .75s ease-in-out}@-webkit-keyframes lookAtMeCodeFade{0%{background-color:#f6f6f6}50%{background-color:#dbffdc}100%{background-color:#f6f6f6}}@-moz-keyframes lookAtMeCodeFade{0%{background-color:#f6f6f6}50%{background-color:#dbffdc}100%{background-color:#f6f6f6}}@keyframes lookAtMeCodeFade{0%{background-color:#f6f6f6}50%{background-color:#dbffdc}100%{background-color:#f6f6f6}}.lookAtMeCode{-webkit-animation:lookAtMeCodeFade 1s ease-in-out;-moz-animation:lookAtMeCodeFade 1s ease-in-out;animation:lookAtMeCodeFade 1s ease-in-out}
+		@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Merriweather:400,300|Inconsolata);*{box-sizing:border-box}html,body{margin:0;padding:0;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif}.clear{clear:both}.contain{max-width:62.5em;margin:0 auto}code[class*="language-"],pre[class*="language-"]{color:black;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]::-moz-selection,pre[class*="language-"] ::-moz-selection,code[class*="language-"]::-moz-selection,code[class*="language-"] ::-moz-selection{text-shadow:none;background:#fffedf}pre[class*="language-"]::selection,pre[class*="language-"] ::selection,code[class*="language-"]::selection,code[class*="language-"] ::selection{text-shadow:none;background:#fffedf}@media print{code[class*="language-"],pre[class*="language-"]{text-shadow:none}}pre[class*="language-"]{overflow:auto}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:#93a1a1}.token.punctuation,.token.attr-name{color:#657b83}.namespace{opacity:.7}.token.constant,.token.symbol,.token.deleted{color:#905}.token.number{color:#d33682}.token.boolean{color:#b58900}.token.tag,.token.property{color:#268bd2}.token.selector,.token.char,.token.builtin,.token.inserted{color:#690}.token.string,.token.attr-value{color:#2aa198}.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#a67f59;background:rgba(255,255,255,0.5)}.token.atrule{color:#07a}.token.keyword,.token.operator{color:#859900}.token.function{color:#DD4A68}.token.regex,.token.important,.token.variable{color:#e90}.token.important,.token.bold{font-weight:bold}.token.italic{font-style:italic}.token.entity{cursor:help}html{min-width:50em}header.main{position:relative;z-index:2;top:0;left:0;width:100%;-webkit-transform:translate3d(0, 0, 0)}header.main .header_bg{width:100%;padding:2em 1em 0;background:#ff3333}header.main .heading{float:left;margin-bottom:.5em}header.main h1{float:left;color:white;margin:0;font-family:'Merriweather',Palatino,Georgia,serif;font-weight:400;font-size:1em;text-transform:uppercase}header.main h1 span{display:none;position:relative;margin:0 1em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-weight:300;font-size:.45455em;top:-.35em}header.main .craft_logo{display:none;position:relative;float:left;width:2.75em;top:.25em}header.main .focus_logo{display:none;position:absolute;top:50%;right:1em;width:1.875em;margin-top:-.9375em}@media (min-width: 25.625em){header.main .header_bg{padding:2em 3.75em 0 1em}header.main h1{font-size:1.375em}header.main .focus_logo{display:block}}@media (min-width: 32em){header.main h1 span{display:inline-block}header.main .craft_logo{display:block}}@media (min-width: 72.5em){header.main .header_bg{padding:2em 1em 0}}nav.element_type{clear:both}nav.element_type ul.types{list-style-type:none;margin:0;padding:0}nav.element_type ul.types>li{float:left;margin-right:1.5em}nav.element_type ul.types>li:last-child{margin-right:0}nav.element_type ul.types>li label{position:relative;display:block;color:white;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-weight:300;font-size:.875em;text-decoration:none;padding-bottom:2.28571em;overflow:hidden;cursor:pointer;-webkit-transition:color .3s ease;transition:color .3s ease}nav.element_type ul.types>li label:hover{color:rgba(255,255,255,0.8)}nav.element_type ul.types>li label::after{content:"";position:absolute;bottom:0;left:50%;margin-left:-.5em;border:.5em solid transparent;border-top:none;border-bottom-color:rgba(0,0,0,0.1);-webkit-transform:translateY(100%);transform:translateY(100%);-webkit-transition:-webkit-transform .3s ease-in-out;transition:transform .3s ease-in-out}nav.element_type ul.types>li input[type="radio"]{position:absolute;left:-9999em}nav.element_type ul.types>li a{-webkit-transition:color .3s ease;transition:color .3s ease}nav.element_type ul.types>li a:hover{color:rgba(255,255,255,0.8)}nav.element_type ul.types>li .element_type_tab{position:absolute;z-index:-1;bottom:0;left:0;width:100%;padding:0 1em;background:#ff3333;-webkit-transition:-webkit-transform .3s ease-in-out;transition:transform .3s ease-in-out}nav.element_type ul.types>li .element_type_tab::before{content:"";position:absolute;z-index:-1;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.1)}nav.element_type ul.types>li input[type="radio"]:checked ~ label:after{-webkit-transform:translateY(0);transform:translateY(0)}nav.element_type ul.types>li input[type="radio"]:checked ~ .element_type_tab{-webkit-transform:translateY(100%);transform:translateY(100%)}nav.element_type ul.types>li ul{list-style-type:none;margin:0;padding:1em 0}nav.element_type ul.types>li ul li{display:inline-block;font-size:.875em;margin-right:1em}nav.element_type ul.types>li ul li a{float:left;text-decoration:none;color:white;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-weight:300;padding:.5em 0;border-radius:3em;-webkit-transition:padding .3s ease,background .3s ease,color .3s ease;transition:padding .3s ease,background .3s ease,color .3s ease}nav.element_type ul.types>li ul li a.activeContext{background:rgba(0,0,0,0.1);padding:.5em 1em}nav.element_type ul.types>li ul li.custom_input{display:block;margin-right:0}nav.element_type ul.types>li ul li.custom_input .input_contain{position:relative;margin-bottom:1em}nav.element_type ul.types>li ul li.custom_input .input_contain input[type="text"]{border:none;background:white;outline:none;display:block;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:1em;padding:.75em 3.75em .75em .75em;font-weight:300;width:100%;min-width:17em;margin:0;border-radius:.4em;-webkit-box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06);-moz-box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06);box-shadow:0 .14286em .35714em 0 rgba(0,0,0,0.06)}nav.element_type ul.types>li ul li.custom_input .input_contain input[type="submit"]{position:absolute;top:0;right:0;cursor:pointer;color:white;background:#ff3333;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:1em;font-weight:400;padding:.75em 1.5em;border:none;outline:none;margin:0;border-radius:0 .4em .4em 0}nav.element_type ul.types>li ul li.custom_element{position:relative}nav.element_type ul.types>li ul li.custom_element .remove_custom{position:absolute;opacity:0;top:45%;right:1em;font-weight:400;color:white;-webkit-transform:translateY(-50%);transform:translateY(-50%);-webkit-transition:opacity .3s ease;transition:opacity .3s ease}nav.element_type ul.types>li ul li.custom_element a:hover{background:rgba(0,0,0,0.1);padding:.5em 2.25em .5em 1em}nav.element_type ul.types>li ul li.custom_element a:hover .remove_custom{opacity:1}@media (min-width: 37.5em){nav.element_type ul.types>li ul li.custom_input{float:left;margin-right:1.5em}nav.element_type ul.types>li ul li.custom_input .input_contain{margin-bottom:0}nav.element_type ul.types>li ul li.custom_element{margin-top:.25em;margin-bottom:.4em}}@media (min-width: 50em){nav.element_type{clear:none;float:right;}nav.element_type ul.types{float:right}nav.element_type ul.types>li label{padding-bottom:2.5em}nav.element_type ul.types>li .element_type_tab{overflow:hidden;padding:0 3.75em 0 1em}nav.element_type ul.types>li ul{float:right}nav.element_type ul.types>li ul li{margin-right:0;margin-left:2em}nav.element_type ul.types>li ul li.custom_input{float:right;margin-right:0}nav.element_type ul.types>li ul li.custom_element{float:right}}@media (min-width: 72.5em){nav.element_type ul.types>li .element_type_tab{padding:0 1em}}.content{padding:0 1em}.content .contain{position:relative}aside{position:absolute;top:0;left:0;width:15.9375em;max-width:80%}aside .fields_contain{border-right:1px solid #dfdfdf;padding:7em 32.15686% 3em 0;width:100%}aside h2{font-size:1.375em;font-weight:400;color:#d5d4d4;margin-top:0}aside input[type="text"]{width:100%;border:1px solid #dfdfdf;padding:1em;margin-bottom:1em;background:white;outline:none;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:.75em;font-weight:300;border-radius:.4em}aside ul{list-style-type:none;margin-bottom:0;padding:0;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif}aside ul.hidden{display:none}aside ul li{color:#4a4a4a;font-weight:400;margin-bottom:.5em}aside ul li.hidden{display:none}aside ul li input[type="checkbox"]{position:absolute;left:-9999em}aside ul li label{cursor:pointer;position:relative;display:block;font-weight:700;font-size:.875em}aside ul li label::after{content:"";position:absolute;top:.5em;right:.5em;border:.4em solid transparent;border-bottom:none;border-top-color:#4a4a4a;-webkit-transition:-webkit-transform .5s ease;transition:transform .5s ease}aside ul li a{color:#4a4a4a;font-size:.875em;text-decoration:none}aside ul li ul{margin-top:.5em;padding-left:1.5em;max-height:0;-webkit-transition:max-height .3s ease;transition:max-height .3s ease;overflow:hidden}aside ul li input[type="checkbox"]:checked ~ ul{max-height:30em}aside ul li input[type="checkbox"]:checked ~ label::after{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.main_body{padding:7em 0 3em 15.9375em}.main_body p.notice{font-size:.875em;border:1px solid #db5858;border-radius:.25em;background:#ffb2b2;padding:1em}.field_block,#no_results{padding-left:11.00671%;margin-bottom:4.5em;-webkit-transition:opacity .3s ease;transition:opacity .3s ease}.field_block.hidden,#no_results.hidden{display:none}.field_block header,#no_results header{overflow:hidden;margin-bottom:2em;padding-bottom:1em;border-bottom:1px solid #dfdfdf}.field_block header h1,#no_results header h1{font-size:2em;font-family:'Merriweather',Palatino,Georgia,serif;font-weight:400;color:#4a4a4a;margin:0}.field_block header h1 span,#no_results header h1 span{display:block;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:.375em;font-weight:700;text-transform:uppercase;color:#b5b5b5;letter-spacing:1}.field_block header h1 span span,#no_results header h1 span span{display:inline;font-size:1em;color:#000}.field_block header .field_settings,#no_results header .field_settings{list-style-type:none;margin:1em 0 0;padding:0}.field_block header .field_settings li,#no_results header .field_settings li{display:block;margin-bottom:.5em}.field_block header .field_settings li:last-child,#no_results header .field_settings li:last-child{margin-bottom:0}.field_block header .field_settings li a,#no_results header .field_settings li a{text-decoration:none;color:#fe4444;font-size:.8125em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif}.field_block .code_block,#no_results .code_block{margin-bottom:2.5em}.field_block .code_block h3,#no_results .code_block h3{color:#4a4a4a;text-transform:uppercase;font-size:.75em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;margin-bottom:1em;font-weight:700}.field_block .description,#no_results .description{position:relative;border:1px solid #dfdfdf;border-radius:.25em .25em 0 0;background:white;padding:1em;margin-bottom:-.25em}.field_block .description p,#no_results .description p{margin:0;font-size:.875em;line-height:1.5em;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;color:#4a4a4a}.field_block .extra,#no_results .extra{border:1px solid #dad97a;border-radius:.25em;background:#fdfdc8;padding:1em}.field_block .extra a,.field_block .extra a:visited,#no_results .extra a,#no_results .extra a:visited{color:#fe4444}.field_block .extra>p,#no_results .extra>p{margin-top:0}.field_block .extra p,#no_results .extra p{font-size:.875em}.field_block .extra p:last-of-type,#no_results .extra p:last-of-type{margin-bottom:0}.field_block header+.extra,#no_results header+.extra{margin-bottom:2.5em}.field_block .code,#no_results .code{position:relative}.field_block .code .copy,#no_results .code .copy{position:absolute;top:50%;left:-2.25em;cursor:pointer;width:1.5em;opacity:.7;-webkit-transform:translateY(-50%);transform:translateY(-50%);-webkit-transition:opacity .3s ease;transition:opacity .3s ease}.field_block .code .copy .copy_label,#no_results .code .copy .copy_label{position:absolute;top:0;left:50%;background:#fffedf;border:1px solid #edeccb;color:#858585;font-family:'Open Sans','Gill Sans','Gill Sans MT',Verdana,sans-serif;font-size:.5em;text-transform:uppercase;padding:.25em .5em;border-radius:.4em;white-space:nowrap;opacity:0;-webkit-box-shadow:0 .5em .5em 0 rgba(0,0,0,0.06);-moz-box-shadow:0 .5em .5em 0 rgba(0,0,0,0.06);box-shadow:0 .5em .5em 0 rgba(0,0,0,0.06);-webkit-transform:translate(-50%, -2.5em);transform:translate(-50%, -2.5em);-webkit-transition:opacity .3s ease,-webkit-transform .3s ease;transition:opacity .3s ease,transform .3s ease}.field_block .code .copy:hover,#no_results .code .copy:hover{opacity:1}.field_block .code .copy:hover .copy_label,#no_results .code .copy:hover .copy_label{opacity:1;-webkit-transform:translate(-50%, -3.25em);transform:translate(-50%, -3.25em)}.field_block .code .copy svg,#no_results .code .copy svg{-webkit-transform:translate3d(0, 0, 0);-webkit-backface-visibility:hidden;-webkit-perspective:1000}.field_block pre,#no_results pre{border:1px solid #dfdfdf;border-radius:.25em;background:#f6f6f6;padding:1em;margin:0}.field_block code,#no_results code{padding:0;margin:0;font-family:'Inconsolata','Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace;line-height:1.5em}.field_block pre>code,#no_results pre>code{display:block;white-space:pre}@media (min-width: 43.75em){.field_block header .field_settings li,#no_results header .field_settings li{float:left;margin-right:1.5em}.field_block header .field_settings li:last-child,#no_results header .field_settings li:last-child{margin-right:0}}@media (min-width: 53em){.field_block header,#no_results header{position:relative}.field_block header .field_settings,#no_results header .field_settings{position:absolute;bottom:1em;right:0}.field_block header .field_settings li,#no_results header .field_settings li{margin-bottom:0}}#no_results p{text-align:center;background:url({{ cs.remoteAssetRoot }}wishful_thinking.jpg) bottom center no-repeat;padding:0 50px 360px}#no_results p a{text-decoration:none;color:#fe4444}@-webkit-keyframes lookAtMeInputFade{0%{background-color:#fff}50%{background-color:#fffedf}100%{background-color:#fff}}@-moz-keyframes lookAtMeInputFade{0%{background-color:#fff}50%{background-color:#fffedf}100%{background-color:#fff}}@keyframes lookAtMeInputFade{0%{background-color:#fff}50%{background-color:#fffedf}100%{background-color:#fff}}.lookAtMeInput{-webkit-animation:lookAtMeInputFade .75s ease-in-out;-moz-animation:lookAtMeInputFade .75s ease-in-out;animation:lookAtMeInputFade .75s ease-in-out}@-webkit-keyframes lookAtMeCodeFade{0%{background-color:#f6f6f6}50%{background-color:#dbffdc}100%{background-color:#f6f6f6}}@-moz-keyframes lookAtMeCodeFade{0%{background-color:#f6f6f6}50%{background-color:#dbffdc}100%{background-color:#f6f6f6}}@keyframes lookAtMeCodeFade{0%{background-color:#f6f6f6}50%{background-color:#dbffdc}100%{background-color:#f6f6f6}}.lookAtMeCode{-webkit-animation:lookAtMeCodeFade 1s ease-in-out;-moz-animation:lookAtMeCodeFade 1s ease-in-out;animation:lookAtMeCodeFade 1s ease-in-out}
 
 	</style>
 
@@ -225,15 +239,15 @@ Available values:
 
 					{% switch field.type %}
 						{% case 'Assets' %}
-
-
+						
+						
 							{{ csMacro.codeBlock('Total number of assets', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Common conditional', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -241,8 +255,8 @@ Available values:
 								~ whitespace
 								~ '...\n{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through assets', '
 								{% for myAsset in '
 								~ sampleTag ~ '.' ~ field.handle
@@ -250,8 +264,8 @@ Available values:
 								~ whitespace
 								~ '{{ myAsset.url }}\n{% endfor %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Only return the first asset', '
 								{% set myAsset = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -259,15 +273,15 @@ Available values:
 								~ whitespace
 								~ '{{ myAsset.url }}\n{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Adjusting the limit', '
 								{% for block in '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '.limit(5) %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('All asset variables', '
 								{% set myAsset = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -313,8 +327,8 @@ Available values:
 								~ whitespace
 								~ '{{ myAsset.width }}\n{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('All asset methods', '
 								{% set myAsset = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -344,9 +358,9 @@ Available values:
 								~ whitespace
 								~ '{{ myAsset.setTransform( transform ) }}\n{% endif %}'
 							)}}
-
+						
 						{% case 'Categories' %}
-
+						
 							{{ csMacro.codeBlock('Check if entry has categories', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -354,8 +368,8 @@ Available values:
 								~ whitespace ~ '...\n'
 								~ '{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Rename for easier access', '
 								{% set categories = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -368,15 +382,15 @@ Available values:
 								~ whitespace ~ '{% endnav %}\n'
 								~ '{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Pass parameters to the ElementCriteria Model', '
 								{% set myCategories = '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '.order(\'name\') %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Select just the first category', '
 								{% set myCategory = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -385,23 +399,23 @@ Available values:
 								~ whitespace ~ '...\n'
 								~ '{% endif %}'
 							, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}
-
+						
 						{% case 'Checkboxes' %}
-
+						
 							{{ csMacro.codeBlock('Field name', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Single checkbox conditional', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length %} ... {% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through the *selected* options', '
 								<ul>\n'
 								~ whitespace ~ '{% for option in '
@@ -413,8 +427,8 @@ Available values:
 								~ '{% endfor %}\n'
 								~ '</ul>'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through <em>all</em> of the options', '
 								<ul>\n'
 								~ whitespace ~ '{% for option in '
@@ -426,8 +440,8 @@ Available values:
 								~ '{% endfor %}\n'
 								~ '</ul>'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('See if a specific option is selected', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -436,24 +450,24 @@ Available values:
 								~ '...\n'
 								~ '{% endif %}'
 							)}}
-
+						
 						{% case 'Color' %}
-
+						
 							{{ csMacro.codeBlock('Field name', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('"If exists" conditional', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length %} ... {% endif %}'
 							)}}
-
+						
 						{% case 'Date' %}
-
+						
 							{{ csMacro.codeBlock('Sample date formatting', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -464,34 +478,34 @@ Available values:
 								~ ' | date(\'M j, Y\') }}\n'
 								~ '{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Get the Unix timestamp of the date', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '.getTimestamp() }}'
 							)}}
-
+						
 							<div class="extra">
 								<p>There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
 							</div>
-
+						
 						{% case 'Dropdown' %}
-
+						
 							{{ csMacro.codeBlock('Field name', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Field label', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '.label }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through the options', '
 								<ul>\n'
 								~ whitespace
@@ -503,16 +517,16 @@ Available values:
 								~ whitespace
 								~ '{% endfor %}\n</ul>'
 							)}}
-
+						
 						{% case 'Entries' %}
-
+						
 							{{ csMacro.codeBlock('Set your entries to a variable', '
 								{% set entries = '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Does your entries field have any entries?', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -521,8 +535,8 @@ Available values:
 								~ '...\n'
 								~ '{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('A simple loop for your entries', '
 								{% for myEntry in '
 								~ sampleTag ~ '.' ~ field.handle
@@ -531,8 +545,8 @@ Available values:
 								~ '...\n'
 								~ '{% endfor %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Set variable, check for entries, then loop through them', '
 								{% set entries = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -548,8 +562,8 @@ Available values:
 								~ '{% endfor %}\n'
 								~ '{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Just grab the first entry', '
 								{% set myEntry = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -559,17 +573,17 @@ Available values:
 								~ '...\n'
 								~ '{% endif %}'
 							)}}
-
+						
 						{% case 'Lightswitch' %}
-
+						
 							{{ csMacro.codeBlock('Boolean Conditional', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' %} ... {% endif %}'
 							)}}
-
+						
 						{% case 'MultiSelect' %}
-
+						
 							{{ csMacro.codeBlock('Loop through the <em>selected</em> options', '
 								<ul>\n'
 								~ whitespace ~ '{% for option in '
@@ -581,8 +595,8 @@ Available values:
 								~ '{% endfor %}\n'
 								~ '</ul>'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through <em>all</em> of the options', '
 								<ul>\n'
 								~ whitespace ~ '{% for option in '
@@ -594,8 +608,8 @@ Available values:
 								~ '{% endfor %}\n'
 								~ '</ul>'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('See if a specific option is selected', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -604,54 +618,54 @@ Available values:
 								~ '...\n'
 								~ '{% endif %}'
 							)}}
-
+						
 						{% case 'Number' %}
-
+						
 							{{ csMacro.codeBlock('Field name', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Comparison conditional</td>', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' > 0 %} ... {% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Operations', '
 								{% set myResult = 42 * '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' %}'
 								~ '\n\nThe total is {{ myResult }}'
 							)}}
-
+						
 						{% case 'PlainText' %}
-
-
+						
+						
 							{{ csMacro.codeBlock('Field name', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}'
 							)}}
-
+						
 							{{ csMacro.codeBlock('If exists" conditional', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length %} ... {% endif %}'
 							)}}
-
+						
 						{% case 'PositionSelect' %}
-
+						
 							{{ csMacro.codeBlock('Adding to a class name', '
 								<div class="block {{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}">'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Conditionals around position values', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -665,8 +679,8 @@ Available values:
 								~ '{# ... #}\n'
 								~ '{% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Switch statement for all values', '
 								{% switch '
 								~ sampleTag ~ '.' ~ field.handle
@@ -697,23 +711,23 @@ Available values:
 								~ '{# ... #}\n'
 								~ '{% endswitch %}'
 							)}}
-
+						
 						{% case 'RadioButtons' %}
-
+						
 							{{ csMacro.codeBlock('The Selected value\'s option', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('The Selected value\'s label', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '.label }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through all available options', '
 								<ul>\n'
 								~ whitespace ~ '{% for option in '
@@ -725,38 +739,38 @@ Available values:
 								~ '{% endfor %}\n'
 								~ '</ul>'
 							)}}
-
+						
 						{% case 'RichText' %}
-
+						
 							{{ csMacro.codeBlock('Field name', '
 								{{ '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' }}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('"If exists" conditional', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length %} ... {% endif %}'
 							)}}
-
+						
 						{% case 'Tags' %}
-
+						
 							{{ csMacro.codeBlock('Set a variable for future template use', '
 								{% set myTags = '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Check if any tags exist', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length %} ... {% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through the selected tags', '
 								{% for myTag in '
 								~ sampleTag ~ '.' ~ field.handle
@@ -765,15 +779,15 @@ Available values:
 								~ '...\n'
 								~ '{% endfor %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Order by parameters', '
 								{% set myTags = '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '.order(\'title\') %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Avoid a loop if your field limits to 1 user', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
@@ -782,23 +796,23 @@ Available values:
 								~ '...\n'
 								~ '{% endif %}'
 							)}}
-
+						
 						{% case 'Users' %}
-
+						
 							{{ csMacro.codeBlock('Set a variable for future template use', '
 								{% set myUsers = '
 								~ sampleTag ~ '.' ~ field.handle
 								~ ' %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Check if any users were selected', '
 								{% if '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length %} ... {% endif %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Loop through the selected users', '
 								{% for myUser in '
 								~ sampleTag ~ '.' ~ field.handle
@@ -807,15 +821,15 @@ Available values:
 								~ '...\n'
 								~ '{% endfor %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Filter by parameters', '
 								{% set authors = '
 								~ sampleTag ~ '.' ~ field.handle
 								~ '.group(\'groupName\') %}'
 							)}}
-
-
+						
+						
 							{{ csMacro.codeBlock('Avoid a loop if your field limits to 1 user', '
 								{% set myUser = '
 								~ sampleTag ~ '.' ~ field.handle
@@ -855,39 +869,39 @@ Available values:
 	</section>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="http://focus.rocks/prism.js"></script>
+<script src="{{ cs.remoteAssetRoot }}prism.js"></script>
 <script type="text/javascript">
 	/*{# ---------------------------------------------
 	   Remember that twig tags within the JS below
 	   will be parsed by twig before the DOM reads
 	   and runs the JS. Keep an eye out for:
-
+	
 	   {{ }} sets
 	   {% %} sets
 	--------------------------------------------- #}*/
-
-
+	
+	
 	// I couldn't create something called a Cheat Sheet without
 	// an object named Game Genie, could I?
 	GameGenie = {
-
+	
 		currentContext: '{{ sampleTag }}', // this one gets parsed by Twig later
 		newContext:     null,
-
+	
 		whichFilter:    '',
 		codeBlockCount: $('.field_block').length,
 		fieldNavCount:  $('li.field').length,
 		storagePrefix:  'Cheat-Sheet.' + window.location.hostname + '.',
 		customElements: [],
-
-
+	
+	
 		pageSetup: function() {
-
+	
 			// when a person hits "s", "f", or "/" the field search
 			// input is brought to :focus and there's a visual queue (css animation)
 			document.addEventListener('keyup', GameGenie.jumpToFilter, false);
-
-
+	
+	
 			// On read/load, focus on the filter input so a person
 			// can just start typing to find something specfic
 			$('<input type="text" value="" id="field_filter" placeholder="Find a field...">')
@@ -902,8 +916,8 @@ Available values:
 					$(this).removeClass('lookAtMeInput');
 				})
 			;
-
-
+	
+	
 			// If we have custom elements in local store we'll add them to
 			// the DOM with the appropriate method
 			GameGenie.customElements = ggCE = JSON.parse(
@@ -915,8 +929,8 @@ Available values:
 				}
 			}
 		},
-
-
+	
+	
 		jumpToFilter: function(e) {
 			// if filter box isn't focused, bring it to focus
 			if (
@@ -927,8 +941,8 @@ Available values:
 				$('#field_filter').focus().addClass('lookAtMeInput');
 			}
 		},
-
-
+	
+	
 		checkForNoCode: function() {
 			if ($('.field_block').filter(':visible').length === 0) {
 				$('#no_results').removeClass('hidden');
@@ -936,8 +950,8 @@ Available values:
 				$('#no_results').addClass('hidden');
 			}
 		},
-
-
+	
+	
 		checkForNoNav: function() {
 			$('.group_list').each(function() {
 				var visibleCount = $(this).find('li').filter(':visible').length;
@@ -949,36 +963,36 @@ Available values:
 				}
 			});
 		},
-
-
+	
+	
 		addCustomElement: function(elementName) {
 			$('#custom_element_list').append('<li class="custom_element"><a href="#" class="context" data-element-name="'+elementName+'" data-tag="'+elementName+'">'+elementName+'<span class="remove_custom">&times;</span></a></li>');
 			this.addElementToStorage(elementName);
 		},
-
-
+	
+	
 		removeCustomElement: function(obj) {
 			var parent = obj.parents('.custom_element');
 			parent.animate({width: 0}, 'fast', function(){ $(this).remove(); });
 			this.removeElementFromStorage(parent.find('a').attr('data-element-name'));
 		},
-
-
+	
+	
 		setLocalStorage: function(key, value) {
 			key = this.storagePrefix + key;
 			value = (typeof value === 'object') ? JSON.stringify(value) : value ;
 			localStorage.setItem(key, value);
 		},
-
-
+	
+	
 		addElementToStorage: function(elementName) {
 			var index = GameGenie.customElements.indexOf(elementName);
 			if (index > -1) { return; }
 			GameGenie.customElements.push(elementName);
 			GameGenie.setLocalStorage('customElements', GameGenie.customElements);
 		},
-
-
+	
+	
 		removeElementFromStorage: function(elementName) {
 			var index = GameGenie.customElements.indexOf(elementName);
 			if (index > -1) {
@@ -986,10 +1000,10 @@ Available values:
 				GameGenie.setLocalStorage('customElements', GameGenie.customElements);
 			}
 		},
-
-
+	
+	
 		supaFilter: function(filterType, find) {
-
+	
 			// There's a "no results" block that has a span element
 			// containing the "search phrase" so we'll keep that updated
 			if (find !== '') {
@@ -997,21 +1011,21 @@ Available values:
 			} else {
 				$('#search_replacement').text('that');
 			}
-
+	
 			switch(filterType) {
 				case 'field':
 					this.whichFilter = 'field-handle';
 					break;
-
+	
 				case 'group':
 					this.whichFilter = 'group';
 					break;
-
+	
 				default:
 					this.whichFilter = 'field-name';
 			}
-
-
+	
+	
 			// Filter content area
 			$('.field_block').not('#no_results').each(function() {
 				var name = $(this).attr('data-' + GameGenie.whichFilter).toLowerCase();
@@ -1021,8 +1035,8 @@ Available values:
 					$(this).fadeIn('fast', GameGenie.checkForNoCode);
 				}
 			});
-
-
+	
+	
 			// Show/hide nav sections
 			$('#groups_list li.field').each(function(){
 				var name = $(this).attr('data-' + GameGenie.whichFilter).toLowerCase();
@@ -1032,28 +1046,28 @@ Available values:
 					$(this).show('fast', GameGenie.checkForNoNav);
 				}
 			});
-
+	
 		},
-
+	
 	};
-
-
-
+	
+	
+	
 	$(function(){
-
+	
 		var type, find, search;
-
+	
 		// Give jQuery a minute to run some stuff, then run our page setup
 		window.setTimeout(GameGenie.pageSetup, 500);
-
-
+	
+	
 		// Our awesomesauce filter trigger
 		// using .on() with 'body' because the #field_filter
 		// element is dynaically added to the DOM by javascript
 		$('body').on('keyup', '#field_filter', function(){
-
+	
 			var search = $(this).prop('value').toLowerCase().replace(/\s/g, '').split(':');
-
+	
 			if (search.length === 1){
 				type = 'field';
 				find = search[0];
@@ -1061,12 +1075,12 @@ Available values:
 				type = search[0];
 				find = search[1];
 			}
-
+	
 			GameGenie.supaFilter(type, find);
-
+	
 		});
-
-
+	
+	
 		// Since Andy got soooo clever and used Radio buttons for the nav
 		// element switching we need some clever js to assign literal
 		// checked values. For some reason radio elements don't update
@@ -1080,8 +1094,8 @@ Available values:
 				$(this).attr('checked', 'checked');
 			}
 		});
-
-
+	
+	
 		// New Custom Element Creation
 		$('#newCustomElement').submit(function(e){
 			e.preventDefault();
@@ -1090,38 +1104,38 @@ Available values:
 			GameGenie.addCustomElement(elementName);
 			inputField.val('');
 		});
-
-
+	
+	
 		$('body').on('click', '.remove_custom', function(e){
 			e.preventDefault();
 			GameGenie.removeCustomElement($(this));
 		});
-
-
+	
+	
 		// Element switching
 		$('body').on('click', 'a.context', function(e){
 			e.preventDefault();
 			var gg = GameGenie;
 			var currentElem = $('a.activeContext');
-
+	
 			if ( ! $(this).attr('data-tag')) { return false; }
-
+	
 			gg.newContext = $(this).attr('data-tag');
 			if (gg.newContext === gg.currentContext) { return; }
-
+	
 			{% verbatim -%} // jshint ignore:line
 			$('section.main_body').html($('section.main_body').html().replace(
 				new RegExp('([{%].*?)(' + gg.currentContext + ')(.*?[%}])','g'),
 				'$1' + gg.newContext +'$3'
 			));
 			{% endverbatim -%} // jshint ignore:line
-
+	
 			$('a.context[data-tag="' + gg.currentContext + '"]').removeClass('activeContext');
 			$('a.context[data-tag="' + gg.newContext + '"]').addClass('activeContext');
-
+	
 			gg.currentContext = gg.newContext;
 		});
-
+	
 	});
 
 </script>

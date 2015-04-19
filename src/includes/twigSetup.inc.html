@@ -1,17 +1,10 @@
-{% macro codeBlock(title, code, helpText) %}
-	<div class="code_block">
-		<h3>{{ title|md }}</h3>
-		{% if helpText %}
-		<div class="description">
-			<p>{{ helpText|md }}</p>
-		</div>
-		{% endif %}
-		<div class="code">
-			<pre><code class="language-twig">{{ code|trim }}</code></pre>
-		</div>
-	</div>
-{% endmacro %}
-{% import _self as csMacro %}
+{# ---------------------------------------------
+   Only render this template in dev mode
+--------------------------------------------- #}
+{%- if not craft.config.devMode %}
+	{% exit 404 %}
+{% endif -%}
+
 {# ---------------------------------------------
 
 Inspired by http://straightupcraft.com/search/results?q=cheat+sheet
@@ -50,14 +43,21 @@ Available values:
 	    )
 
 --------------------------------------------- #}
-{# Only render this template in dev mode #}
-{%- if not craft.config.devMode %}{% exit 404 %}{% endif -%}
 
 
 
 {# ---------------------------------------------
-	Settings that don't need changing
-	blah blah blah
+   Define your whitespace for when copying code
+   samples. The default is a tab character. You
+   can change this to a specific number of tabs
+   or spaces to suite your preference.
+--------------------------------------------- #}
+{%- set whitespace = '	' -%}
+
+
+
+{# ---------------------------------------------
+   Settings that don't need changing
 --------------------------------------------- #}
 {%- set cs = {
 	pageTitle: 'The Craft Field Cheat Sheet',
@@ -92,13 +92,27 @@ Available values:
 		'Table',
 		'Tags',
 		'Users'
-	]
+	],
+	remoteAssetRoot: 'http://shared.focus.build/craft-cheat-sheet/'
 } -%}
 
 
 
 {# ---------------------------------------------
-	blah blah blah
+   A little macro to extract code block
+   content from markup/form
 --------------------------------------------- #}
-{%- set whitespace = '	' -%}
-{%- set sampleTag  = cs.tagContexts[cs.currentContext].tag -%}
+{% macro codeBlock(title, code, helpText) %}
+	<div class="code_block">
+		<h3>{{ title|md }}</h3>
+		{% if helpText %}
+		<div class="description">
+			<p>{{ helpText|md }}</p>
+		</div>
+		{% endif %}
+		<div class="code">
+			<pre><code class="language-twig">{{ code|trim }}</code></pre>
+		</div>
+	</div>
+{% endmacro %}
+{% import _self as csMacro %}
