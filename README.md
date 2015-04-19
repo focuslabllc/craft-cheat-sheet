@@ -32,7 +32,7 @@ Here is a quick breakdown of what you can expect to see in The Craft Field Cheat
 
 Setting up the Cheat Sheet is very simple. Effectively, the steps are as follows:
 
-1. Copy the contents of `downloads/cheatsheet.html` in this repository
+1. Copy the contents of `downloads/cheatsheet.html` in this repository ([click here for the code to copy](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/downloads/cheatsheet.html))
 2. Create a template called `templates/cheatsheet.html` (or `.twig` if you prefer)
 3. Paste in the contents and save the file
 4. Load the cheatsheet in your browser (`yourdomain.com/cheatsheet`)
