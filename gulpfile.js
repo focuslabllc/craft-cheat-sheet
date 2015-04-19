@@ -36,8 +36,8 @@ gulp.task('clean', function(){
 gulp.task('js', function(){
 	return gulp.src('./src/js/[!_]*.js')
 	.pipe(plumber())
-	// .pipe(jshint())
-	// .pipe(jshint.reporter('jshint-stylish'))
+	.pipe(jshint())
+	.pipe(jshint.reporter('jshint-stylish'))
 	.pipe(concat('scripts.inc.js', { newLine: '\r\n\r\n' }))
 	// .pipe(jsmin())
 	.pipe(gulp.dest('./src/includes'))
@@ -57,7 +57,7 @@ gulp.task('js', function(){
 gulp.task('fieldTypes', function(){
 	return gulp.src('./src/fieldTypes/[!_]*.html')
 	.pipe(plumber())
-	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n\r\n' }))
+	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n' }))
 	.pipe(replace(/\{#-?(.|\n)*?-?#\}\s+\{% case/g, '{% case'))
 	.pipe(gulp.dest('./src/includes'))
 	.on('end', function(){

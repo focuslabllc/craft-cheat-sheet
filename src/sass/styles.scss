@@ -479,9 +479,11 @@ aside {
 
 }
 
-.field_block {
+.field_block, #no_results {
 	padding-left: 11.0067114%;
 	margin-bottom: 4.5em;
+	-webkit-transition: opacity .3s ease;
+	transition: opacity .3s ease;
 
 	&.hidden { display: none; }
 
@@ -506,6 +508,12 @@ aside {
 				text-transform: uppercase;
 				color: #b5b5b5;
 				letter-spacing: 1;
+
+				span {
+					font-style: italic;
+					display: inline;
+					font-size: 1em;
+				}
 			}
 		}
 
@@ -664,6 +672,14 @@ aside {
 				}
 			}
 		}
+	}
+}
+
+#no_results {
+	p {
+		text-align: center;
+		background: url(http://shared.focus.build/craft-cheat-sheet/wishful_thinking.jpg) bottom center no-repeat;
+		padding-bottom: 360px;
 	}
 }
 

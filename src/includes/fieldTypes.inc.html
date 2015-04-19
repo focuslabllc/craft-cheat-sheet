@@ -119,7 +119,6 @@
 		~ '{{ myAsset.setTransform( transform ) }}\n{% endif %}'
 	)}}
 
-
 {% case 'Categories' %}
 
 	{{ csMacro.codeBlock('Check if entry has categories', '
@@ -160,7 +159,6 @@
 		~ whitespace ~ '...\n'
 		~ '{% endif %}'
 	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}
-
 
 {% case 'Checkboxes' %}
 
@@ -213,7 +211,6 @@
 		~ '{% endif %}'
 	)}}
 
-
 {% case 'Color' %}
 
 	{{ csMacro.codeBlock('Field name', '
@@ -228,7 +225,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
 	)}}
-
 
 {% case 'Date' %}
 
@@ -252,7 +248,6 @@
 
 
 	<p class="info">There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
-
 
 {% case 'Dropdown' %}
 
@@ -281,7 +276,6 @@
 		~ whitespace
 		~ '{% endfor %}\n</ul>'
 	)}}
-
 
 {% case 'Entries' %}
 
@@ -339,7 +333,6 @@
 		~ '{% endif %}'
 	)}}
 
-
 {% case 'Lightswitch' %}
 
 	{{ csMacro.codeBlock('Boolean Conditional', '
@@ -347,7 +340,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ ' %} ... {% endif %}'
 	)}}
-
 
 {% case 'MultiSelect' %}
 
@@ -386,7 +378,6 @@
 		~ '{% endif %}'
 	)}}
 
-
 {% case 'Number' %}
 
 	{{ csMacro.codeBlock('Field name', '
@@ -410,7 +401,6 @@
 		~ '\n\nThe total is {{ myResult }}'
 	)}}
 
-
 {% case 'PlainText' %}
 
 
@@ -425,7 +415,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
 	)}}
-
 
 {% case 'PositionSelect' %}
 
@@ -482,7 +471,6 @@
 		~ '{% endswitch %}'
 	)}}
 
-
 {% case 'RadioButtons' %}
 
 	{{ csMacro.codeBlock('The Selected value\'s option', '
@@ -511,7 +499,6 @@
 		~ '</ul>'
 	)}}
 
-
 {% case 'RichText' %}
 
 	{{ csMacro.codeBlock('Field name', '
@@ -526,7 +513,6 @@
 		~ sampleTag ~ '.' ~ field.handle
 		~ '|length %} ... {% endif %}'
 	)}}
-
 
 {% case 'Tags' %}
 
@@ -569,7 +555,6 @@
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
-
 
 {% case 'Users' %}
 

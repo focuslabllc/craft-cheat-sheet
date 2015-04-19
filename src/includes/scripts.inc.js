@@ -8,6 +8,8 @@
 --------------------------------------------- #}*/
 
 
+// I couldn't create something called a Cheat Sheet without
+// an object named Game Genie, could I?
 GameGenie = {
 
 	currentContext: '{{ sampleTag }}', // this one gets parsed by Twig later
@@ -33,14 +35,6 @@ GameGenie = {
 				.focus();
 			});
 
-		$('<div class="copy"><span class="copy_label">Click to Copy</span><svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="19" height="22" viewBox="0 0 19 22"><defs><style>.cls-2 { fill: #9f9f9f; }</style></defs><path d="M16.973 19s-.95 0-.95 0S16 18 16 18s1 0 1 0c.67 0 1-.325 1-1 0 0 0-15 0-15 0-.675-.33-1-1-1C17 1 5 1 5 1c-.67 0-1 .325-1 1 0 0 0 1 0 1s9.973 0 9.973 0C15.09 3 16 3.916 16 5.04c0 0 0 14.92 0 14.92 0 1.125-.91 2.04-2.027 2.04 0 0-11.946 0-11.946 0C.91 22 0 21.085 0 19.96c0 0 0-14.92 0-14.92C0 3.917.91 3 2.027 3 2.027 3 3 3 3 3s0-.96 0-.96C3 .917 3.91 0 5.027 0c0 0 11.946 0 11.946 0C18.09 0 19 .916 19 2.04c0 0 0 14.92 0 14.92 0 1.125-.91 2.04-2.027 2.04zM2 4c-.67 0-1 .325-1 1 0 0 0 15 0 15 0 .675.33 1 1 1 0 0 12 0 12 0 .67 0 1-.325 1-1 0 0 0-15 0-15 0-.675-.33-1-1-1C14 4 2 4 2 4zm8.454 11.01s-.573-.526-.573-.526 2.146-1.975 2.146-1.975-2.145-1.977-2.145-1.977.574-.528.574-.528 2.432 2.24 2.432 2.24c.16.145.16.38 0 .527 0 0-2.432 2.24-2.432 2.24zm-4.914 0s-2.433-2.238-2.433-2.238c-.158-.146-.158-.382 0-.527 0 0 2.433-2.24 2.433-2.24s.573.528.573.528-2.146 1.976-2.146 1.976 2.146 1.974 2.146 1.974-.573.527-.573.527z" id="path-1" class="cls-2" fill-rule="evenodd"/></svg></div>')
-			.hide()
-			.css('opacity', 0)
-			.prependTo('.code_block .code')
-			.fadeIn(100, function(){
-				$(this).animate({ 'opacity': 1}, 500);
-			});
-
 
 			// If we have custom elements in local store we'll add them to
 			// the DOM with the appropriate method
@@ -54,9 +48,9 @@ GameGenie = {
 
 	checkForNoCode: function() {
 		if ($('.field_block').filter(':visible').length === 0) {
-			// console.log('TODO: add in element showing there are no results based on the search');
+			$('#no_results').removeClass('hidden');
 		} else {
-			// console.log('TODO: add in logic to hide element when search returns results again');
+			$('#no_results').addClass('hidden');
 		}
 	},
 
@@ -113,6 +107,10 @@ GameGenie = {
 
 	supaFilter: function(filterType, find) {
 
+		// There's a "no results" block that has a span element
+		// containing the "search phrase" so we'll keep that updated
+		$('#search_replacement').text(find);
+
 		switch(filterType) {
 			case 'field':
 				this.whichFilter = 'field-handle';
@@ -128,12 +126,12 @@ GameGenie = {
 
 
 		// Filter content area
-		$('.field_block').each(function() {
+		$('.field_block').not('#no_results').each(function() {
 			var name = $(this).attr('data-' + GameGenie.whichFilter).toLowerCase();
 			if (name.indexOf(find) === -1) {
-				$(this).fadeOut('fast', GameGenie.checkForNoCode('.field_block'));
-			} else if ( ! $(this).is('visible')) {
-				$(this).fadeIn('fast', GameGenie.checkForNoCode('.field_block'));
+				$(this).fadeOut('fast', GameGenie.checkForNoCode);
+			} else if ($(this).is('visible') === false) {
+				$(this).fadeIn('fast', GameGenie.checkForNoCode);
 			}
 		});
 
