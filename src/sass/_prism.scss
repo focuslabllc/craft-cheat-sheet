@@ -27,11 +27,13 @@ pre[class*="language-"] {
 pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
 	text-shadow: none;
+	background: rgba(255, 178, 178, 0.46);
 }
 
 pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
 code[class*="language-"]::selection, code[class*="language-"] ::selection {
 	text-shadow: none;
+	background: rgba(255, 178, 178, 0.46);
 }
 
 @media print {
@@ -60,12 +62,12 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: #93a1a1;
+	color: #93a1a1;
 }
 
 .token.punctuation,
 .token.attr-name {
-    color: #657b83;
+	color: #657b83;
 }
 
 .namespace {
@@ -79,16 +81,16 @@ pre[class*="language-"] {
 }
 
 .token.number {
-    color: #d33682;
+	color: #d33682;
 }
 
 .token.boolean {
-    color: #b58900;
+	color: #b58900;
 }
 
 .token.tag,
 .token.property {
-    color: #268bd2;
+	color: #268bd2;
 }
 
 .token.selector,
@@ -100,7 +102,7 @@ pre[class*="language-"] {
 
 .token.string,
 .token.attr-value {
-    color: #2aa198;
+	color: #2aa198;
 }
 
 .token.entity,
