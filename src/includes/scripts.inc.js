@@ -24,15 +24,23 @@ GameGenie = {
 
 	pageSetup: function() {
 
+		// when a person hits "s", "f", or "/" the field search
+		// input is brought to :focus and there's a visual queue (css animation)
+		document.addEventListener('keyup', GameGenie.jumpToFilter, false);
+
+
 		// On read/load, focus on the filter input so a person
 		// can just start typing to find something specfic
-		$('<input type="text" value="" id="field-filter" placeholder="Find a field...">')
+		$('<input type="text" value="" id="field_filter" placeholder="Find a field...">')
 			.hide()
 			.css('opacity', 0)
 			.insertBefore('#groups_list')
 			.slideDown(100, function(){
-				$(this).animate({ 'opacity': 1}, 300)
+				$(this).animate({ 'opacity': 1 }, 300)
 				.focus();
+			})
+			.on('blur', function(){
+				$(this).removeClass('lookAtMeInput');
 			});
 
 
@@ -43,6 +51,14 @@ GameGenie = {
 					GameGenie.addCustomElement(GameGenie.customElements[i]);
 				}
 			}
+	},
+
+
+	jumpToFilter: function(e) {
+		// if filter box isn't focused, bring it to focus
+		if ((e.keyCode === 70 || e.keyCode === 191 || e.keyCode === 83) && $('#field_filter').not(':focus')) {
+			$('#field_filter').focus().addClass('lookAtMeInput');
+		}
 	},
 
 
@@ -109,7 +125,11 @@ GameGenie = {
 
 		// There's a "no results" block that has a span element
 		// containing the "search phrase" so we'll keep that updated
-		$('#search_replacement').text(find);
+		if (find !== '') {
+			$('#search_replacement').text(find);
+		} else {
+			$('#search_replacement').text('that');
+		}
 
 		switch(filterType) {
 			case 'field':
@@ -161,9 +181,9 @@ $(function(){
 
 
 	// Our awesomesauce filter trigger
-	// using .on() with 'body' because the #field-filter
+	// using .on() with 'body' because the #field_filter
 	// element is dynaically added to the DOM by javascript
-	$('body').on('keyup', '#field-filter', function(){
+	$('body').on('keyup', '#field_filter', function(){
 
 		var search = $(this).prop('value').toLowerCase().replace(/\s/g, '').split(':');
 

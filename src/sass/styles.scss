@@ -679,7 +679,33 @@ aside {
 	p {
 		text-align: center;
 		background: url(http://shared.focus.build/craft-cheat-sheet/wishful_thinking.jpg) bottom center no-repeat;
-		padding-bottom: 360px;
+		padding: 0 50px 360px;
+
+		a {
+			text-decoration: none;
+			color: #fe4444;
+		}
 	}
 }
 
+// Animation for dynamic input focus and code copying
+@-webkit-keyframes lookAtMeInputFade {
+	0%   { background-color: #fff; }
+	50%  { background-color: #fffedf; }
+	100% { background-color: #fff; }
+}
+@-moz-keyframes lookAtMeInputFade {
+	0%   { background-color: #fff; }
+	50%  { background-color: #fffedf; }
+	100% { background-color: #fff; }
+}
+@keyframes lookAtMeInputFade {
+	0%   { background-color: #fff; }
+	50%  { background-color: #fffedf; }
+	100% { background-color: #fff; }
+}
+.lookAtMeInput {
+	-webkit-animation: lookAtMeInputFade .75s ease-in-out;
+	   -moz-animation: lookAtMeInputFade .75s ease-in-out;
+	        animation: lookAtMeInputFade .75s ease-in-out;
+}
