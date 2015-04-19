@@ -1,9 +1,9 @@
 {% macro codeBlock(title, code, helpText) %}
 	<div class="code_block">
-		<h3>{{ title }}</h3>
+		<h3>{{ title|md }}</h3>
 		{% if helpText %}
 		<div class="description">
-			<p>{{ helpText }}</p>
+			<p>{{ helpText|md }}</p>
 		</div>
 		{% endif %}
 		<div class="code">

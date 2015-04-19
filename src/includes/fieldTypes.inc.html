@@ -176,7 +176,7 @@
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through the <em>selected</em> options', '
+	{{ csMacro.codeBlock('Loop through the *selected* options', '
 		<ul>\n'
 		~ whitespace ~ '{% for option in '
 		~ sampleTag ~ '.' ~ field.handle
@@ -246,8 +246,9 @@
 		~ '.getTimestamp() }}'
 	)}}
 
-
-	<p class="info">There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
+	<div class="extra">
+		<p>There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
+	</div>
 
 {% case 'Dropdown' %}
 

@@ -510,9 +510,9 @@ aside {
 				letter-spacing: 1;
 
 				span {
-					font-style: italic;
 					display: inline;
 					font-size: 1em;
+					color: #000;
 				}
 			}
 		}
@@ -569,6 +569,24 @@ aside {
 			color: #4a4a4a;
 		}
 	}
+
+	.extra {
+		border: 1px solid #dad97a;
+		border-radius: .25em;
+		background: #fdfdc8;
+		padding: 1em;
+
+		a, a:visited { color: #fe4444; }
+
+		&> p { margin-top: 0; }
+		p {
+			font-size: .875em;
+
+			&:last-of-type { margin-bottom: 0; }
+		}
+	}
+
+	header + .extra { margin-bottom: 2.5em; }
 
 	.code {
 		position: relative;
@@ -708,4 +726,24 @@ aside {
 	-webkit-animation: lookAtMeInputFade .75s ease-in-out;
 	   -moz-animation: lookAtMeInputFade .75s ease-in-out;
 	        animation: lookAtMeInputFade .75s ease-in-out;
+}
+@-webkit-keyframes lookAtMeCodeFade {
+	0%   { background-color: #f6f6f6; }
+	50%  { background-color: #dbffdc; }
+	100% { background-color: #f6f6f6; }
+}
+@-moz-keyframes lookAtMeCodeFade {
+	0%   { background-color: #f6f6f6; }
+	50%  { background-color: #dbffdc; }
+	100% { background-color: #f6f6f6; }
+}
+@keyframes lookAtMeCodeFade {
+	0%   { background-color: #f6f6f6; }
+	50%  { background-color: #dbffdc; }
+	100% { background-color: #f6f6f6; }
+}
+.lookAtMeCode {
+	-webkit-animation: lookAtMeCodeFade 1s ease-in-out;
+	   -moz-animation: lookAtMeCodeFade 1s ease-in-out;
+	        animation: lookAtMeCodeFade 1s ease-in-out;
 }
