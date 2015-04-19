@@ -101,28 +101,12 @@ gulp.task('includes', function(){
 
 
 
-/*
- This task is for creating a simple fieldType starter file
- based on the src/fieldTypes/_template.txt document.
- You run `gulp newField --name [FieldName]` to have the document
- created and the {% case '[FieldName]' %} tag updated and ready
- to rock. More for laziness really. Still fun though.
-*/
-gulp.task('newField', function(params){
-	if (args.name !== undefined)
-	{
-		gulp.src('./src/fieldTypes/_template.txt')
-		.pipe(plumber())
-		.pipe(replace(/YourFieldType/g, args.name))
-		.pipe(rename(args.name + '.html'))
-		.pipe(gulp.dest('./src/fieldTypes'))
-		.pipe(notify('New field (' + args.name + ') successfully created'))
-		.on('end', function(){
-			gulp.start('fieldTypes');
-		});
-	} else {
-		console.log('Error: No fieldname value was provided. Try running again with `gulp newField --name YOURNAME`');
-	}
+// Some files need to be placed on a remote server. Gather those.
+gulp.task('prod', function(){
+	gulp.src(['./src/js/vendor/*', './img/*'])
+	.pipe(plumber())
+	.pipe(gulp.dest('./remote_assets/'))
+	.pipe(notify('Production file prepped: <%= file.relative %>'));
 });
 
 
