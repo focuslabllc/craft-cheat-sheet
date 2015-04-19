@@ -4,7 +4,7 @@ If you're like me, it's not uncommon to be working on a project and need to refe
 
 The **Craft Field Cheat Sheet** brings code samples into context to the site you're actually working on. The code you're shown actually uses **your** custom field names rather than sample field names. Each custom field shows you the type of field and some common code snippets that you can copy and paste for quick use within your templates.
 
->> notescreenshot of a plain text code snippet
+![Sample Field with code blocks](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-1.png)
 
 When you add a new Field in the Control Panel, the **Craft Field Cheat Sheet** is ready to show you the new sample code right away. It's designed to be a template you setup alongside your other templates. We recommend you put it in a location such as `templates/cheatsheet.html` so you can easily access it in your browser while you work. You'd simply open `yourdomain.com/cheatsheet` and you're ready to rock.
 
@@ -12,7 +12,8 @@ When you add a new Field in the Control Panel, the **Craft Field Cheat Sheet** i
 ## Visual Overview
 
 Here is a quick breakdown of what you can expect to see in the **Craft Field Cheat Sheet**.
->> graphic showing elements on a page with corresponding numbers
+
+![UI with numeric labels](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-2.png)
 
 1. Element switching
 -  Menu grouped by groups
@@ -27,7 +28,7 @@ Here is a quick breakdown of what you can expect to see in the **Craft Field Che
 
 Setting up the Cheat Sheet is very simple. Here's a [X second] video that walks you through the process.
 
-[[ video embed or image that links to the video ]]
+>> [[ video embed or image that links to the video ]]
 
 Effectively, the steps are as follows:
 
@@ -45,7 +46,9 @@ The power of the Cheat Sheet comes in how little setup there is. Craft, by desig
 
 Additionally, it's common to use Twig's `set` function to name an element; or use a unique name for an element in a `for` loop etc. That's why you can add your own Custom Element Names. Selecting your Custom Element name updates your code samples so you literally can copy / paste / and use without needing to change things around.
 
->> image of custom element names
+![Creating and using custom element names](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-3.gif)
+
+**Nerd info:** We're using your browsers `localStorage` to save your custom elements on a per-hostname basis so you shouldn't have to re-enter them too often.
 
 
 ### Whitespace in code: Spaces or Tabs!??!?!?
@@ -58,7 +61,7 @@ The default setting is to use a single tab for indentation. You can change this 
 
 You might prefer two spaces for indentation. Here's a screenshot of my Sublime Text file representing different whitespace settings:
 
->> image
+![Whitespace variable](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-4.png)
 
 
 
