@@ -39,6 +39,7 @@ Setting up the Cheat Sheet is very simple. Effectively, the steps are as follows
 
 **That's it!**
 
+---
 
 ### Customizing the code samples
 
