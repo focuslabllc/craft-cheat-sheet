@@ -13,13 +13,13 @@
 GameGenie = {
 
 	currentContext: '{{ sampleTag }}', // this one gets parsed by Twig later
-	newContext: null,
+	newContext:     null,
 
 	whichFilter:    '',
 	codeBlockCount: $('.field_block').length,
 	fieldNavCount:  $('li.field').length,
 	storagePrefix:  'Cheat-Sheet.' + window.location.hostname + '.',
-	customElements: JSON.parse(localStorage.getItem(this.storagePrefix + 'customElements')) || [],
+	customElements: [],
 
 
 	pageSetup: function() {
@@ -41,22 +41,30 @@ GameGenie = {
 			})
 			.on('blur', function(){
 				$(this).removeClass('lookAtMeInput');
-			});
+			})
+		;
 
 
-			// If we have custom elements in local store we'll add them to
-			// the DOM with the appropriate method
-			if (GameGenie.customElements.length > 0) {
-				for (var i = GameGenie.customElements.length - 1; i >= 0; i--) {
-					GameGenie.addCustomElement(GameGenie.customElements[i]);
-				}
+		// If we have custom elements in local store we'll add them to
+		// the DOM with the appropriate method
+		GameGenie.customElements = ggCE = JSON.parse(
+			localStorage.getItem(GameGenie.storagePrefix + 'customElements')
+		);
+		if (ggCE && ggCE.length > 0) {
+			for (var i = ggCE.length - 1; i >= 0; i--) {
+				GameGenie.addCustomElement(ggCE[i]);
 			}
+		}
 	},
 
 
 	jumpToFilter: function(e) {
 		// if filter box isn't focused, bring it to focus
-		if ((e.keyCode === 70 || e.keyCode === 191 || e.keyCode === 83) && $('#field_filter').not(':focus')) {
+		if (
+			  (e.keyCode === 70 || e.keyCode === 191 || e.keyCode === 83)
+			  &&
+			  ! $(document.activeElement).is('input'))
+		{
 			$('#field_filter').focus().addClass('lookAtMeInput');
 		}
 	},
