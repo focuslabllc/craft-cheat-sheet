@@ -4,7 +4,7 @@
 <html>
 <head>
 
-	<title>{{ cs.pageTitle }} — for {{ siteName }}</title>
+	<title>{{ cs.pageTitle }} &mdash; for {{ siteName }}</title>
 
 	<style type="text/css">
 		//= include includes/styles.inc.css
@@ -104,7 +104,7 @@
 						</h1>
 
 						<ul class="field_settings">
-						{% if field.type in cs.nativeFields %}
+						{% if field.type in cs.nativeFieldTypes %}
 							<li><a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag Documentation</a></li>
 						{% endif %}
 							<li><a href="{{ cpUrl('/settings/fields/edit/' ~ field.id) }}">View In Control Panel</a></li>
