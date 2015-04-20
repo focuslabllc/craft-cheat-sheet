@@ -3,7 +3,7 @@
    The Craft Field Cheat Sheet
 
    Author:     Focus Lab, LLC
-   Version:    0.9.0 (beta)
+   Version:    0.9.1 (beta)
    Repo/Help:  https://github.com/focuslabllc/craft-field-cheat-sheet
 
 --------------------------------------------- #}
@@ -34,7 +34,7 @@
 --------------------------------------------- #}
 {%- set cs = {
 	pageTitle: 'The Craft Field Cheat Sheet',
-	version:   '0.9.0',
+	version:   '0.9.1',
 	groups:    craft.fields.getAllGroups(),
 	fields:    craft.fields.getAllFields(),
 	currentContext: craft.request.getParam('context')|default('entry'),
@@ -728,6 +728,52 @@
 								~ sampleTag ~ '.' ~ field.handle
 								~ '|length %} ... {% endif %}'
 							)}}
+						
+						{% case 'SmartMap_Address' %}
+						
+						
+							{{ csMacro.codeBlock('Individual address fields', '
+								{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.street1 }}\n'
+								~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.street2 }}\n'
+								~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.city }}\n'
+								~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.state }}\n'
+								~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.zip }}\n\n'
+								~ 'Latitude: {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.lat }}\n'
+								~ 'Longitude: {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.lng }}\n\n'
+								~ '{# Only available in proximity search results #}\n'
+								~ 'Found {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.distance | number_format(1) }} miles away.\n'
+							)}}
+						
+							{{ csMacro.codeBlock('Combined address output', '
+								{# On 3 lines #}\n'
+								~ '{{ '
+								~ sampleTag ~ '.' ~ field.handle ~ '.format'
+								~ ' }}\n\n'
+								~ '{# On 2 lines #}\n'
+								~ '{{ '
+								~ sampleTag ~ '.' ~ field.handle ~ '.format(true)'
+								~ ' }}\n\n'
+								~ '{# On 1 line #}\n'
+								~ '{{ '
+								~ sampleTag ~ '.' ~ field.handle ~ '.format(true, true)'
+								~ ' }}'
+							)}}
+						
+							{{ csMacro.codeBlock('"If address is not empty" conditional', '
+								{% if not '
+								~ sampleTag ~ '.' ~ field.handle
+								~ '.isEmpty %} ... {% endif %}'
+							)}}
+						
+							{{ csMacro.codeBlock('"If address has coordinates" conditional', '
+								{% if '
+								~ sampleTag ~ '.' ~ field.handle
+								~ '.hasCoords %} ... {% endif %}'
+							)}}
+						
+							<div class="extra">
+								<p>These code examples cover the basic ways to directly output address data. If you'd like to render a map (or do even more complex stuff with your address data), please visit the full documentation at <a href="https://craftpl.us/plugins/smart-map/" target="_blank">Craft Plus</a>.</p>
+							</div>
 						
 						{% case 'Tags' %}
 						
