@@ -49,7 +49,7 @@ Additionally, it's common to use Twig's `set` function to name an element; or us
 
 ![Creating and using custom element names](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-3.gif)
 
-**Note:** We're using your browsers `localStorage` to save your custom elements on a per-hostname basis so you shouldn't have to re-enter them too often.
+**Note:** We're using your browser's `localStorage` to save your custom elements on a per-hostname basis so you shouldn't have to re-enter them too often.
 
 
 ### Whitespace in code: Spaces or Tabs!??!?!?
