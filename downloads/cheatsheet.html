@@ -1,12 +1,12 @@
-{# ---------------------------------------------
+{#- --------------------------------------------
 
    The Craft Field Cheat Sheet
 
    Author:     Focus Lab, LLC
-   Version:    0.9.1 (beta)
+   Version:    0.9.2 (beta)
    Repo/Help:  https://github.com/focuslabllc/craft-field-cheat-sheet
 
---------------------------------------------- #}
+-------------------------------------------- -#}
 
 
 
@@ -34,7 +34,7 @@
 --------------------------------------------- #}
 {%- set cs = {
 	pageTitle: 'The Craft Field Cheat Sheet',
-	version:   '0.9.1',
+	version:   '0.9.2',
 	groups:    craft.fields.getAllGroups(),
 	fields:    craft.fields.getAllFields(),
 	currentContext: craft.request.getParam('context')|default('entry'),
@@ -76,7 +76,7 @@
    A little macro to extract code block
    content from markup/form
 --------------------------------------------- #}
-{% macro codeBlock(title, code, helpText) %}
+{%- macro codeBlock(title, code, helpText) %}
 	<div class="code_block">
 		<h3>{{ title|md }}</h3>
 		{% if helpText %}
@@ -88,8 +88,8 @@
 			<pre><code class="language-twig">{{ code|trim }}</code></pre>
 		</div>
 	</div>
-{% endmacro %}
-{% import _self as csMacro -%}
+{% endmacro -%}
+{%- import _self as csMacro -%}
 
 
 <!DOCTYPE html>
@@ -892,7 +892,8 @@
 <script src="{{ cs.remoteAssetRoot }}prism.min.js"></script>
 <script type="text/javascript">
 	
-	GameGenie={currentContext:'{{ sampleTag }}',newContext:null,whichFilter:'',codeBlockCount:$('.field_block').length,fieldNavCount:$('li.field').length,storagePrefix:'Cheat-Sheet.'+window.location.hostname+'.',customElements:[],pageSetup:function(){document.addEventListener('keyup',GameGenie.jumpToFilter,false);$('<input type="text" value="" id="field_filter" placeholder="Find a field...">').hide().css('opacity',0).insertBefore('#groups_list').slideDown(100,function(){$(this).animate({'opacity':1},300).focus();}).on('blur',function(){$(this).removeClass('lookAtMeInput');});GameGenie.customElements=ggCE=JSON.parse(localStorage.getItem(GameGenie.storagePrefix+'customElements'));if(ggCE&&ggCE.length>0){for(var i=ggCE.length-1;i>=0;i--){GameGenie.addCustomElement(ggCE[i]);}}},jumpToFilter:function(e){if((e.keyCode===70||e.keyCode===191||e.keyCode===83)&&!$(document.activeElement).is('input'))
+	GameGenie={currentContext:'{{ sampleTag }}',newContext:null,whichFilter:'',codeBlockCount:$('.field_block').length,fieldNavCount:$('li.field').length,storagePrefix:'Cheat-Sheet.'+window.location.hostname+'.',customElements:[],pageSetup:function(){document.addEventListener('keyup',GameGenie.jumpToFilter,false);$('<input type="text" value="" id="field_filter" placeholder="Find a field...">').hide().css('opacity',0).insertBefore('#groups_list').slideDown(100,function(){$(this).animate({'opacity':1},300).focus();}).on('blur',function(){$(this).removeClass('lookAtMeInput');});var storage=localStorage.getItem(GameGenie.storagePrefix+'customElements');if(storage){GameGenie.customElements=ggCE=JSON.parse(storage);}
+	if(storage&&ggCE.length>0){for(var i=ggCE.length-1;i>=0;i--){GameGenie.addCustomElement(ggCE[i]);}}},jumpToFilter:function(e){if((e.keyCode===70||e.keyCode===191||e.keyCode===83)&&!$(document.activeElement).is('input'))
 	{$('#field_filter').focus().addClass('lookAtMeInput');}},checkForNoCode:function(){if($('.field_block').filter(':visible').length===0){$('#no_results').removeClass('hidden');}else{$('#no_results').addClass('hidden');}},checkForNoNav:function(){$('.group_list').each(function(){var visibleCount=$(this).find('li').filter(':visible').length;groupInput=$(this).parents('.nav_group').find('input');if(visibleCount===0||visibleCount===undefined){groupInput.prop('checked',false);}else{groupInput.prop('checked',true);}});},addCustomElement:function(elementName){$('#custom_element_list').append('<li class="custom_element"><a href="#" class="context" data-element-name="'+elementName+'" data-tag="'+elementName+'">'+elementName+'<span class="remove_custom">&times;</span></a></li>');this.addElementToStorage(elementName);},removeCustomElement:function(obj){var parent=obj.parents('.custom_element');parent.animate({width:0},'fast',function(){$(this).remove();});this.removeElementFromStorage(parent.find('a').attr('data-element-name'));},setLocalStorage:function(key,value){key=this.storagePrefix+key;value=(typeof value==='object')?JSON.stringify(value):value;localStorage.setItem(key,value);},addElementToStorage:function(elementName){var index=GameGenie.customElements.indexOf(elementName);if(index>-1){return;}
 	GameGenie.customElements.push(elementName);GameGenie.setLocalStorage('customElements',GameGenie.customElements);},removeElementFromStorage:function(elementName){var index=GameGenie.customElements.indexOf(elementName);if(index>-1){GameGenie.customElements.splice(index,1);GameGenie.setLocalStorage('customElements',GameGenie.customElements);}},supaFilter:function(filterType,find){if(find!==''){$('#search_replacement').text(find);}else{$('#search_replacement').text('that');}
 	switch(filterType){case'field':this.whichFilter='field-handle';break;case'group':this.whichFilter='group';break;default:this.whichFilter='field-name';}
