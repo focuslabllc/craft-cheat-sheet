@@ -6,6 +6,10 @@
 
 If you're like me, it's not uncommon to be working on a project and need to reference the documentation for code samples and syntax. Sure, text editors like Sublime Text and the like have the ability to add bundles that can auto-complete and insert code for you; but those often are out of context and you have to change around code before anything is ready and right.
 
+Click the image below to learn more and see it in action.
+
+[![Watch a video about the Cheat Sheet](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/screen-frame.jpg)](https://vimeo.com/125499887)
+
 The Craft Field Cheat Sheet brings code samples into context to the site you're actually working on. The code you're shown actually uses **your** custom field names rather than sample field names. Each custom field shows you the type of field and some common code snippets that you can copy and paste for quick use within your templates.
 
 ![Sample Field with code blocks](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-1.png)

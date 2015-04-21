@@ -100,7 +100,7 @@
 					<header>
 						<h1 id="{{ field.handle }}">
 							{{ field.name }}
-							<span class="field_type">{{ field.type|replace('/(.)([A-Z])/', '$1 $2') }}</span>
+							<span class="field_type">{{ field.type|replace('_', ' ')|replace('/(.)([A-Z])/', '$1 $2')|title }}</span>
 						</h1>
 
 						<ul class="field_settings">

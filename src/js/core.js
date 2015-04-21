@@ -47,10 +47,11 @@ GameGenie = {
 
 		// If we have custom elements in local store we'll add them to
 		// the DOM with the appropriate method
-		GameGenie.customElements = ggCE = JSON.parse(
-			localStorage.getItem(GameGenie.storagePrefix + 'customElements')
-		);
-		if (ggCE && ggCE.length > 0) {
+		var storage = localStorage.getItem(GameGenie.storagePrefix + 'customElements');
+		if (storage) {
+			GameGenie.customElements = ggCE = JSON.parse(storage);
+		}
+		if (storage && ggCE.length > 0) {
 			for (var i = ggCE.length - 1; i >= 0; i--) {
 				GameGenie.addCustomElement(ggCE[i]);
 			}
