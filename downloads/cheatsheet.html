@@ -98,7 +98,7 @@
 		</div>
 		{% endif %}
 		<div class="code">
-			<pre><code class="language-twig">{{ code|trim }}</code></pre>
+			<pre><code class="language-twig">{{ code|trim|replace('&quot;', '"') }}</code></pre>
 		</div>
 	</div>
 {% endmacro -%}
@@ -565,6 +565,94 @@
 
 	{{ _self.codeBlock('Boolean Conditional', '
 		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Matrix(data) %}
+
+	{{ _self.codeBlock('Total number of blocks', '
+		{{ ' ~ data.sampleTag ~ '|length }}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through blocks', '
+		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+		~ data.whitespace ~ '...\n{'
+		~ '% endfor %}'
+	)}}
+
+
+	{{ _self.codeBlock('Filtering by block type', '
+		{% for block in ' ~ data.sampleTag ~ '.type(\'text\') %}'
+	)}}
+
+
+	{{ _self.codeBlock('Adjusting the limit', '
+		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
+	)}}
+
+
+	{#
+	   We need to pass a single string through the next .codeBlock macro
+	   so we're going to build our list of blocks and tags before
+	   we build out the full code snippet string to pass through
+	#}
+	{%- set blockCode -%}
+
+		{%- for blockType in data.field.getFieldType().getSettings().getBlockTypes() -%}
+
+			{%- set blockFieldCode -%}
+
+				{%- for matrixField in blockType.getFields() -%}
+					{{-
+						data.whitespace ~ data.whitespace ~ data.whitespace
+						~ '{{ block.' ~ matrixField.handle ~ ' }} '
+						~ '{# Type: ' ~ matrixField.type|replace('_', ' ')|replace('/(.)([A-Z])/', '$1 $2')|title ~ ' #}\n'
+					-}}
+				{%- endfor -%}
+
+			{%- endset -%}
+
+			{{-
+				data.whitespace ~ data.whitespace
+				~ '{% case="' ~ blockType.handle ~ '" %}\n'
+				~ blockFieldCode
+				~ '\n'
+			-}}
+
+		{%- endfor -%}
+
+	{%- endset -%}
+
+
+	{{ _self.codeBlock('All block types with fields', '
+		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+		~ data.whitespace ~ '{% switch block.type %}\n\n'
+		~ blockCode
+		~ data.whitespace ~ data.whitespace
+		~ '{% default %}\n'
+		~ data.whitespace ~ data.whitespace ~ data.whitespace
+		~ '...\n\n'
+		~ data.whitespace
+		~ '{% endswitch %}\n'
+		~ '{% endfor %}'
 	)}}
 
 {% endmacro -%}
@@ -1120,7 +1208,14 @@
 
 				{% for field in cs.fields %}
 
-				<div class="field_block" data-group-id="{{ field.groupId }}" data-group="{{ field.group }}" data-group-handle="{{ field.group|lower|replace(' ', '') }}" data-field-id="{{ field.id }}" data-field-name="{{ field.name }}" data-field-handle="{{ field.handle|lower }}" data-field-type="{{ field.type|lower }}">
+				<div class="field_block"
+					data-group-id="{{ field.groupId }}"
+					data-group="{{ field.group }}"
+					data-group-handle="{{ field.group|lower|replace(' ', '') }}"
+					data-field-id="{{ field.id }}"
+					data-field-name="{{ field.name }}"
+					data-field-handle="{{ field.handle|lower }}"
+					data-field-type="{{ field.type|lower }}">
 
 					<header>
 						<h1 id="{{ field.handle }}">
@@ -1187,11 +1282,11 @@
 <script src="{{ cs.remoteAssetRoot }}prism.min.js"></script>
 <script type="text/javascript">
 	
-	GameGenie={currentContext:'{{ sampleTag }}',newContext:null,whichFilter:'',codeBlockCount:$('.field_block').length,fieldNavCount:$('li.field').length,storagePrefix:'Cheat-Sheet.'+window.location.hostname+'.',customElements:[],pageSetup:function(){document.addEventListener('keyup',GameGenie.jumpToFilter,false);$('<input type="text" value="" id="field_filter" placeholder="Find a field...">').hide().css('opacity',0).insertBefore('#groups_list').slideDown(100,function(){$(this).animate({'opacity':1},300);}).on('blur',function(){$(this).removeClass('lookAtMeInput');});var storage=localStorage.getItem(GameGenie.storagePrefix+'customElements');if(storage){GameGenie.customElements=ggCE=JSON.parse(storage);}
+	GameGenie={currentContext:'{{ sampleTag }}',newContext:null,whichFilter:'',codeBlockCount:$('.field_block').length,fieldNavCount:$('li.field').length,storagePrefix:'Cheat-Sheet.'+window.location.hostname+'.',customElements:[],pageSetup:function(){document.addEventListener('keyup',GameGenie.jumpToFilter,false);$('<input type="text" value="" id="field_filter" placeholder="Find a field...">').hide().css('opacity',0).insertBefore('#groups_list').slideDown(100,function(){$(this).animate({'opacity':1},300).focus();}).on('blur',function(){$(this).removeClass('lookAtMeInput');});var storage=localStorage.getItem(GameGenie.storagePrefix+'customElements');if(storage){GameGenie.customElements=ggCE=JSON.parse(storage);}
 	if(storage&&ggCE.length>0){for(var i=ggCE.length-1;i>=0;i--){GameGenie.addCustomElement(ggCE[i]);}}},jumpToFilter:function(e){if((e.keyCode===70||e.keyCode===191||e.keyCode===83)&&!$(document.activeElement).is('input'))
 	{$('#field_filter').focus().addClass('lookAtMeInput');}},checkForNoCode:function(){if($('.field_block').filter(':visible').length===0){$('#no_results').removeClass('hidden');}else{$('#no_results').addClass('hidden');}},checkForNoNav:function(){$('.group_list').each(function(){var visibleCount=$(this).find('li').filter(':visible').length;groupInput=$(this).parents('.nav_group').find('input');if(visibleCount===0||visibleCount===undefined){groupInput.prop('checked',false);}else{groupInput.prop('checked',true);}});},addCustomElement:function(elementName){$('#custom_element_list').append('<li class="custom_element"><a href="#" class="context" data-element-name="'+elementName+'" data-tag="'+elementName+'">'+elementName+'<span class="remove_custom">&times;</span></a></li>');this.addElementToStorage(elementName);},removeCustomElement:function(obj){var parent=obj.parents('.custom_element');parent.animate({width:0},'fast',function(){$(this).remove();});this.removeElementFromStorage(parent.find('a').attr('data-element-name'));},setLocalStorage:function(key,value){key=this.storagePrefix+key;value=(typeof value==='object')?JSON.stringify(value):value;localStorage.setItem(key,value);},addElementToStorage:function(elementName){var index=GameGenie.customElements.indexOf(elementName);if(index>-1){return;}
 	GameGenie.customElements.push(elementName);GameGenie.setLocalStorage('customElements',GameGenie.customElements);},removeElementFromStorage:function(elementName){var index=GameGenie.customElements.indexOf(elementName);if(index>-1){GameGenie.customElements.splice(index,1);GameGenie.setLocalStorage('customElements',GameGenie.customElements);}},supaFilter:function(filterType,find){if(find!==''){$('#search_replacement').text(find);}else{$('#search_replacement').text('that');}
-	switch(filterType){case'field':this.whichFilter='field-handle';break;case'group':this.whichFilter='group';break;default:this.whichFilter='field-name';}
+	switch(filterType){case'field':this.whichFilter='field-handle';break;case'group':this.whichFilter='group';break;case'type':this.whichFilter='field-type';break;default:this.whichFilter='field-name';}
 	$('.field_block').not('#no_results').each(function(){var name=$(this).attr('data-'+GameGenie.whichFilter).toLowerCase();if(name.indexOf(find)===-1){$(this).fadeOut('fast',GameGenie.checkForNoCode);}else if($(this).is('visible')===false){$(this).fadeIn('fast',GameGenie.checkForNoCode);}});$('#groups_list li.field').each(function(){var name=$(this).attr('data-'+GameGenie.whichFilter).toLowerCase();if(name.indexOf(find)===-1){$(this).hide('fast',GameGenie.checkForNoNav);}else if($(this).is('visible')===false){$(this).show('fast',GameGenie.checkForNoNav);}});},};$(function(){var type,find,search;window.setTimeout(GameGenie.pageSetup,500);$('body').on('keyup','#field_filter',function(){var search=$(this).prop('value').toLowerCase().replace(/\s/g,'').split(':');if(search.length===1){type='field';find=search[0];}else{type=search[0];find=search[1];}
 	GameGenie.supaFilter(type,find);});$('ul.types input[type=radio]').click(function(){if($(this).attr('checked')=='checked'){return;}else{$(this).parents('.types').find('input[checked="checked"]').attr('checked',null);$(this).attr('checked','checked');}});$('#newCustomElement').submit(function(e){e.preventDefault();var inputField=$(this).find('input[type=text]');var elementName=inputField.val().replace(/\s/g,'');GameGenie.addCustomElement(elementName);inputField.val('');});$('body').on('click','.remove_custom',function(e){e.preventDefault();GameGenie.removeCustomElement($(this));});$('body').on('click','a.context',function(e){e.preventDefault();var gg=GameGenie;var currentElem=$('a.activeContext');if(!$(this).attr('data-tag')){return false;}
 	gg.newContext=$(this).attr('data-tag');if(gg.newContext===gg.currentContext){return;}
