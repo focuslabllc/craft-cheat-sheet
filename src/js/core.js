@@ -196,9 +196,16 @@ $(function(){
 	// Our awesomesauce filter trigger
 	// using .on() with 'body' because the #field_filter
 	// element is dynaically added to the DOM by javascript
-	$('body').on('keyup', '#field_filter', function(){
+	$('body').on('keyup', '#field_filter', function(e){
 
-		var search = $(this).prop('value').toLowerCase().replace(/\s/g, '').split(':');
+		var search;
+
+		if (e.keyCode === 27) {
+			$('#field_filter').prop('value','');
+			return GameGenie.supaFilter('field', '');
+		} else {
+			search = $(this).prop('value').toLowerCase().replace(/\s/g, '').split(':');
+		}
 
 		if (search.length === 1){
 			type = 'field';
