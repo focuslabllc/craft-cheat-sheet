@@ -813,6 +813,65 @@
 
 	Start off your snippet with a case match for your field's
 	proper name (case-sensitive). Then build our your code snippets
+	using the twig macro provided within the src/twigSetup.inc.html file.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_SmartMap_Address(data) %}
+
+	{{ _self.codeBlock('Individual address fields', '
+		{{ ' ~ data.sampleTag ~ '.street1 }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.street2 }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.city }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.state }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.zip }}\n\n'
+		~ 'Latitude: {{ ' ~ data.sampleTag ~ '.lat }}\n'
+		~ 'Longitude: {{ ' ~ data.sampleTag ~ '.lng }}\n\n'
+		~ '{# Only available in proximity search results #}\n'
+		~ 'Found {{ ' ~ data.sampleTag ~ '.distance | number_format(1) }} miles away.\n'
+	)}}
+
+	{{ _self.codeBlock('Combined address output', '
+		{# On 3 lines #}\n'
+		~ '{{ '
+		~ data.sampleTag ~ '.format'
+		~ ' }}\n\n'
+		~ '{# On 2 lines #}\n'
+		~ '{{ '
+		~ data.sampleTag ~ '.format(true)'
+		~ ' }}\n\n'
+		~ '{# On 1 line #}\n'
+		~ '{{ '
+		~ data.sampleTag ~ '.format(true, true)'
+		~ ' }}'
+	)}}
+
+	{{ _self.codeBlock('"If address is not empty" conditional', '
+		{% if not ' ~ data.sampleTag ~ '.isEmpty %} ... {% endif %}'
+	)}}
+
+	{{ _self.codeBlock('"If address has coordinates" conditional', '
+		{% if ' ~ data.sampleTag ~ '.hasCoords %} ... {% endif %}'
+	)}}
+
+	<div class="extra">
+		<p>These code examples cover the basic ways to directly output address data. If you'd like to render a map (or do even more complex stuff with your address data), please visit the full documentation at <a href="https://craftpl.us/plugins/smart-map/" target="_blank">Craft Plus</a>.</p>
+	</div>
+
+{% endmacro -%}
+
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
 	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
 	Make sure you follow the syntax examples here:
 

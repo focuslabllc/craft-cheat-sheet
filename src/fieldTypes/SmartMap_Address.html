@@ -16,7 +16,6 @@
 
 {%- macro cs_SmartMap_Address(data) %}
 
-
 	{{ _self.codeBlock('Individual address fields', '
 		{{ ' ~ data.sampleTag ~ '.street1 }}\n'
 		~ '{{ ' ~ data.sampleTag ~ '.street2 }}\n'
@@ -45,15 +44,11 @@
 	)}}
 
 	{{ _self.codeBlock('"If address is not empty" conditional', '
-		{% if not '
-		~ data.sampleTag
-		~ '.isEmpty %} ... {% endif %}'
+		{% if not ' ~ data.sampleTag ~ '.isEmpty %} ... {% endif %}'
 	)}}
 
 	{{ _self.codeBlock('"If address has coordinates" conditional', '
-		{% if '
-		~ data.sampleTag
-		~ '.hasCoords %} ... {% endif %}'
+		{% if ' ~ data.sampleTag ~ '.hasCoords %} ... {% endif %}'
 	)}}
 
 	<div class="extra">
