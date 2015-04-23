@@ -109,22 +109,6 @@
    field can easily show code snippets as desired
    and macros easily support recursion in this way.
 --------------------------------------------- #}
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_Assets(data) %}
 
 
@@ -242,22 +226,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_Categories(data) %}
 
 	{{ _self.codeBlock('Check if entry has categories', '
@@ -296,22 +264,6 @@
 	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_Checkboxes(data) %}
 
@@ -362,22 +314,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_Color(data) %}
 
 	{{ _self.codeBlock('Field name', '
@@ -390,26 +326,6 @@
 	)}}
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-	TODO: this field has settings that limit the date selector
-	      so it might be nice to tell the user in the docs something
-	      like "this field only shows the date, not the time" or
-	      something along those lines. Check with Brandon/Brad?
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_Date(data) %}
 
@@ -430,22 +346,6 @@
 	</div>
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_Dropdown(data) %}
 
@@ -472,22 +372,6 @@
 	)}}
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_Entries(data) %}
 
@@ -545,22 +429,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_Lightswitch(data) %}
 
 	{{ _self.codeBlock('Boolean Conditional', '
@@ -568,22 +436,6 @@
 	)}}
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_Matrix(data) %}
 
@@ -657,22 +509,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_MultiSelect(data) %}
 
 	{{ _self.codeBlock('Loop through the <em>selected</em> options', '
@@ -712,22 +548,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_Number(data) %}
 
 	{{ _self.codeBlock('Field name', '
@@ -747,22 +567,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	using the twig macro provided within the src/twigSetup.inc.html file.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_PlainText(data) %}
 
 	{{ _self.codeBlock('Field name', '
@@ -774,23 +578,6 @@
 	)}}
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-	TODO: customize output based on field settings?
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_PositionSelect(data) %}
 
@@ -847,22 +634,6 @@
 
 {% endmacro  -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_RadioButtons(data) %}
 
 	{{ _self.codeBlock('The Selected value\'s option', '
@@ -889,22 +660,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_RichText(data) %}
 
 	{{ _self.codeBlock('Field name', '
@@ -916,22 +671,6 @@
 	)}}
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	using the twig macro provided within the src/twigSetup.inc.html file.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_SmartMap_Address(data) %}
 
@@ -975,22 +714,6 @@
 	</div>
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_Table(data) %}
 
@@ -1060,22 +783,6 @@
 
 {% endmacro -%}
 
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
-
 {%- macro cs_Tags(data) %}
 
 	{{ _self.codeBlock('Set a variable for future template use', '
@@ -1113,22 +820,6 @@
 	)}}
 
 {% endmacro -%}
-
-{#
-	You're in the middle of a Craft {% switch %} statement.
-
-	http://buildwithcraft.com/docs/templating/switch
-
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
-
-	TODO: github wiki link
-
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
-#}
 
 {%- macro cs_Users(data) %}
 

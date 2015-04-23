@@ -1,17 +1,28 @@
 {#
-	You're in the middle of a Craft {% switch %} statement.
+	To build your Field's set of code blocks, create a macro
+	using the convension "cs_" followed by your field type
+	as Craft calls it. Example: cs_PlainText
 
-	http://buildwithcraft.com/docs/templating/switch
+	Accept an argument of "data" to the macro because that is
+	what's passed to it later in the template. If you want to
+	see what the data hash looks like you can use Twig's
+	{{ dump(data) }} tag.
 
-	Start off your snippet with a case match for your field's
-	proper name (case-sensitive). Then build our your code snippets
-	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
-	Make sure you follow the syntax examples here:
+	Within your macro you'll be calling another macro called
+	codeBlock() which takes 3 arguments. The first 2 are required
+	and they are the "Heading/Title" of the code snippet followed
+	by the string of code itself.
 
-	TODO: github wiki link
+	Creating the string of code is unique, so review the sample below
+	to see what's going on. Use data.sampleTag for the tag that is
+	currently in the context. For code indentation use
+	data.whitespace to keep things consistent. For multiple indentions
+	you concatenate the whitespace like so: data.whitespace ~ data.whitespace
 
-	Note that this twig comment blog will be stripped before
-	the final /cheatsheet.html file is built
+	The last arguement is a string that serves as extra context text
+	that will appear below the Headling/Title but above the code
+	snippet. The string is parsed through markdown.
+
 #}
 
 {%- macro cs_YourFieldType(data) %}
