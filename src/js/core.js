@@ -60,13 +60,17 @@ GameGenie = {
 
 
 	jumpToFilter: function(e) {
+		// if we're in an input field we bail because user is typing
+		if ($(document.activeElement).is('input[type=text]')) return;
+
 		// if filter box isn't focused, bring it to focus
-		if (
-			  (e.keyCode === 70 || e.keyCode === 191 || e.keyCode === 83)
-			  &&
-			  ! $(document.activeElement).is('input'))
-		{
+		// with keys and 'f', 's', and '/' respectively
+		if (e.keyCode === 70 || e.keyCode === 83 || e.keyCode === 191) {
 			$('#field_filter').focus().addClass('lookAtMeInput');
+		// or with key 'c' trigger Custom Element input focus
+		} else if (e.keyCode === 67) {
+			$('label[for=custom]').trigger('click');
+			$('#newCustomElement input[type=text]').focus();
 		}
 	},
 
