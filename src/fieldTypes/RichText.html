@@ -14,17 +14,14 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'RichText' %}
+{%- macro cs_RichText(data) %}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
-
-	{{ csMacro.codeBlock('"If exists" conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
+
+{% endmacro -%}

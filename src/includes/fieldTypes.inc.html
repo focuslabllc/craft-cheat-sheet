@@ -1,647 +1,912 @@
-{% case 'Assets' %}
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Assets(data) %}
 
 
-	{{ csMacro.codeBlock('Total number of assets', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length }}'
+	{{ _self.codeBlock('Total number of assets', '
+		{{ ' ~ data.sampleTag ~ '|length }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Common conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %}\n'
-		~ whitespace
-		~ '...\n{% endif %}'
+	{{ _self.codeBlock('Common conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace ~ '...\n'
+		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through assets', '
+	{{ _self.codeBlock('Loop through assets', '
 		{% for myAsset in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endfor %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Only return the first asset', '
+	{{ _self.codeBlock('Only return the first asset', '
 		{% set myAsset = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n{% if myAsset %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Adjusting the limit', '
-		{% for block in '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.limit(5) %}'
+	{{ _self.codeBlock('Adjusting the limit', '
+		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('All asset variables', '
+	{{ _self.codeBlock('All asset variables', '
 		{% set myAsset = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n{% if myAsset %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.dateCreated }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.dateUpdated }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.extension }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.filename }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.folder }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.folderId }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.height }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.id }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.img }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.kind }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.locale }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.link }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.mimeType }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.next }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.prev }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.size }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.source }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.sourceId }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.url }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.width }}\n{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('All asset methods', '
+	{{ _self.codeBlock('All asset methods', '
 		{% set myAsset = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n{% if myAsset %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getExtension() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getFolder() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getHeight( transform ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getImg() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getLink() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getMimeType() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getNext( params ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getPrev( params ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getSource() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getUrl( transform ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getWidth( transform ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.setTransform( transform ) }}\n{% endif %}'
 	)}}
 
-{% case 'Categories' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Check if entry has categories', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %}\n'
-		~ whitespace ~ '...\n'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Categories(data) %}
+
+	{{ _self.codeBlock('Check if entry has categories', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Rename for easier access', '
+	{{ _self.codeBlock('Rename for easier access', '
 		{% set categories = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
 		~ '{% if categories|length %}\n'
-		~ whitespace ~ '<h3>My Categories<h3/>\n'
-		~ whitespace
+		~ data.whitespace ~ '<h3>My Categories<h3/>\n'
+		~ data.whitespace
 		~ '{% nav myCategory in categories %}\n'
-		~ whitespace ~ whitespace ~ '...\n'
-		~ whitespace ~ '{% endnav %}\n'
+		~ data.whitespace ~ data.whitespace ~ '...\n'
+		~ data.whitespace ~ '{% endnav %}\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Pass parameters to the ElementCriteria Model', '
-		{% set myCategories = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.order(\'name\') %}'
+	{{ _self.codeBlock('Pass parameters to the ElementCriteria Model', '
+		{% set myCategories = ' ~ data.sampleTag ~ '.order(\'name\') %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Select just the first category', '
+	{{ _self.codeBlock('Select just the first category', '
 		{% set myCategory = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n'
 		~ '{% if myCategory %}\n'
-		~ whitespace ~ '...\n'
+		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
 	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}
 
-{% case 'Checkboxes' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Checkboxes(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Single checkbox conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('Single checkbox conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through the *selected* options', '
+	{{ _self.codeBlock('Loop through the *selected* options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through <em>all</em> of the options', '
+	{{ _self.codeBlock('Loop through <em>all</em> of the options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ '.options %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
 
 
-	{{ csMacro.codeBlock('See if a specific option is selected', '
+	{{ _self.codeBlock('See if a specific option is selected', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.contains(\'value\') %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
 
-{% case 'Color' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Color(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('"If exists" conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
-{% case 'Date' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Sample date formatting', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}\n'
-		~ whitespace
-		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' | date(\'M j, Y\') }}\n'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+	TODO: this field has settings that limit the date selector
+	      so it might be nice to tell the user in the docs something
+	      like "this field only shows the date, not the time" or
+	      something along those lines. Check with Brandon/Brad?
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Date(data) %}
+
+	{{ _self.codeBlock('Sample date formatting', '
+		{% if ' ~ data.sampleTag ~ ' %}\n'
+		~ data.whitespace
+		~ '{{ ' ~ data.sampleTag ~ ' | date(\'M j, Y\') }}\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Get the Unix timestamp of the date', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.getTimestamp() }}'
+	{{ _self.codeBlock('Get the Unix timestamp of the date', '
+		{{ ' ~ data.sampleTag ~ '.getTimestamp() }}'
 	)}}
 
 	<div class="extra">
 		<p>There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
 	</div>
 
-{% case 'Dropdown' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Dropdown(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Field label', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.label }}'
+	{{ _self.codeBlock('Field label', '
+		{{ ' ~ data.sampleTag ~ '.label }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through the options', '
+	{{ _self.codeBlock('Loop through the options', '
 		<ul>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.options %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n</ul>'
 	)}}
 
-{% case 'Entries' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Set your entries to a variable', '
-		{% set entries = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Entries(data) %}
+
+	{{ _self.codeBlock('Set your entries to a variable', '
+		{% set entries = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Does your entries field have any entries?', '
+	{{ _self.codeBlock('Does your entries field have any entries?', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '|length %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('A simple loop for your entries', '
+	{{ _self.codeBlock('A simple loop for your entries', '
 		{% for myEntry in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '|length %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Set variable, check for entries, then loop through them', '
+	{{ _self.codeBlock('Set variable, check for entries, then loop through them', '
 		{% set entries = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
 		~ '{% if entries|length %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '<h3>List of Entries</h3>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% for myEntry in entries %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '...\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Just grab the first entry', '
+	{{ _self.codeBlock('Just grab the first entry', '
 		{% set myEntry = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n'
 		~ '{% if myEntry %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
 
-{% case 'Lightswitch' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Boolean Conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %} ... {% endif %}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Lightswitch(data) %}
+
+	{{ _self.codeBlock('Boolean Conditional', '
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
 	)}}
 
-{% case 'MultiSelect' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Loop through the <em>selected</em> options', '
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_MultiSelect(data) %}
+
+	{{ _self.codeBlock('Loop through the <em>selected</em> options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through <em>all</em> of the options', '
+	{{ _self.codeBlock('Loop through <em>all</em> of the options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ '.options %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
 
 
-	{{ csMacro.codeBlock('See if a specific option is selected', '
+	{{ _self.codeBlock('See if a specific option is selected', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.contains(\'value\') %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
 
-{% case 'Number' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Number(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Comparison conditional</td>', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' > 0 %} ... {% endif %}'
+	{{ _self.codeBlock('Comparison conditional</td>', '
+		{% if ' ~ data.sampleTag ~ ' > 0 %} ... {% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Operations', '
-		{% set myResult = 42 * '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}'
+	{{ _self.codeBlock('Operations', '
+		{% set myResult = 42 * ' ~ data.sampleTag ~ ' %}'
 		~ '\n\nThe total is {{ myResult }}'
 	)}}
 
-{% case 'PlainText' %}
+{% endmacro -%}
 
+{#
+	You're in the middle of a Craft {% switch %} statement.
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	using the twig macro provided within the src/twigSetup.inc.html file.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_PlainText(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
-	{{ csMacro.codeBlock('"If exists" conditional', '
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+	TODO: customize output based on field settings?
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_PositionSelect(data) %}
+
+	{{ _self.codeBlock('Adding to a class name', '
+		<div class="block {{ ' ~ data.sampleTag ~ ' }}">'
+	)}}
+
+
+	{{ _self.codeBlock('Conditionals around position values', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
-	)}}
-
-{% case 'PositionSelect' %}
-
-	{{ csMacro.codeBlock('Adding to a class name', '
-		<div class="block {{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}">'
-	)}}
-
-
-	{{ csMacro.codeBlock('Conditionals around position values', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' in [\'left\', \'right\'] %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{# ... #}\n'
 		~ '{% elseif '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' == \'center\' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{# ... #}\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Switch statement for all values', '
+	{{ _self.codeBlock('Switch statement for all values', '
 		{% switch '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'left\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'center\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'right\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'full\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'drop-left\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'drop-right\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
 		~ '{% endswitch %}'
 	)}}
 
-{% case 'RadioButtons' %}
+{% endmacro  -%}
 
-	{{ csMacro.codeBlock('The Selected value\'s option', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_RadioButtons(data) %}
+
+	{{ _self.codeBlock('The Selected value\'s option', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('The Selected value\'s label', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.label }}'
+	{{ _self.codeBlock('The Selected value\'s label', '
+		{{ ' ~ data.sampleTag ~ '.label }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through all available options', '
+	{{ _self.codeBlock('Loop through all available options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ '.options %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
 
-{% case 'RichText' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_RichText(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
-
-	{{ csMacro.codeBlock('"If exists" conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
-{% case 'SmartMap_Address' %}
+{% endmacro -%}
+
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Table(data) %}
+
+	{#
+	   Some whitespace setup code so we can use the previously defined
+	   macro to verticaly align comments in code using strRepeat
+	#}
+	{%- set rowWhitespace = [] -%}
+	{%- for col in data.field.settings.columns -%}
+		{%- set rowWhitespace = rowWhitespace|merge([col.handle|length]) -%}
+	{%- endfor -%}
 
 
-	{{ csMacro.codeBlock('Individual address fields', '
-		{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.street1 }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.street2 }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.city }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.state }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.zip }}\n\n'
-		~ 'Latitude: {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.lat }}\n'
-		~ 'Longitude: {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.lng }}\n\n'
-		~ '{# Only available in proximity search results #}\n'
-		~ 'Found {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.distance | number_format(1) }} miles away.\n'
-	)}}
+	{#
+	   We need to pass a single string through the .codeBlock macro
+	   so we're going to build our list of column names and tags before
+	   we build out the full code snippet string to pass through
+	#}
+	{%- set rowBlock -%}
+	{%- for col in data.field.settings.columns -%}
+		{{-
+			data.whitespace ~ data.whitespace
+			~ '{{ row.' ~ col.handle ~ ' }} '
+			~ _self.strRepeat(' ', max(rowWhitespace) - col.handle|length)
+			~ '{# ' ~ col.type ~ ' #}\n'
+		-}}
+	{%- endfor -%}
+	{%- endset -%}
 
-	{{ csMacro.codeBlock('Combined address output', '
-		{# On 3 lines #}\n'
-		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle ~ '.format'
-		~ ' }}\n\n'
-		~ '{# On 2 lines #}\n'
-		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle ~ '.format(true)'
-		~ ' }}\n\n'
-		~ '{# On 1 line #}\n'
-		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle ~ '.format(true, true)'
-		~ ' }}'
-	)}}
 
-	{{ csMacro.codeBlock('"If address is not empty" conditional', '
-		{% if not '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.isEmpty %} ... {% endif %}'
-	)}}
+	{{ _self.codeBlock('Table Structure', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace
+		~ '{% for row in ' ~ data.sampleTag ~ ' %}\n'
+		~ rowBlock
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '{% endif %}'
+	, 'This the general structure of the table and column handles (and types). If there are any default row values they will are displayed below this structure code block.')}}
 
-	{{ csMacro.codeBlock('"If address has coordinates" conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.hasCoords %} ... {% endif %}'
-	)}}
 
-	<div class="extra">
-		<p>These code examples cover the basic ways to directly output address data. If you'd like to render a map (or do even more complex stuff with your address data), please visit the full documentation at <a href="https://craftpl.us/plugins/smart-map/" target="_blank">Craft Plus</a>.</p>
+	{% if data.field.settings.defaults %}
+	<h3>Default Values</h3>
+	<div class="table_contain">
+		<table>
+			<thead>
+				<tr>
+					<th>Row #</th>
+					{%- for col in data.field.settings.columns -%}
+					<th>{{ col.heading }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{%- for row, cols in data.field.settings.defaults -%}
+				<tr>
+					<td>{{ loop.index }}</td>
+					{%- for col in cols -%}
+					<td>{{ col }}</td>
+					{%- endfor -%}
+				</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
 	</div>
+	{% endif %}
 
-{% case 'Tags' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Set a variable for future template use', '
-		{% set myTags = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Tags(data) %}
+
+	{{ _self.codeBlock('Set a variable for future template use', '
+		{% set myTags = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Check if any tags exist', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('Check if any tags exist', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through the selected tags', '
+	{{ _self.codeBlock('Loop through the selected tags', '
 		{% for myTag in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Order by parameters', '
-		{% set myTags = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.order(\'title\') %}'
+	{{ _self.codeBlock('Order by parameters', '
+		{% set myTags = ' ~ data.sampleTag ~ '.order(\'title\') %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Avoid a loop if your field limits to 1 user', '
+	{{ _self.codeBlock('Avoid a loop if your field limits to 1 user', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
 
-{% case 'Users' %}
+{% endmacro -%}
 
-	{{ csMacro.codeBlock('Set a variable for future template use', '
-		{% set myUsers = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}'
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Users(data) %}
+
+	{{ _self.codeBlock('Set a variable for future template use', '
+		{% set myUsers = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Check if any users were selected', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('Check if any users were selected', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through the selected users', '
+	{{ _self.codeBlock('Loop through the selected users', '
 		{% for myUser in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Filter by parameters', '
-		{% set authors = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.group(\'groupName\') %}'
+	{{ _self.codeBlock('Filter by parameters', '
+		{% set authors = ' ~ data.sampleTag ~ '.group(\'groupName\') %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Avoid a loop if your field limits to 1 user', '
+	{{ _self.codeBlock('Avoid a loop if your field limits to 1 user', '
 		{% set myUser = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n'
 		~ '{% if myUser %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
+
+{% endmacro -%}

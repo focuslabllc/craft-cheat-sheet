@@ -14,123 +14,119 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'Assets' %}
+{%- macro cs_Assets(data) %}
 
 
-	{{ csMacro.codeBlock('Total number of assets', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length }}'
+	{{ _self.codeBlock('Total number of assets', '
+		{{ ' ~ data.sampleTag ~ '|length }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Common conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %}\n'
-		~ whitespace
-		~ '...\n{% endif %}'
+	{{ _self.codeBlock('Common conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace ~ '...\n'
+		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through assets', '
+	{{ _self.codeBlock('Loop through assets', '
 		{% for myAsset in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endfor %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Only return the first asset', '
+	{{ _self.codeBlock('Only return the first asset', '
 		{% set myAsset = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n{% if myAsset %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Adjusting the limit', '
-		{% for block in '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.limit(5) %}'
+	{{ _self.codeBlock('Adjusting the limit', '
+		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('All asset variables', '
+	{{ _self.codeBlock('All asset variables', '
 		{% set myAsset = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n{% if myAsset %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.dateCreated }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.dateUpdated }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.extension }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.filename }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.folder }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.folderId }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.height }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.id }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.img }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.kind }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.locale }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.link }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.mimeType }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.next }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.prev }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.size }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.source }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.sourceId }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.url }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.width }}\n{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('All asset methods', '
+	{{ _self.codeBlock('All asset methods', '
 		{% set myAsset = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n{% if myAsset %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getExtension() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getFolder() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getHeight( transform ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getImg() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getLink() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getMimeType() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getNext( params ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getPrev( params ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getSource() }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getUrl( transform ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.getWidth( transform ) }}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{{ myAsset.setTransform( transform ) }}\n{% endif %}'
 	)}}
+
+{% endmacro -%}

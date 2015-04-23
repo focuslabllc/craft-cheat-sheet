@@ -14,58 +14,58 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'Entries' %}
+{%- macro cs_Entries(data) %}
 
-	{{ csMacro.codeBlock('Set your entries to a variable', '
-		{% set entries = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}'
+	{{ _self.codeBlock('Set your entries to a variable', '
+		{% set entries = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Does your entries field have any entries?', '
+	{{ _self.codeBlock('Does your entries field have any entries?', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '|length %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('A simple loop for your entries', '
+	{{ _self.codeBlock('A simple loop for your entries', '
 		{% for myEntry in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '|length %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Set variable, check for entries, then loop through them', '
+	{{ _self.codeBlock('Set variable, check for entries, then loop through them', '
 		{% set entries = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
 		~ '{% if entries|length %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '<h3>List of Entries</h3>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% for myEntry in entries %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '...\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Just grab the first entry', '
+	{{ _self.codeBlock('Just grab the first entry', '
 		{% set myEntry = '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n'
 		~ '{% if myEntry %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
+
+{% endmacro -%}

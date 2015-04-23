@@ -737,12 +737,12 @@ table {
 		border-bottom: 1px solid #dfdfdf;
 
 		&:last-child {
-			border-bottom: none;	
+			border-bottom: none;
 		}
 
 		th {
 			text-align: left;
-			background: #f6f6f6;	
+			background: #f6f6f6;
 		}
 
 		th, td {
@@ -752,12 +752,12 @@ table {
 			border-right: 1px solid #dfdfdf;
 
 			&:last-child {
-				border-right: none;	
-			}	
+				border-right: none;
+			}
 		}
 
 		&:nth-child(even) {
-			background: #f6f6f6;	
+			background: #f6f6f6;
 		}
 
 		pre {

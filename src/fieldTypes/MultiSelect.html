@@ -14,39 +14,41 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'MultiSelect' %}
+{%- macro cs_MultiSelect(data) %}
 
-	{{ csMacro.codeBlock('Loop through the <em>selected</em> options', '
+	{{ _self.codeBlock('Loop through the <em>selected</em> options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through <em>all</em> of the options', '
+	{{ _self.codeBlock('Loop through <em>all</em> of the options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ '.options %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
 
 
-	{{ csMacro.codeBlock('See if a specific option is selected', '
+	{{ _self.codeBlock('See if a specific option is selected', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.contains(\'value\') %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
+
+{% endmacro -%}

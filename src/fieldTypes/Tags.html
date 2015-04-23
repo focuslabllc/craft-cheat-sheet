@@ -14,44 +14,40 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'Tags' %}
+{%- macro cs_Tags(data) %}
 
-	{{ csMacro.codeBlock('Set a variable for future template use', '
-		{% set myTags = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}'
+	{{ _self.codeBlock('Set a variable for future template use', '
+		{% set myTags = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Check if any tags exist', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('Check if any tags exist', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through the selected tags', '
+	{{ _self.codeBlock('Loop through the selected tags', '
 		{% for myTag in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Order by parameters', '
-		{% set myTags = '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.order(\'title\') %}'
+	{{ _self.codeBlock('Order by parameters', '
+		{% set myTags = ' ~ data.sampleTag ~ '.order(\'title\') %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Avoid a loop if your field limits to 1 user', '
+	{{ _self.codeBlock('Avoid a loop if your field limits to 1 user', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.first() %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
+
+{% endmacro -%}

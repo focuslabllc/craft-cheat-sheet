@@ -14,30 +14,28 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'Dropdown' %}
+{%- macro cs_Dropdown(data) %}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Field label', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.label }}'
+	{{ _self.codeBlock('Field label', '
+		{{ ' ~ data.sampleTag ~ '.label }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through the options', '
+	{{ _self.codeBlock('Loop through the options', '
 		<ul>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.options %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n</ul>'
 	)}}
+
+{% endmacro -%}

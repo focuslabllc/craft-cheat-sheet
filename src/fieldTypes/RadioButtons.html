@@ -14,30 +14,28 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'RadioButtons' %}
+{%- macro cs_RadioButtons(data) %}
 
-	{{ csMacro.codeBlock('The Selected value\'s option', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+	{{ _self.codeBlock('The Selected value\'s option', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('The Selected value\'s label', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.label }}'
+	{{ _self.codeBlock('The Selected value\'s label', '
+		{{ ' ~ data.sampleTag ~ '.label }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Loop through all available options', '
+	{{ _self.codeBlock('Loop through all available options', '
 		<ul>\n'
-		~ whitespace ~ '{% for option in '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
 		~ '.options %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '<li>{{ option }}</li>\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% endfor %}\n'
 		~ '</ul>'
 	)}}
+
+{% endmacro -%}

@@ -14,25 +14,21 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'Number' %}
+{%- macro cs_Number(data) %}
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Comparison conditional</td>', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' > 0 %} ... {% endif %}'
+	{{ _self.codeBlock('Comparison conditional</td>', '
+		{% if ' ~ data.sampleTag ~ ' > 0 %} ... {% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Operations', '
-		{% set myResult = 42 * '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}'
+	{{ _self.codeBlock('Operations', '
+		{% set myResult = 42 * ' ~ data.sampleTag ~ ' %}'
 		~ '\n\nThe total is {{ myResult }}'
 	)}}
+
+{% endmacro -%}

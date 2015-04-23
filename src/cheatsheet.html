@@ -1,5 +1,32 @@
 //= include includes/twigSetup.inc.html
 
+{# ---------------------------------------------
+   A little macro to extract code block
+   content from markup/form
+--------------------------------------------- #}
+{%- macro codeBlock(title, code, helpText) %}
+	<div class="code_block">
+		<h3>{{ title }}</h3>
+		{% if helpText %}
+		<div class="description">
+			<p>{{ helpText|md }}</p>
+		</div>
+		{% endif %}
+		<div class="code">
+			<pre><code class="language-twig">{{ code|trim }}</code></pre>
+		</div>
+	</div>
+{% endmacro -%}
+
+{# ---------------------------------------------
+   Loop through our fields and make small macros
+   for code snippets. These are macros so the Matrix
+   field can easily show code snippets as desired
+   and macros easily support recursion in this way.
+--------------------------------------------- #}
+//= include includes/fieldTypes.inc.html
+
+{%- import _self as csMacro -%}
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,20 +140,21 @@
 
 					{# ---------------------------------------------
 
-					Switch statement to build our code samples
-					based on the field type
+					Dynamically check for a macro to build code snippets
+					for this field type. If it doesn't exist, we have
+					a fallback message to show.
 
 					--------------------------------------------- #}
 
-					{% switch field.type %}
-
-						//= include includes/fieldTypes.inc.html
-
-						{% default %}
-
-							<p class="notice">No code samples available for this field type yet.</p>
-
-					{% endswitch %}
+					{{ attribute(csMacro, 'cs_' ~ field.type) is defined
+						? attribute(csMacro, 'cs_' ~ field.type, [
+							{
+								'sampleTag' : sampleTag ~ '.' ~ field.handle,
+								'field'     : field,
+								'whitespace': whitespace
+							}])
+						: '<p class="notice">There are no code samples available for this field type yet.</p>'
+					}}
 
 				</div>
 

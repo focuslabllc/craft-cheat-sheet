@@ -14,48 +14,50 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'SmartMap_Address' %}
+{%- macro cs_SmartMap_Address(data) %}
 
 
-	{{ csMacro.codeBlock('Individual address fields', '
-		{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.street1 }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.street2 }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.city }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.state }}\n'
-		~ '{{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.zip }}\n\n'
-		~ 'Latitude: {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.lat }}\n'
-		~ 'Longitude: {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.lng }}\n\n'
+	{{ _self.codeBlock('Individual address fields', '
+		{{ ' ~ data.sampleTag ~ '.street1 }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.street2 }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.city }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.state }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.zip }}\n\n'
+		~ 'Latitude: {{ ' ~ data.sampleTag ~ '.lat }}\n'
+		~ 'Longitude: {{ ' ~ data.sampleTag ~ '.lng }}\n\n'
 		~ '{# Only available in proximity search results #}\n'
-		~ 'Found {{ ' ~ sampleTag ~ '.' ~ field.handle ~ '.distance | number_format(1) }} miles away.\n'
+		~ 'Found {{ ' ~ data.sampleTag ~ '.distance | number_format(1) }} miles away.\n'
 	)}}
 
-	{{ csMacro.codeBlock('Combined address output', '
+	{{ _self.codeBlock('Combined address output', '
 		{# On 3 lines #}\n'
 		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle ~ '.format'
+		~ data.sampleTag ~ '.format'
 		~ ' }}\n\n'
 		~ '{# On 2 lines #}\n'
 		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle ~ '.format(true)'
+		~ data.sampleTag ~ '.format(true)'
 		~ ' }}\n\n'
 		~ '{# On 1 line #}\n'
 		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle ~ '.format(true, true)'
+		~ data.sampleTag ~ '.format(true, true)'
 		~ ' }}'
 	)}}
 
-	{{ csMacro.codeBlock('"If address is not empty" conditional', '
+	{{ _self.codeBlock('"If address is not empty" conditional', '
 		{% if not '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.isEmpty %} ... {% endif %}'
 	)}}
 
-	{{ csMacro.codeBlock('"If address has coordinates" conditional', '
+	{{ _self.codeBlock('"If address has coordinates" conditional', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ '.hasCoords %} ... {% endif %}'
 	)}}
 
 	<div class="extra">
 		<p>These code examples cover the basic ways to directly output address data. If you'd like to render a map (or do even more complex stuff with your address data), please visit the full documentation at <a href="https://craftpl.us/plugins/smart-map/" target="_blank">Craft Plus</a>.</p>
 	</div>
+
+{% endmacro -%}

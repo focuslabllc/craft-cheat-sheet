@@ -1,0 +1,83 @@
+{#
+	You're in the middle of a Craft {% switch %} statement.
+
+	http://buildwithcraft.com/docs/templating/switch
+
+	Start off your snippet with a case match for your field's
+	proper name (case-sensitive). Then build our your code snippets
+	with an {{ csMacro.codeBlock(' tag and <pre><code></code></pre> tag blog per snippet.
+	Make sure you follow the syntax examples here:
+
+	TODO: github wiki link
+
+	Note that this twig comment blog will be stripped before
+	the final /cheatsheet.html file is built
+#}
+
+{%- macro cs_Table(data) %}
+
+	{#
+	   Some whitespace setup code so we can use the previously defined
+	   macro to verticaly align comments in code using strRepeat
+	#}
+	{%- set rowWhitespace = [] -%}
+	{%- for col in data.field.settings.columns -%}
+		{%- set rowWhitespace = rowWhitespace|merge([col.handle|length]) -%}
+	{%- endfor -%}
+
+
+	{#
+	   We need to pass a single string through the .codeBlock macro
+	   so we're going to build our list of column names and tags before
+	   we build out the full code snippet string to pass through
+	#}
+	{%- set rowBlock -%}
+	{%- for col in data.field.settings.columns -%}
+		{{-
+			data.whitespace ~ data.whitespace
+			~ '{{ row.' ~ col.handle ~ ' }} '
+			~ _self.strRepeat(' ', max(rowWhitespace) - col.handle|length)
+			~ '{# ' ~ col.type ~ ' #}\n'
+		-}}
+	{%- endfor -%}
+	{%- endset -%}
+
+
+	{{ _self.codeBlock('Table Structure', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace
+		~ '{% for row in ' ~ data.sampleTag ~ ' %}\n'
+		~ rowBlock
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '{% endif %}'
+	, 'This the general structure of the table and column handles (and types). If there are any default row values they will are displayed below this structure code block.')}}
+
+
+	{% if data.field.settings.defaults %}
+	<h3>Default Values</h3>
+	<div class="table_contain">
+		<table>
+			<thead>
+				<tr>
+					<th>Row #</th>
+					{%- for col in data.field.settings.columns -%}
+					<th>{{ col.heading }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{%- for row, cols in data.field.settings.defaults -%}
+				<tr>
+					<td>{{ loop.index }}</td>
+					{%- for col in cols -%}
+					<td>{{ col }}</td>
+					{%- endfor -%}
+				</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
+	</div>
+	{% endif %}
+
+{% endmacro -%}

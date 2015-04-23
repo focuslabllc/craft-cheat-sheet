@@ -14,25 +14,23 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'YourFieldType' %}
+{%- macro cs_YourFieldType(data) %}
 
 	<div class="extra">
 		<p>You can setup extra info below your snippets.</p>
 	</div>
 
-	{{ csMacro.codeBlock('Field name', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}'
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
 	), 'This is an example of code-block specific additional text if you need to prefix the sample code with anything.'}}
 
 
-	{{ csMacro.codeBlock('"If exists" conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '|length %} ... {% endif %}'
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
 	<div class="extra">
 		<p>Or you can setup extra info below your snippets.</p>
 	</div>
+
+{% endmacro -%}

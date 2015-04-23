@@ -36,8 +36,8 @@ GameGenie = {
 			.css('opacity', 0)
 			.insertBefore('#groups_list')
 			.slideDown(100, function(){
-				$(this).animate({ 'opacity': 1 }, 300)
-				.focus();
+				$(this).animate({ 'opacity': 1 }, 300);
+				// .focus();
 			})
 			.on('blur', function(){
 				$(this).removeClass('lookAtMeInput');

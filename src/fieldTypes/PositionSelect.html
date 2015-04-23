@@ -15,57 +15,57 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'PositionSelect' %}
+{%- macro cs_PositionSelect(data) %}
 
-	{{ csMacro.codeBlock('Adding to a class name', '
-		<div class="block {{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' }}">'
+	{{ _self.codeBlock('Adding to a class name', '
+		<div class="block {{ ' ~ data.sampleTag ~ ' }}">'
 	)}}
 
 
-	{{ csMacro.codeBlock('Conditionals around position values', '
+	{{ _self.codeBlock('Conditionals around position values', '
 		{% if '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' in [\'left\', \'right\'] %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{# ... #}\n'
 		~ '{% elseif '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' == \'center\' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{# ... #}\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Switch statement for all values', '
+	{{ _self.codeBlock('Switch statement for all values', '
 		{% switch '
-		~ sampleTag ~ '.' ~ field.handle
+		~ data.sampleTag
 		~ ' %}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'left\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'center\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'right\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'full\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'drop-left\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
-		~ whitespace
+		~ data.whitespace
 		~ '{% case \'drop-right\' %}\n'
-		~ whitespace ~ whitespace
+		~ data.whitespace ~ data.whitespace
 		~ '{# ... #}\n'
 		~ '{% endswitch %}'
 	)}}
+
+{% endmacro  -%}

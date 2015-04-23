@@ -18,26 +18,22 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'Date' %}
+{%- macro cs_Date(data) %}
 
-	{{ csMacro.codeBlock('Sample date formatting', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %}\n'
-		~ whitespace
-		~ '{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' | date(\'M j, Y\') }}\n'
+	{{ _self.codeBlock('Sample date formatting', '
+		{% if ' ~ data.sampleTag ~ ' %}\n'
+		~ data.whitespace
+		~ '{{ ' ~ data.sampleTag ~ ' | date(\'M j, Y\') }}\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ csMacro.codeBlock('Get the Unix timestamp of the date', '
-		{{ '
-		~ sampleTag ~ '.' ~ field.handle
-		~ '.getTimestamp() }}'
+	{{ _self.codeBlock('Get the Unix timestamp of the date', '
+		{{ ' ~ data.sampleTag ~ '.getTimestamp() }}'
 	)}}
 
 	<div class="extra">
 		<p>There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
 	</div>
+
+{% endmacro -%}

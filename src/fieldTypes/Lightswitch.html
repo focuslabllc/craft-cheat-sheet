@@ -14,10 +14,10 @@
 	the final /cheatsheet.html file is built
 #}
 
-{% case 'Lightswitch' %}
+{%- macro cs_Lightswitch(data) %}
 
-	{{ csMacro.codeBlock('Boolean Conditional', '
-		{% if '
-		~ sampleTag ~ '.' ~ field.handle
-		~ ' %} ... {% endif %}'
+	{{ _self.codeBlock('Boolean Conditional', '
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
 	)}}
+
+{% endmacro -%}
