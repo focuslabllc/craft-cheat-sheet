@@ -1,7 +1,3 @@
-**Note: currently testing this as a beta through 4/24/2015. Post [issues](https://github.com/focuslabllc/craft-field-cheat-sheet/issues) as you find them.**
-
----
-
 # The Craft Field Cheat Sheet
 
 If you're like me, it's not uncommon to be working on a project and need to reference the documentation for code samples and syntax. Sure, text editors like Sublime Text and the like have the ability to add bundles that can auto-complete and insert code for you; but those often are out of context and you have to change around code before anything is ready and right.
@@ -16,6 +12,8 @@ The Craft Field Cheat Sheet brings code samples into context to the site you're 
 
 When you add a new Field in the Control Panel, The Craft Field Cheat Sheet is ready to show you the new sample code right away. It's designed to be a template you setup alongside your other templates. We recommend you put it in a location such as `templates/cheatsheet.html` so you can easily access it in your browser while you work. You would simply open `yourdomain.com/cheatsheet` and you're ready to rock.
 
+You can view a static sample of the Cheat Sheet at the following link: <http://shared.focus.build/craft-cheat-sheet/>
+
 
 ## Visual Overview
 
@@ -25,7 +23,7 @@ Here is a quick breakdown of what you can expect to see in The Craft Field Cheat
 
 1. Element switching
 -  Menu grouped by groups
--  List just alphebetical
+-  List just alphabetical
 -  Field search box (for sites with tons of fields)
 -  Official tag docs link
 -  View in CP link
@@ -39,7 +37,7 @@ Setting up the Cheat Sheet is very simple. Effectively, the steps are as follows
 1. Copy the contents of `downloads/cheatsheet.html` in this repository ([click here for the code to copy](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/downloads/cheatsheet.html))
 2. Create a template called `templates/cheatsheet.html` (or `.twig` if you prefer)
 3. Paste in the contents and save the file
-4. Load the cheatsheet in your browser (`yourdomain.com/cheatsheet`)
+4. Load the Cheat Sheet in your browser (`yourdomain.com/cheatsheet`)
 
 **That's it!**
 
@@ -72,15 +70,38 @@ You might prefer two spaces for indentation. Here's a screenshot of my Sublime T
 
 ## Non-native Field Types
 
-Does your site use any Field Types that didn't come with the original Craft install? (Or perhaps you've built one yourself.) No problem. These show up in the automated documentation as well. The trick is that we need to be aware of those to include code samples. We'll work diligently to cover our bases on making these code sample avaiable.
+Does your site use any Field Types that didn't come with the original Craft install? (Or perhaps you've built one yourself.) No problem. These show up in the automated documentation as well. The trick is that we need to be aware of those to include code samples. We'll work diligently to cover our bases on making these code sample available.
 
 If you're a Plugin developer and would like your plugin sample code included, create a pull request to have yours added in. There's a particular format to follow so we'll happily help you along the way. We want The Craft Field Cheat Sheet to be as inclusive as possible across the community.
+
+
+
+## Things Worth Knowing
+
+- The **Craft Field Cheat Sheet** only runs when Craft is in [dev mode](http://buildwithcraft.com/help/dev-mode). This is an effort to protect any potential exposure of your data structure. (This is, after all, a tool for development.)
+- We considered making the template only render if the user was logged into the Control Panel (using the `{% if currentUser %}` conditional) but ultimately decided against that due to potential session timeouts during template work.
+- This hasn't been extensively tested with sites containing 100+ fields. Feedback in these environments is very, very welcomed.
+- We're toying around with a Plugin version that brings similarly helpful tools into the Control Panel. Feel free to submit any thoughts or ideas about that. Speaking of which...
 
 
 
 ## General Feedback
 
 We love feedback! If you use this please let us know what you think, how it helps, and any ideas you may have. If you find a bug, have a question, or just need some help please submit it as [a GitHub issue](https://github.com/focuslabllc/craft-field-cheat-sheet/issues). Also feel free to hit us up on Twitter at [@FocusLabLLC](https://www.twitter.com/focuslabllc).
+
+
+
+## Credits & Thanks
+
+We originally created this as a self-serving tool while working on our own Craft builds. It seemed like something the community may benefit from though, so we opted to pretty it up and release it for free. After that decision we had suggestions, feedback, and help from a few key people.
+
+- Core contributors @ Focus Lab:
+    - [Alex Sailer](https://twitter.com/alexsailer) on UI
+    - [Andy Fought](https://twitter.com/andyfought) on html/css
+    - [Erik Reagan](https://twitter.com/erikreagan) on js/twig/craft
+- Community credits
+    - [Brandon Kelly](https://twitter.com/brandonkelly) who helped us wrap our heads around some of the data structure. Particularly Matrix.
+    - [Ben Parizek](https://twitter.com/BenParizek) who originally inspired the "Cheat Sheet" idea through his awesome resources on [Straight up Craft](http://straightupcraft.com/search/results?q=cheat+sheet).
 
 
 
