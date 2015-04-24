@@ -449,14 +449,10 @@ aside {
 				font-size: .875em;
 
 				&::after {
-					content: "\00d7";
+					content: "+";
 					position: absolute;
 					top: 0;
 					right: .5em;
-					-webkit-transform: rotate(-45deg);
-					transform: rotate(-45deg);
-					-webkit-transition: -webkit-transform .5s ease;
-					transition: transform .5s ease;
 				}
 			}
 
@@ -480,8 +476,7 @@ aside {
 			}
 
 			input[type="checkbox"]:checked ~ label::after {
-				-webkit-transform: rotate(0);
-				transform: rotate(0);
+				content: "-";
 			}
 		}
 	}
