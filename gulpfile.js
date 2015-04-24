@@ -10,7 +10,6 @@ var gulp    = require('gulp'),
     stylish = require('jshint-stylish'),
     include = require('gulp-include'),
     replace = require('gulp-replace');
-    args    = require('yargs').argv;
 
 
 /*
@@ -58,7 +57,7 @@ gulp.task('fieldTypes', function(){
 	return gulp.src('./src/fieldTypes/[!_]*.html')
 	.pipe(plumber())
 	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n' }))
-	.pipe(replace(/\{#-?(.|\n)*?-?#\}\s+\{% case/g, '{% case'))
+	.pipe(replace(/\{#-?(.|\n)*?-?#\}\s+\{%-? macro/g, '{%- macro'))
 	.pipe(gulp.dest('./src/includes'))
 	.on('end', function(){
 		gulp.start('includes');
