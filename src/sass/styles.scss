@@ -615,16 +615,17 @@ aside {
 
 		.copy {
 			position: absolute;
+			z-index: 2;
 			top: 50%;
 			left: -2.25em;
 			cursor: pointer;
 			width: 1.5em;
+			height: 1.5em;
 			opacity: .7;
 			-webkit-transform: translateY(-50%);
 			transform: translateY(-50%);
 			-webkit-transition: opacity .3s ease;
 			transition: opacity .3s ease;
-
 
 			.copy_label {
 				position: absolute;
@@ -672,6 +673,12 @@ aside {
 			background: #f6f6f6;
 			padding: 1em;
 			margin: 0;
+			transform: scale(1);
+			transition: transform 0.25s;
+		}
+
+		&.copied pre {
+			transform: scale(1.05);
 		}
 	}
 
@@ -819,7 +826,7 @@ footer {
 #no_results {
 	p {
 		text-align: center;
-		background: url({{ cs.remoteAssetRoot }}wishful_thinking.jpg) bottom center no-repeat;
+		background: url("{{ cs.remoteAssetRoot }}wishful_thinking.jpg") bottom center no-repeat;
 		padding: 0 50px 360px;
 
 		a {
