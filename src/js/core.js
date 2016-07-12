@@ -279,4 +279,28 @@ $(function(){
 		gg.currentContext = gg.newContext;
 	});
 
+	new Clipboard('.field_block .code .copy', {
+	  text: function (button) {
+	  	var block = button.parentElement;
+	  	var code = block.querySelector('pre');
+	  	var label = button.querySelector('.copy_label');
+
+	  	var handleText = function () {
+	  		label.textContent = 'Copy To Clipboard';
+	  	};
+
+	  	var handleTranstionEnd = function () {
+	    	block.classList.remove('copied');
+	    };
+	    
+			label.textContent = 'Copied!';
+			button.addEventListener('mouseenter', handleText);
+
+	    block.classList.add('copied');
+	    block.addEventListener('transitionend', handleTranstionEnd);
+	    
+	    return code.textContent.trim();
+	  }
+	});
+
 });
