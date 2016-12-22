@@ -819,7 +819,8 @@ footer {
 #no_results {
 	p {
 		text-align: center;
-		background: url({{ cs.remoteAssetRoot }}wishful_thinking.jpg) bottom center no-repeat;
+		background-position: bottom center;
+		background-repeat: no-repeat;
 		padding: 0 50px 360px;
 
 		a {

@@ -19,6 +19,5 @@ ga('create', 'UA-3994429-34', 'auto');
 ga('set', 'dimension1', '{{ cs.version }}');        // Cheat Sheet version
 ga('set', 'dimension2', '{{ cs.groups|length }}');  // Build field group count
 ga('set', 'dimension3', '{{ cs.fields|length }}');  // Build field count
-ga('set', 'dimension4', '{{ craft.app.version }}'); // Craft version
-ga('set', 'dimension5', '{{ craft.app.build }}');   // Craft build
+ga('set', 'dimension4', '{{ craft.app.version }}'); // Craft version & build
 ga('send', 'pageview');
