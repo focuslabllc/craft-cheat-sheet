@@ -65,10 +65,10 @@ GameGenie = {
 
 		// if filter box isn't focused, bring it to focus
 		// with keys and 'f', 's', and '/' respectively
-		if (e.keyCode === 70 || e.keyCode === 83 || e.keyCode === 191) {
+		if ( ! e.ctrlKey && (e.keyCode === 70 || e.keyCode === 83 || e.keyCode === 191)) {
 			$('#field_filter').focus().addClass('lookAtMeInput');
 		// or with key 'c' trigger Custom Element input focus
-		} else if (e.keyCode === 67) {
+		} else if ( ! e.ctrlKey && e.keyCode === 67) {
 			$('label[for=custom]').trigger('click');
 			$('#newCustomElement input[type=text]').focus();
 		}
