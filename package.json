@@ -9,7 +9,6 @@
     "del":            "^1.1.1",
     "gulp-concat":    "2.4.2",
     "yargs":          "^3.7.2",
-    "gulp-include":   "^1.1.1",
     "gulp-jsmin":     "^0.1.4",
     "gulp-plumber":   "^1.0.0",
     "gulp-rename":    "1.2.0",

@@ -1,0 +1,13 @@
+{#
+   This mess is solely because I'm a whitespace nut
+   and I want my code comments to align vertically in the code
+   snippet regardless of the legth of the column name. Twig
+   doesn't have a php equivalent to str_repeat so we're making
+   one that will let us repeat the space character based on
+   the difference between the "current column name length" and the
+   "longest column name length". Nerdy. I know.
+#}
+{%- macro strRepeat(string, multiplier) -%}
+	{%- for i in range(0, multiplier) %}{{- string -}}{% endfor -%}
+{%- endmacro -%}
+{# end whitespace nutjob code #}

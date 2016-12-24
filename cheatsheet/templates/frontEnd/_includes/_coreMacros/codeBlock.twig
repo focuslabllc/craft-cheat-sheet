@@ -1,0 +1,17 @@
+{# ---------------------------------------------
+   A little macro to extract code block
+   content from markup/form
+--------------------------------------------- #}
+{%- macro codeBlock(title, code, helpText) %}
+	<div class="code_block">
+		<h3>{{ title }}</h3>
+		{% if helpText %}
+		<div class="description">
+			<p>{{ helpText|md }}</p>
+		</div>
+		{% endif %}
+		<div class="code">
+			<pre><code class="language-twig">{{ code|trim|replace('&quot;', '"') }}</code></pre>
+		</div>
+	</div>
+{% endmacro -%}

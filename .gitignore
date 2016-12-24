@@ -1,8 +1,4 @@
-// No need to commit these directories
+// No need to commit these directories or files
 .sass-cache/
 node_modules/
-
-// Not tracking this because it's just for
-// front-end testing before compiling
-// a final cheatsheet.html file
-/index.html
+.DS_Store

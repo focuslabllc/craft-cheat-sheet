@@ -1,0 +1,10 @@
+[
+	{
+		"version": "1.2.0",
+		"downloadUrl": "https://github.com/focuslabllc//archive/1.2.0.zip",
+		"date": "2016-01-02T12:00:00-05:00",
+		"notes": [
+			"Initial release as a proper plugin and not a single twig template."
+		]
+	}
+]

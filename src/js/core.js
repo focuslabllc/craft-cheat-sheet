@@ -1,18 +1,8 @@
-/*{# ---------------------------------------------
-   Remember that twig tags within the JS below
-   will be parsed by twig before the DOM reads
-   and runs the JS. Keep an eye out for:
-
-   {{ }} sets
-   {% %} sets
---------------------------------------------- #}*/
-
-
 // I couldn't create something called a Cheat Sheet without
 // an object named Game Genie, could I?
 GameGenie = {
 
-	currentContext: '{{ sampleTag }}', // this one gets parsed by Twig later
+	currentContext: null,
 	newContext:     null,
 
 	whichFilter:    '',
@@ -266,12 +256,10 @@ $(function(){
 		gg.newContext = $(this).attr('data-tag');
 		if (gg.newContext === gg.currentContext) { return; }
 
-		{% verbatim -%} // jshint ignore:line
 		$('section.main_body').html($('section.main_body').html().replace(
 			new RegExp('([{%].*?)(' + gg.currentContext + ')(.*?[%}])','g'),
 			'$1' + gg.newContext +'$3'
 		));
-		{% endverbatim -%} // jshint ignore:line
 
 		$('a.context[data-tag="' + gg.currentContext + '"]').removeClass('activeContext');
 		$('a.context[data-tag="' + gg.newContext + '"]').addClass('activeContext');

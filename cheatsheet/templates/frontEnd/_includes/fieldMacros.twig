@@ -1,0 +1,782 @@
+{# ---------------------------------------------
+   A little macro to extract code block
+   content from markup/form
+--------------------------------------------- #}
+{%- macro codeBlock(title, code, helpText) %}
+	<div class="code_block">
+		<h3>{{ title }}</h3>
+		{% if helpText %}
+		<div class="description">
+			<p>{{ helpText|md }}</p>
+		</div>
+		{% endif %}
+		<div class="code">
+			<pre><code class="language-twig">{{ code|trim|replace('&quot;', '"') }}</code></pre>
+		</div>
+	</div>
+{% endmacro -%}
+
+{%- macro cs_Assets(data) %}
+
+
+	{{ _self.codeBlock('Total number of assets', '
+		{{ ' ~ data.sampleTag ~ '|length }}'
+	)}}
+
+
+	{{ _self.codeBlock('Common conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace ~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through assets', '
+		{% for myAsset in '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace
+		~ '{{ myAsset.url }}\n{% endfor %}'
+	)}}
+
+
+	{{ _self.codeBlock('Only return the first asset', '
+		{% set myAsset = '
+		~ data.sampleTag
+		~ '.first() %}\n{% if myAsset %}\n'
+		~ data.whitespace
+		~ '{{ myAsset.url }}\n{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Adjusting the limit', '
+		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
+	)}}
+
+
+	{{ _self.codeBlock('All asset variables', '
+		{% set myAsset = '
+		~ data.sampleTag
+		~ '.first() %}\n{% if myAsset %}\n'
+		~ data.whitespace
+		~ '{{ myAsset.dateCreated }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.dateUpdated }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.extension }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.filename }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.folder }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.folderId }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.height }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.id }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.img }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.kind }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.locale }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.link }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.mimeType }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.next }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.prev }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.size }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.source }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.sourceId }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.url }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.width }}\n{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('All asset methods', '
+		{% set myAsset = '
+		~ data.sampleTag
+		~ '.first() %}\n{% if myAsset %}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getExtension() }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getFolder() }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getHeight( transform ) }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getImg() }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getLink() }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getMimeType() }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getNext( params ) }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getPrev( params ) }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getSource() }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getUrl( transform ) }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.getWidth( transform ) }}\n'
+		~ data.whitespace
+		~ '{{ myAsset.setTransform( transform ) }}\n{% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Categories(data) %}
+
+	{{ _self.codeBlock('Check if entry has categories', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace ~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Rename for easier access', '
+		{% set categories = '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ '{% if categories|length %}\n'
+		~ data.whitespace ~ '<h3>My Categories<h3/>\n'
+		~ data.whitespace
+		~ '{% nav myCategory in categories %}\n'
+		~ data.whitespace ~ data.whitespace ~ '...\n'
+		~ data.whitespace ~ '{% endnav %}\n'
+		~ '{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Pass parameters to the ElementCriteria Model', '
+		{% set myCategories = ' ~ data.sampleTag ~ '.order(\'name\') %}'
+	)}}
+
+
+	{{ _self.codeBlock('Select just the first category', '
+		{% set myCategory = '
+		~ data.sampleTag
+		~ '.first() %}\n'
+		~ '{% if myCategory %}\n'
+		~ data.whitespace ~ '...\n'
+		~ '{% endif %}'
+	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}
+
+{% endmacro -%}
+
+{%- macro cs_Checkboxes(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+
+	{{ _self.codeBlock('Single checkbox conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through the *selected* options', '
+		<ul>\n'
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '<li>{{ option }}</li>\n'
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '</ul>'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through <em>all</em> of the options', '
+		<ul>\n'
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
+		~ '.options %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '<li>{{ option }}</li>\n'
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '</ul>'
+	)}}
+
+
+	{{ _self.codeBlock('See if a specific option is selected', '
+		{% if '
+		~ data.sampleTag
+		~ '.contains(\'value\') %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Color(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Date(data) %}
+
+	{{ _self.codeBlock('Sample date formatting', '
+		{% if ' ~ data.sampleTag ~ ' %}\n'
+		~ data.whitespace
+		~ '{{ ' ~ data.sampleTag ~ ' | date(\'M j, Y\') }}\n'
+		~ '{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Get the Unix timestamp of the date', '
+		{{ ' ~ data.sampleTag ~ '.getTimestamp() }}'
+	)}}
+
+	<div class="extra">
+		<p>There are many methods you can use on date fields. More documentation available <a href="http://buildwithcraft.com/docs/templating/datetime">here</a>.</p>
+	</div>
+
+{% endmacro -%}
+
+{%- macro cs_Dropdown(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+
+	{{ _self.codeBlock('Field label', '
+		{{ ' ~ data.sampleTag ~ '.label }}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through the options', '
+		<ul>\n'
+		~ data.whitespace
+		~ '{% for option in '
+		~ data.sampleTag
+		~ '.options %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '<li>{{ option }}</li>\n'
+		~ data.whitespace
+		~ '{% endfor %}\n</ul>'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Entries(data) %}
+
+	{{ _self.codeBlock('Set your entries to a variable', '
+		{% set entries = ' ~ data.sampleTag ~ ' %}'
+	)}}
+
+
+	{{ _self.codeBlock('Does your entries field have any entries?', '
+		{% if '
+		~ data.sampleTag
+		~ '|length %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('A simple loop for your entries', '
+		{% for myEntry in '
+		~ data.sampleTag
+		~ '|length %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endfor %}'
+	)}}
+
+
+	{{ _self.codeBlock('Set variable, check for entries, then loop through them', '
+		{% set entries = '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ '{% if entries|length %}\n'
+		~ data.whitespace
+		~ '<h3>List of Entries</h3>\n'
+		~ data.whitespace
+		~ '{% for myEntry in entries %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '...\n'
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Just grab the first entry', '
+		{% set myEntry = '
+		~ data.sampleTag
+		~ '.first() %}\n'
+		~ '{% if myEntry %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Lightswitch(data) %}
+
+	{{ _self.codeBlock('Boolean Conditional', '
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Matrix(data) %}
+
+	{{ _self.codeBlock('Total number of blocks', '
+		{{ ' ~ data.sampleTag ~ '|length }}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through blocks', '
+		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+		~ data.whitespace ~ '...\n{'
+		~ '% endfor %}'
+	)}}
+
+
+	{{ _self.codeBlock('Filtering by block type', '
+		{% for block in ' ~ data.sampleTag ~ '.type(\'text\') %}'
+	)}}
+
+
+	{{ _self.codeBlock('Adjusting the limit', '
+		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
+	)}}
+
+
+	{#
+	   We need to pass a single string through the next .codeBlock macro
+	   so we're going to build our list of blocks and tags before
+	   we build out the full code snippet string to pass through
+	#}
+	{%- set blockCode -%}
+
+		{%- for blockType in data.field.getFieldType().getSettings().getBlockTypes() -%}
+
+			{%- set blockFieldCode -%}
+
+				{%- for matrixField in blockType.getFields() -%}
+					{{-
+						data.whitespace ~ data.whitespace ~ data.whitespace
+						~ '{{ block.' ~ matrixField.handle ~ ' }} '
+						~ '{# Type: ' ~ matrixField.type|replace('_', ' ')|replace('/(.)([A-Z])/', '$1 $2')|title ~ ' #}\n'
+					-}}
+				{%- endfor -%}
+
+			{%- endset -%}
+
+			{{-
+				data.whitespace ~ data.whitespace
+				~ '{% case "' ~ blockType.handle ~ '" %}\n'
+				~ blockFieldCode
+				~ '\n'
+			-}}
+
+		{%- endfor -%}
+
+	{%- endset -%}
+
+
+	{{ _self.codeBlock('All block types with fields', '
+		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+		~ data.whitespace ~ '{% switch block.type %}\n\n'
+		~ blockCode
+		~ data.whitespace ~ data.whitespace
+		~ '{% default %}\n'
+		~ data.whitespace ~ data.whitespace ~ data.whitespace
+		~ '...\n\n'
+		~ data.whitespace
+		~ '{% endswitch %}\n'
+		~ '{% endfor %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_MultiSelect(data) %}
+
+	{{ _self.codeBlock('Loop through the <em>selected</em> options', '
+		<ul>\n'
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '<li>{{ option }}</li>\n'
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '</ul>'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through <em>all</em> of the options', '
+		<ul>\n'
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
+		~ '.options %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '<li>{{ option }}</li>\n'
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '</ul>'
+	)}}
+
+
+	{{ _self.codeBlock('See if a specific option is selected', '
+		{% if '
+		~ data.sampleTag
+		~ '.contains(\'value\') %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Number(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+
+	{{ _self.codeBlock('Comparison conditional</td>', '
+		{% if ' ~ data.sampleTag ~ ' > 0 %} ... {% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Operations', '
+		{% set myResult = 42 * ' ~ data.sampleTag ~ ' %}'
+		~ '\n\nThe total is {{ myResult }}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_PlainText(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_PositionSelect(data) %}
+
+	{{ _self.codeBlock('Adding to a class name', '
+		<div class="block {{ ' ~ data.sampleTag ~ ' }}">'
+	)}}
+
+
+	{{ _self.codeBlock('Conditionals around position values', '
+		{% if '
+		~ data.sampleTag
+		~ ' in [\'left\', \'right\'] %}\n'
+		~ data.whitespace
+		~ '{# ... #}\n'
+		~ '{% elseif '
+		~ data.sampleTag
+		~ ' == \'center\' %}\n'
+		~ data.whitespace
+		~ '{# ... #}\n'
+		~ '{% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Switch statement for all values', '
+		{% switch '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace
+		~ '{% case \'left\' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '{# ... #}\n'
+		~ data.whitespace
+		~ '{% case \'center\' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '{# ... #}\n'
+		~ data.whitespace
+		~ '{% case \'right\' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '{# ... #}\n'
+		~ data.whitespace
+		~ '{% case \'full\' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '{# ... #}\n'
+		~ data.whitespace
+		~ '{% case \'drop-left\' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '{# ... #}\n'
+		~ data.whitespace
+		~ '{% case \'drop-right\' %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '{# ... #}\n'
+		~ '{% endswitch %}'
+	)}}
+
+{% endmacro  -%}
+
+{%- macro cs_RadioButtons(data) %}
+
+	{{ _self.codeBlock('The Selected value\'s option', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+
+	{{ _self.codeBlock('The Selected value\'s label', '
+		{{ ' ~ data.sampleTag ~ '.label }}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through all available options', '
+		<ul>\n'
+		~ data.whitespace ~ '{% for option in '
+		~ data.sampleTag
+		~ '.options %}\n'
+		~ data.whitespace ~ data.whitespace
+		~ '<li>{{ option }}</li>\n'
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '</ul>'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_RichText(data) %}
+
+	{{ _self.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+	{{ _self.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_SmartMap_Address(data) %}
+
+	{{ _self.codeBlock('Individual address fields', '
+		{{ ' ~ data.sampleTag ~ '.street1 }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.street2 }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.city }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.state }}\n'
+		~ '{{ ' ~ data.sampleTag ~ '.zip }}\n\n'
+		~ 'Latitude: {{ ' ~ data.sampleTag ~ '.lat }}\n'
+		~ 'Longitude: {{ ' ~ data.sampleTag ~ '.lng }}\n\n'
+		~ '{# Only available in proximity search results #}\n'
+		~ 'Found {{ ' ~ data.sampleTag ~ '.distance | number_format(1) }} miles away.\n'
+	)}}
+
+	{{ _self.codeBlock('Combined address output', '
+		{# On 3 lines #}\n'
+		~ '{{ '
+		~ data.sampleTag ~ '.format'
+		~ ' }}\n\n'
+		~ '{# On 2 lines #}\n'
+		~ '{{ '
+		~ data.sampleTag ~ '.format(true)'
+		~ ' }}\n\n'
+		~ '{# On 1 line #}\n'
+		~ '{{ '
+		~ data.sampleTag ~ '.format(true, true)'
+		~ ' }}'
+	)}}
+
+	{{ _self.codeBlock('"If address is not empty" conditional', '
+		{% if not ' ~ data.sampleTag ~ '.isEmpty %} ... {% endif %}'
+	)}}
+
+	{{ _self.codeBlock('"If address has coordinates" conditional', '
+		{% if ' ~ data.sampleTag ~ '.hasCoords %} ... {% endif %}'
+	)}}
+
+	<div class="extra">
+		<p>These code examples cover the basic ways to directly output address data. If you'd like to render a map (or do even more complex stuff with your address data), please visit the full documentation at <a href="https://craftpl.us/plugins/smart-map/" target="_blank">Craft Plus</a>.</p>
+	</div>
+
+{% endmacro -%}
+
+{%- macro cs_Table(data) %}
+
+	{#
+	   Some whitespace setup code so we can use the previously defined
+	   macro to verticaly align comments in code using strRepeat
+	#}
+	{%- set rowWhitespace = [] -%}
+	{%- for col in data.field.settings.columns -%}
+		{%- set rowWhitespace = rowWhitespace|merge([col.handle|length]) -%}
+	{%- endfor -%}
+
+
+	{#
+	   We need to pass a single string through the .codeBlock macro
+	   so we're going to build our list of column names and tags before
+	   we build out the full code snippet string to pass through
+	#}
+	{%- set rowBlock -%}
+	{%- for col in data.field.settings.columns -%}
+		{{-
+			data.whitespace ~ data.whitespace
+			~ '{{ row.' ~ col.handle ~ ' }} '
+			~ _self.strRepeat(' ', max(rowWhitespace) - col.handle|length)
+			~ '{# ' ~ col.type ~ ' #}\n'
+		-}}
+	{%- endfor -%}
+	{%- endset -%}
+
+
+	{{ _self.codeBlock('Table Structure', '
+		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		~ data.whitespace
+		~ '{% for row in ' ~ data.sampleTag ~ ' %}\n'
+		~ rowBlock
+		~ data.whitespace
+		~ '{% endfor %}\n'
+		~ '{% endif %}'
+	, 'This the general structure of the table and column handles (and types). If there are any default row values they will are displayed below this structure code block.')}}
+
+
+	{% if data.field.settings.defaults %}
+	<h3>Default Values</h3>
+	<div class="table_contain">
+		<table>
+			<thead>
+				<tr>
+					<th>Row #</th>
+					{%- for col in data.field.settings.columns -%}
+					<th>{{ col.heading }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{%- for row, cols in data.field.settings.defaults -%}
+				<tr>
+					<td>{{ loop.index }}</td>
+					{%- for col in cols -%}
+					<td>{{ col }}</td>
+					{%- endfor -%}
+				</tr>
+				{%- endfor -%}
+			</tbody>
+		</table>
+	</div>
+	{% endif %}
+
+{% endmacro -%}
+
+{%- macro cs_Tags(data) %}
+
+	{{ _self.codeBlock('Set a variable for future template use', '
+		{% set myTags = ' ~ data.sampleTag ~ ' %}'
+	)}}
+
+
+	{{ _self.codeBlock('Check if any tags exist', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through the selected tags', '
+		{% for myTag in '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endfor %}'
+	)}}
+
+
+	{{ _self.codeBlock('Order by parameters', '
+		{% set myTags = ' ~ data.sampleTag ~ '.order(\'title\') %}'
+	)}}
+
+
+	{{ _self.codeBlock('Avoid a loop if your field limits to 1 user', '
+		{% if '
+		~ data.sampleTag
+		~ '.first() %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Users(data) %}
+
+	{{ _self.codeBlock('Set a variable for future template use', '
+		{% set myUsers = ' ~ data.sampleTag ~ ' %}'
+	)}}
+
+
+	{{ _self.codeBlock('Check if any users were selected', '
+		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	)}}
+
+
+	{{ _self.codeBlock('Loop through the selected users', '
+		{% for myUser in '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endfor %}'
+	)}}
+
+
+	{{ _self.codeBlock('Filter by parameters', '
+		{% set authors = ' ~ data.sampleTag ~ '.group(\'groupName\') %}'
+	)}}
+
+
+	{{ _self.codeBlock('Avoid a loop if your field limits to 1 user', '
+		{% set myUser = '
+		~ data.sampleTag
+		~ '.first() %}\n'
+		~ '{% if myUser %}\n'
+		~ data.whitespace
+		~ '...\n'
+		~ '{% endif %}'
+	)}}
+
+{% endmacro -%}
+
+{#
+   This mess is solely because I'm a whitespace nut
+   and I want my code comments to align vertically in the code
+   snippet regardless of the legth of the column name. Twig
+   doesn't have a php equivalent to str_repeat so we're making
+   one that will let us repeat the space character based on
+   the difference between the "current column name length" and the
+   "longest column name length". Nerdy. I know.
+#}
+{%- macro strRepeat(string, multiplier) -%}
+	{%- for i in range(0, multiplier) %}{{- string -}}{% endfor -%}
+{%- endmacro -%}
+{# end whitespace nutjob code #}

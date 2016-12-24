@@ -1,0 +1,17 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+	id: 'cheatSheetRoute',
+	name: 'cheatSheetRoute',
+	label: 'Front-end Cheat Sheet Route' | t,
+	value: settings.cheatSheetRoute,
+	instructions: 'yourdomain.com/**`[the/route/you/want]`**' | t
+}) }}
+
+{{ forms.textField({
+	id: 'cheatSheetWhitespace',
+	name: 'cheatSheetWhitespace',
+	label: 'Whitespace in code snippets' | t,
+	value: settings.cheatSheetWhitespace,
+	instructions: 'Use **"`\\t`"** for a tab, or just type as many spaces as you like in your indentations' | t
+}) }}

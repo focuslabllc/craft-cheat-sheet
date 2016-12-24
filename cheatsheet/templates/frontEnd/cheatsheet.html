@@ -1,41 +1,16 @@
-//= include includes/twigSetup.inc.html
+{%- set sampleTag  = tagContexts[currentContext].tag -%}
+{%- import '_includes/fieldMacros.twig' as csMacro -%}
 
-{# ---------------------------------------------
-   A little macro to extract code block
-   content from markup/form
---------------------------------------------- #}
-{%- macro codeBlock(title, code, helpText) %}
-	<div class="code_block">
-		<h3>{{ title }}</h3>
-		{% if helpText %}
-		<div class="description">
-			<p>{{ helpText|md }}</p>
-		</div>
-		{% endif %}
-		<div class="code">
-			<pre><code class="language-twig">{{ code|trim|replace('&quot;', '"') }}</code></pre>
-		</div>
-	</div>
-{% endmacro -%}
-
-{# ---------------------------------------------
-   Loop through our fields and make small macros
-   for code snippets. These are macros so the Matrix
-   field can easily show code snippets as desired
-   and macros easily support recursion in this way.
---------------------------------------------- #}
-//= include includes/fieldTypes.inc.html
-
-{%- import _self as csMacro -%}
 <!DOCTYPE html>
 <html>
 <head>
 
-	<title>{{ cs.pageTitle }} &mdash; for {{ siteName }}</title>
+	<title>{{ pageTitle }} &mdash; for {{ siteName }}</title>
+
+	<link rel="stylesheet" type="text/css" href="{{ resourceUrl('cheatsheet/css/styles.css') }}">
 
 	<style type="text/css">
-		//= include includes/styles.inc.css
-		#no_results p { background-image: url({{ cs.remoteAssetRoot }}wishful_thinking.jpg) }
+		#no_results p { background-image: url({{ remoteAssetRoot }}wishful_thinking.jpg) }
 	</style>
 
 </head>
@@ -45,7 +20,7 @@
 		<div class="header_bg">
 			<div class="contain">
 				<div class="heading">
-					<h1>{{ cs.pageTitle }}<span>for</span></h1>
+					<h1>{{ pageTitle }}<span>for</span></h1>
 					<div class="craft_logo">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 163" enable-background="new 0 0 310 163"><g fill="#fff"><path d="M282.9 69.3h24.3l2.8-14.9h-24.3l4.1-21.8h-.1l-18.4 14.5-1.4 7.3h-19.1l5.6-29.3c1.3-11.1 18.2-7.7 20.7-7.1l2.7-14.1c-30.3-11.7-39.1 21.2-39.1 21.2l-5.6 29.3h-.1l-19 14.9h16.2L214.4 163h15.8L248 69.3h19.1l-7 36.7c-4.4 26.7 22.3 23.8 30.8 22.1l2.7-14c-20.4 4.6-17.7-8.1-17.7-8.1l7-36.7zM193.2 87.4s-22.6-11.6-38.4 1.3c0 0-9.3 6.2-9.3 18.5 0 12.4 11.3 19 11.3 19s17 9 30.4-5.4l-1.5 6.7h14.9L210 83c7-43.9-45.2-28.3-45.2-28.3L162 70.6C200.5 53.8 194 83 194 83l-.8 4.4zm-3.6 20.4c-16.4 16.9-26.9 5.8-26.9 5.8-7.1-6.9.7-14 .7-14 10.9-9.9 27.5 1 27.5 1l-1.3 7.2zM151.5 54.5c-12.2.1-23.2 6.9-23.2 6.9l1.4-6.7h-14.6l-13.3 73h14.9l9-48.1c6.7-13.6 23.2-9.4 23.2-9.4l2.6-15.7zM94.6 23.2c.8.6 1.5 1.2 2.2 1.8l11.3-8.9.4-.5c-1.7-1.8-3.6-3.4-5.6-4.9C76.8-9 37.6-.7 15.1 29c-22.4 29.8-19.6 69.8 6.4 89.4 21.2 16 51.3 13.5 73.8-4.2l-10.8-8.5c-16.7 10.7-37.4 11.5-52.4.2-20-15.1-22.2-45.8-4.9-68.7 17.2-22.8 47.4-29.1 67.4-14z"></path></g></svg>
 					</div>
@@ -58,8 +33,8 @@
 							<div class="element_type_tab">
 								<div class="contain">
 									<ul>
-										{% for key, context in cs.tagContexts %}
-										<li><a class="context{% if key == cs.currentContext %} activeContext{% endif %}" href="{{ craft.request.url }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
+										{% for key, context in tagContexts %}
+										<li><a class="context{% if key == currentContext %} activeContext{% endif %}" href="{{ craft.request.url }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
 										{% endfor %}
 									</ul>
 								</div>
@@ -79,7 +54,7 @@
 												</form>
 											</div>
 										</li>
-										{# javascript inserts custom contextx here #}
+										{# javascript inserts custom contexts here #}
 									</ul>
 								</div>
 							</div>
@@ -103,11 +78,12 @@
 					<div class="fields_contain">
 						<h2>Fields</h2>
 						<ul id="groups_list">
-							{% for group in cs.groups %}
+							{% for group in groups %}
 							<li class="nav_group" data-group-id="{{ group.id }}" data-group="{{ group.name }}" data-group-handle="{{ group.name|lower|replace(' ', '') }}">
 								<input type="checkbox" id="group-{{ group.id }}" checked>
 								<label for="group-{{ group.id }}">{{ group.name }}</label>
 								<ul class="group_list">
+								{# todo: should this be referencing our plugin now? #}
 									{% for field in craft.fields.getFieldsByGroupId(group.id) %}
 									<li class="field" data-group-id="{{ field.groupId }}" data-group="{{ field.group }}" data-group-handle="{{ field.group|lower|replace(' ', '') }}" data-field-id="{{ field.id }}" data-field-name="{{ field.name }}" data-field-handle="{{ field.handle }}" data-field-type="{{ field.type|lower }}"><a href="#{{ field.handle }}">{{ field.name }}</a></li>
 									{% endfor %}
@@ -121,7 +97,7 @@
 
 			<section class="main_body">
 
-				{% for field in cs.fields %}
+				{% for field in fields %}
 
 				<div class="field_block"
 					data-group-id="{{ field.groupId }}"
@@ -139,7 +115,7 @@
 						</h1>
 
 						<ul class="field_settings">
-						{% if field.type in cs.nativeFieldTypes %}
+						{% if field.type in nativeFieldTypes %}
 							<li><a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag Documentation</a></li>
 						{% endif %}
 							<li><a href="{{ cpUrl('/settings/fields/edit/' ~ field.id) }}">View In Control Panel</a></li>
@@ -168,7 +144,7 @@
 
 				{% endfor %}
 
-				<div id="no_results" class="{% if cs.fields %}hidden{% endif %}">
+				<div id="no_results" class="{% if fields|length %}hidden{% endif %}">
 					<header>
 						<h1>Wishful Thinking?
 							<span>Nice try searching for <span id="search_replacement">that</span>.
@@ -188,48 +164,21 @@
 	<footer>
 		<div class="contain">
 			<div class="footer_content">
-				<p>{{ cs.pageTitle }} {{ cs.version }}<br>Provided by your friends at <a href="http://www.focuslabllc.com">Focus Lab</a></p>
+				<p>{{ pageTitle }} {{ version }}<br>Provided by your friends at <a href="http://focuslabllc.com">Focus Lab</a></p>
 			</div>
 		</div>
 	</footer>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="{{ cs.remoteAssetRoot }}prism.min.js"></script>
-<script type="text/javascript">
-	//= include includes/scripts.inc.js
+<script src="{{ remoteAssetRoot }}prism.min.js"></script>
+<script src="{{ resourceUrl('cheatsheet/js/scripts.js') }}"></script>
+<script>
+	GameGenie.currentContext = '{{ sampleTag }}';
 </script>
-
-{# ---------------------------------------------
-
-The Craft Field Cheat Sheet
-
-Copyright (c) 2015 Focus Lab, LLC
-
-Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without
-restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or
-sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-
---------------------------------------------- #}
 
 <!-- ---------------------------------------------
 
-{{ cs.pageTitle }} {{ cs.version }}
+{{ pageTitle }} {{ version }}
 Provided by your friends at Focus Lab
 http://twitter.com/focuslabllc
 http://github.com/focuslabllc

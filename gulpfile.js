@@ -8,7 +8,6 @@ var gulp    = require('gulp'),
     jsmin   = require('gulp-jsmin'),
     jshint  = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
-    include = require('gulp-include'),
     replace = require('gulp-replace');
 
 
@@ -18,11 +17,8 @@ var gulp    = require('gulp'),
 */
 gulp.task('clean', function(){
 	del([
-		'downloads',
-		'./src/includes/*.html',
-		'./src/includes/*.js',
-		'./src/includes/*.css',
-		'!./src/includes/twigSetup*'
+		'./cheatsheet/resources/js/*.js',
+		'./cheatsheet/resources/css/*.css'
 		]);
 });
 
@@ -30,19 +26,16 @@ gulp.task('clean', function(){
 
 /*
  We'll have a few js files to keep dev change sane so we're just gonna
- concatenate them by 2 line breaks for the include within cheatsheet.html
+ concatenate them by 2 line breaks
 */
 gulp.task('js', function(){
 	return gulp.src('./src/js/[!_]*.js')
 	.pipe(plumber())
 	.pipe(jshint())
 	.pipe(jshint.reporter('jshint-stylish'))
-	.pipe(concat('scripts.inc.js', { newLine: '\r\n\r\n' }))
+	.pipe(concat('scripts.js', { newLine: '\r\n\r\n' }))
 	.pipe(jsmin())
-	.pipe(gulp.dest('./src/includes'))
-	.on('end', function(){
-		gulp.start('includes');
-	});
+	.pipe(gulp.dest('./cheatsheet/resources/js'))
 });
 
 
@@ -54,14 +47,27 @@ gulp.task('js', function(){
  samples and remove top-most comment blocks that follow a particular pattern.
 */
 gulp.task('fieldTypes', function(){
-	return gulp.src('./src/fieldTypes/[!_]*.html')
+	return gulp.src('./cheatsheet/templates/frontEnd/_includes/_fieldMacros/*.twig')
 	.pipe(plumber())
-	.pipe(concat('fieldTypes.inc.html', { newLine: '\r\n\r\n' }))
-	.pipe(replace(/\{#-?(.|\n)*?-?#\}\s+\{%-? macro/g, '{%- macro'))
-	.pipe(gulp.dest('./src/includes'))
+	.pipe(concat('fields.twig', { newLine: '\r\n\r\n' }))
+	.pipe(gulp.dest('./cheatsheet/templates/frontEnd/_includes/_coreMacros'))
 	.on('end', function(){
-		gulp.start('includes');
+		gulp.start('buildMacro');
 	});
+});
+
+
+
+/*
+ This task takes our three main macro files, separated just for easy file
+ editing during development, and concatenates them as a single twig macro
+ file that can be included in a single scope
+*/
+gulp.task('buildMacro', function(){
+	return gulp.src('./cheatsheet/templates/frontEnd/_includes/_coreMacros/*.twig')
+	.pipe(plumber())
+	.pipe(concat('fieldMacros.twig', { newLine: '\r\n\r\n' }))
+	.pipe(gulp.dest('./cheatsheet/templates/frontEnd/_includes/'))
 });
 
 
@@ -70,32 +76,10 @@ gulp.task('fieldTypes', function(){
 gulp.task('sass', function(){
 	return gulp.src('./src/sass/*.scss')
 	.pipe(plumber())
-	.pipe(sass({outputStyle: 'compressed'}))
-	.pipe(rename('styles.inc.css'))
+	.pipe(sass({outputStyle: 'expanded'}))
+	.pipe(rename('styles.css'))
 	.pipe(gulp.dest('./src/includes/'))
-	.on('end', function(){
-		gulp.start('includes');
-	});
-});
-
-
-
-/*
- Ahh, the include makes things much prettier and easier to work on. This is
- basically just for convenience and restricting changes to single files while
- working on the template.
-*/
-gulp.task('includes', function(){
-	gulp.src('./src/cheatsheet.html')
-		.pipe(plumber())
-		.pipe(include())
-		.pipe(gulp.dest('./downloads/'))
-		.pipe(notify('Cheat Sheet file created.'));
-	gulp.src('./src/index.html')
-		.pipe(plumber())
-		.pipe(include())
-		.pipe(gulp.dest('./'))
-		.pipe(notify('Index file created.'));
+	.pipe(gulp.dest('./cheatsheet/resources/css'))
 });
 
 
@@ -114,8 +98,7 @@ gulp.task('prod', function(){
 gulp.task('watch', function(){
 	gulp.watch('./src/js/[!_]*.js', ['js']);
 	gulp.watch('./src/sass/*.scss', ['sass']);
-	gulp.watch('./src/fieldTypes/[!_]*.html', ['fieldTypes']);
-	gulp.watch(['./src/*.html', './src/includes/twigSetup.inc.html'], ['includes']);
+	gulp.watch('./cheatsheet/templates/frontEnd/_includes/_fieldMacros/[!_]*.twig', ['fieldTypes']);
 });
 
 
