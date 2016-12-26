@@ -1,4 +1,4 @@
-# The Craft Field Cheat Sheet
+# Craft Cheat Sheet
 
 If you're like me, it's not uncommon to be working on a project and need to reference the documentation for code samples and syntax. Sure, text editors like Sublime Text and the like have the ability to add bundles that can auto-complete and insert code for you; but those often are out of context and you have to change around code before anything is ready and right.
 
@@ -6,11 +6,11 @@ Click the image below to learn more and see it in action.
 
 [![Watch a video about the Cheat Sheet](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/screen-frame.jpg)](https://vimeo.com/125499887)
 
-The Craft Field Cheat Sheet brings code samples into context to the site you're actually working on. The code you're shown actually uses **your** custom field names rather than sample field names. Each custom field shows you the type of field and some common code snippets that you can copy and paste for quick use within your templates.
+Craft Cheat Sheet brings code samples into context to the site you're actually working on. The code you're shown actually uses **your** custom field names rather than sample field names. Each custom field shows you the type of field and some common code snippets that you can copy and paste for quick use within your templates.
 
 ![Sample Field with code blocks](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-1.png)
 
-When you add a new Field in the Control Panel, The Craft Field Cheat Sheet is ready to show you the new sample code right away. It's designed to be a template you setup alongside your other templates. We recommend you put it in a location such as `templates/cheatsheet.html` so you can easily access it in your browser while you work. You would simply open `yourdomain.com/cheatsheet` and you're ready to rock.
+When you add a new Field in the Control Panel, the Craft Cheat Sheet is ready to show you the new sample code right away.
 
 You can view a static sample of the Cheat Sheet at the following link: <http://shared.focus.build/craft-cheat-sheet/>
 
@@ -30,16 +30,12 @@ Here is a quick breakdown of what you can expect to see in The Craft Field Cheat
 
 
 
-## Setting it up
+## Installing Craft Cheat Sheet
 
-Setting up the Cheat Sheet is very simple. Effectively, the steps are as follows:
-
-1. Copy the contents of `downloads/cheatsheet.html` in this repository ([click here for the code to copy](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/downloads/cheatsheet.html))
-2. Create a template called `templates/cheatsheet.html` (or `.twig` if you prefer)
-3. Paste in the contents and save the file
-4. Load the Cheat Sheet in your browser (`yourdomain.com/cheatsheet`)
-
-**That's it!**
+- Move the `cheatsheet` directory into your project's `craft/plugins` directory.
+- Navigate to `Settings > Plugins` page in your Craft admin area and install **Cheat Sheet**.
+- Visit the plugin settings page if you want to customize the front-end route/url that pulls up the cheatsheet (which defaults to `/cheatsheet`)
+- [Rejoice](https://www.youtube.com/watch?v=NmPhaG1ud38) that installation is simple.
 
 ---
 
@@ -56,32 +52,25 @@ Additionally, it's common to use Twig's `set` function to name an element; or us
 
 ### Whitespace in code: Spaces or Tabs!??!?!?
 
-Let's face it. We all have preferences around how we indent our code. This was considered while we built out The Craft Field Cheat Sheet. You can easily customize the whitespace used in your code snippets so that when you paste them into your text editor you don't have to convert tabs to space or vise-versa.
+Let's face it. We all have preferences around how we indent our code. This was considered while we built out the Craft Cheat Sheet. You can easily customize the whitespace used in your code snippets so that when you paste them into your text editor you don't have to convert tabs to space or vise-versa.
 
-The default setting is to use a single tab for indentation. You can change this by updating the setting at the top of the `cheatsheet.html` file. Just look for this line:
-
-	{%- set whitespace = '	' -%}
-
-You might prefer two spaces for indentation. Here's a screenshot of my Sublime Text file representing different whitespace settings:
-
-![Whitespace variable](https://raw.githubusercontent.com/focuslabllc/craft-field-cheat-sheet/master/img/ui-sample-4.png)
-
+The default setting is to use a single tab for indentation. You can change this by visiting the plugin's settings page.
 
 
 ## Non-native Field Types
 
 Does your site use any Field Types that didn't come with the original Craft install? (Or perhaps you've built one yourself.) No problem. These show up in the automated documentation as well. The trick is that we need to be aware of those to include code samples. We'll work diligently to cover our bases on making these code sample available.
 
-If you're a Plugin developer and would like your plugin sample code included, create a pull request to have yours added in. There's a particular format to follow so we'll happily help you along the way. We want The Craft Field Cheat Sheet to be as inclusive as possible across the community.
+If you're a Plugin developer and would like your plugin sample code included, create a pull request to have yours added in. There's a particular format to follow so we'll happily help you along the way. We want Craft Cheat Sheet to be as inclusive as possible across the community.
 
 
 
 ## Things Worth Knowing
 
-- The **Craft Field Cheat Sheet** only runs when Craft is in [dev mode](http://buildwithcraft.com/help/dev-mode). This is an effort to protect any potential exposure of your data structure. (This is, after all, a tool for development.)
-- We considered making the template only render if the user was logged into the Control Panel (using the `{% if currentUser %}` conditional) but ultimately decided against that due to potential session timeouts during template work.
+- **Craft Cheat Sheet** only runs when Craft is in [dev mode](http://buildwithcraft.com/help/dev-mode). This is an effort to protect any potential exposure of your data structure. (This is, after all, a tool for development.)
+- We considered making the plugin only render if the user was logged into the Control Panel but ultimately decided against that due to potential session timeouts during template work.
 - This hasn't been extensively tested with sites containing 100+ fields. Feedback in these environments is very, very welcomed.
-- We're toying around with a Plugin version that brings similarly helpful tools into the Control Panel. Feel free to submit any thoughts or ideas about that. Speaking of which...
+- We've got a number of additional feature ideas that bring similarly helpful tools into the Control Panel. Feel free to submit any thoughts or ideas about that. Speaking of which...
 
 
 
@@ -105,12 +94,21 @@ We originally created this as a self-serving tool while working on our own Craft
 
 
 
-## License & Legalese
+## Change Log
 
-Copyright (c) 2016 Focus Lab, LLC
+**Dec 24th, 2016: 1.2.0**
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+- Initial release as a proper plugin and not a single twig template.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+**Apr 24th, 2015: 1.0.0**
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- First non-beta release of the template version of the Cheat Sheet
+
+**Apr 19th, 2015: 0.9.0**
+
+- Initial beta release for group testing (still in template form)
+
+**Apr 16, 2015: 0.1.0-alpha**
+
+- Proof of concept test versio
+- Initial release as a proper plugin and not a single twig template.

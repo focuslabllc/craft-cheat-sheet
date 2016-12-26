@@ -2,12 +2,12 @@
 namespace Craft;
 
 /**
- * Cheat Sheet Field Service
+ * Cheat Sheet Fields Service
  *
  * @author     Focus Lab, LLC <dev@focuslabllc.com>
- * @copyright  Copyright (c) 2017, Focus Lab, LLC
+ * @copyright  Copyright (c) 2016, Focus Lab, LLC
  * @see        https://github.com/focuslabllc/craft-cheat-sheet
- * @package    cachebuster
+ * @package    cheatsheet
  * @version    1.2.0
  */
 
@@ -15,11 +15,10 @@ class CheatSheet_FieldsService extends BaseApplicationComponent
 {
 
 	/**
+	 * Just a quick way to grab data
 	 *
-	 *
-	 * @param
 	 * @access    public
-	 * @return
+	 * @return    array
 	 */
 	public function getTemplateData()
 	{
@@ -35,7 +34,7 @@ class CheatSheet_FieldsService extends BaseApplicationComponent
 
 	private function dataPrep()
 	{
-		$currentContext = (craft()->request->getParam('context')) ?: 'entry';
+		$currentContext = craft()->request->getParam('context') ?: 'entry';
 		$whitespace     = craft()->plugins->getPlugin('cheatsheet')->getSettings()->getAttribute('cheatSheetWhitespace');
 		$whitespace = str_replace('\t', '	', $whitespace);
 

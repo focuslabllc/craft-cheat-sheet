@@ -5,13 +5,14 @@ namespace Craft;
  * Craft Cheat Sheet Plugin
  *
  * @author     Focus Lab, LLC <dev@focuslabllc.com>
- * @copyright  Copyright (c) 2017, Focus Lab, LLC
+ * @copyright  Copyright (c) 2016, Focus Lab, LLC
  * @see        https://github.com/focuslabllc/craft-cheat-sheet
  * @package    cheatsheet
  * @version    1.2.0
  */
 class CheatSheetPlugin extends BasePlugin
 {
+
 	/**
 	 * @access    public
 	 * @return    string
@@ -87,24 +88,41 @@ class CheatSheetPlugin extends BasePlugin
 
 
 
+	/**
+	 * @access    public
+	 * @see       https://craftcms.com/classreference/etc/components/BaseSavableComponentType#defineSettings-detail
+	 * @return    array
+	 */
 	protected function defineSettings()
 	{
 		return array(
-			'cheatSheetRoute' => array(AttributeType::String, 'default' => 'cheatsheet'),
+			'cheatSheetRoute'      => array(AttributeType::String, 'default' => 'cheatsheet'),
 			'cheatSheetWhitespace' => array(AttributeType::String, 'default' => '\t'),
-			'cheatSheetUserGroups' => array(AttributeType::Mixed, 'default' => []),
+			'cheatSheetUserGroups' => array(AttributeType::Mixed,  'default' => []),
 		);
 	}
 
 
+
+	/**
+	 * @access    public
+	 * @see       https://craftcms.com/classreference/etc/components/ISavableComponentType#getSettingsHtml-detail
+	 * @return    string
+	 */
 	public function getSettingsHtml()
 	{
 		return craft()->templates->render('cheatsheet/settings', array(
-			'settings'   => $this->getSettings()
+			'settings' => $this->getSettings()
 		));
 	}
 
 
+
+	/**
+	 * @access    public
+	 * @see       https://craftcms.com/docs/plugins/hooks-reference#registerSiteRoutes
+	 * @return    array
+	 */
 	public function registerSiteRoutes()
 	{
 		$customCheatSheetRoute = $this->getSettings()->getAttribute('cheatSheetRoute');
