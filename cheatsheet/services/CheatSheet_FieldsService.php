@@ -39,7 +39,7 @@ class CheatSheet_FieldsService extends BaseApplicationComponent
 		$whitespace = str_replace('\t', '	', $whitespace);
 
 		return [
-			'pageTitle'      => 'The Craft Field Cheat Sheet',
+			'pageTitle'      => 'Field Cheat Sheet',
 			'version'        => craft()->plugins->getPlugin('cheatsheet')->getVersion(),
 			'whitespace'     => $whitespace,
 			'groups'         => craft()->fields->getAllGroups(),
