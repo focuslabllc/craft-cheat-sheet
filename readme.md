@@ -96,6 +96,10 @@ We originally created this as a self-serving tool while working on our own Craft
 
 ## Change Log
 
+**Mar 20th, 2017: 1.2.1**
+
+- Fixed a bug where plugin wouldn't enable/disable due to file name error.
+
 **Dec 24th, 2016: 1.2.0**
 
 - Initial release as a proper plugin and not a single twig template.
