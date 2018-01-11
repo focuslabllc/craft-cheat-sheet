@@ -35,6 +35,7 @@ Here is a quick breakdown of what you can expect to see in The Craft Field Cheat
 - Move the `cheatsheet` directory into your project's `craft/plugins` directory.
 - Navigate to `Settings > Plugins` page in your Craft admin area and install **Cheat Sheet**.
 - Visit the plugin settings page if you want to customize the front-end route/url that pulls up the cheatsheet (which defaults to `/cheatsheet`)
+- Review the [Things Worth Knowing](https://github.com/focuslabllc/craft-cheat-sheet/blob/master/readme.md#things-worth-knowing) section of this readme.
 - [Rejoice](https://www.youtube.com/watch?v=NmPhaG1ud38) that installation is simple.
 
 ---
