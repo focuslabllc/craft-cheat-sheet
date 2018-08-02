@@ -27,7 +27,7 @@
     "rss": "https://github.com/focuslabllc/craft-cheat-sheet/commits/v2.atom"
   },
   "require": {
-    "craftcms/cms": "^3.0.0-beta.27"
+    "craftcms/cms": "^3.0.0"
   },
   "autoload": {
     "psr-4": {
