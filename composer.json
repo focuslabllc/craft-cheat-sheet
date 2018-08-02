@@ -1,0 +1,43 @@
+{
+  "name": "focuslabllc/craft-cheat-sheet",
+  "description": "A fast and customized set of instantly usable Field code samples.",
+  "version": "2.0.0",
+  "type": "craft-plugin",
+  "keywords": [
+    "craftcms",
+    "cheat",
+    "sheet"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Focus Lab, LLC",
+      "homepage": "https://focuslabllc.com/"
+    },
+    {
+      "name": "Brandon Kelly",
+      "email": "brandon@pixelandtonic.com"
+    }
+  ],
+  "support": {
+    "email": "hello@focuslabllc.com",
+    "issues": "https://github.com/focuslabllc/craft-cheat-sheet/issues?state=open",
+    "source": "https://github.com/focuslabllc/craft-cheat-sheet",
+    "docs": "https://github.com/focuslabllc/craft-cheat-sheet",
+    "rss": "https://github.com/focuslabllc/craft-cheat-sheet/commits/v2.atom"
+  },
+  "require": {
+    "craftcms/cms": "^3.0.0-beta.27"
+  },
+  "autoload": {
+    "psr-4": {
+      "focuslabllc\\cheatsheet\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "Craft Cheat Sheet",
+    "handle": "cheat-sheet",
+    "version": "2.0.0",
+    "documentationUrl": "https://github.com/focuslabllc/craft-cheat-sheet/blob/master/readme.md"
+  }
+}

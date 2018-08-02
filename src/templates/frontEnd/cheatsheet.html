@@ -7,8 +7,6 @@
 
 	<title>{{ pageTitle }} &mdash; for {{ siteName }}</title>
 
-	<link rel="stylesheet" type="text/css" href="{{ resourceUrl('cheatsheet/css/styles.css') }}">
-
 	<style type="text/css">
 		#no_results p { background-image: url({{ remoteAssetRoot }}wishful_thinking.jpg) }
 	</style>
@@ -34,7 +32,7 @@
 								<div class="contain">
 									<ul>
 										{% for key, context in tagContexts %}
-										<li><a class="context{% if key == currentContext %} activeContext{% endif %}" href="{{ craft.request.url }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
+										<li><a class="context{% if key == currentContext %} activeContext{% endif %}" href="{{ craft.app.request.absoluteUrl }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
 										{% endfor %}
 									</ul>
 								</div>
@@ -84,8 +82,8 @@
 								<label for="group-{{ group.id }}">{{ group.name }}</label>
 								<ul class="group_list">
 								{# todo: should this be referencing our plugin now? #}
-									{% for field in craft.fields.getFieldsByGroupId(group.id) %}
-									<li class="field" data-group-id="{{ field.groupId }}" data-group="{{ field.group }}" data-group-handle="{{ field.group|lower|replace(' ', '') }}" data-field-id="{{ field.id }}" data-field-name="{{ field.name }}" data-field-handle="{{ field.handle }}" data-field-type="{{ field.type|lower }}"><a href="#{{ field.handle }}">{{ field.name }}</a></li>
+									{% for field in craft.app.fields.getFieldsByGroupId(group.id) %}
+									<li class="field" data-group-id="{{ field.groupId }}" data-group="{{ field.group }}" data-group-handle="{{ field.group|lower|replace(' ', '') }}" data-field-id="{{ field.id }}" data-field-name="{{ field.name }}" data-field-handle="{{ field.handle }}" data-field-type="{{ className(field) }}"><a href="#{{ field.handle }}">{{ field.name }}</a></li>
 									{% endfor %}
 								</ul>
 							</li>
@@ -98,6 +96,7 @@
 			<section class="main_body">
 
 				{% for field in fields %}
+				{% set fieldClass = className(field) %}
 
 				<div class="field_block"
 					data-group-id="{{ field.groupId }}"
@@ -106,17 +105,24 @@
 					data-field-id="{{ field.id }}"
 					data-field-name="{{ field.name }}"
 					data-field-handle="{{ field.handle|lower }}"
-					data-field-type="{{ field.type|lower }}">
+					data-field-type="{{ className(field) }}">
 
 					<header>
 						<h1 id="{{ field.handle }}">
 							{{ field.name }}
-							<span class="field_type">{{ field.type|replace('_', ' ')|replace('/(.)([A-Z])/', '$1 $2')|title }}</span>
+							<span class="field_type">{{ field.displayName }}</span>
 						</h1>
 
 						<ul class="field_settings">
-						{% if field.type in nativeFieldTypes %}
-							<li><a href="http://buildwithcraft.com/docs/{{ field.type|replace('/(.)([A-Z])/', '$1-$2')|lower }}-fields">Tag Documentation</a></li>
+						{% if fieldClass in nativeFieldTypes %}
+							{% set shortName = fieldClass|split('\\')|last|kebab %}
+							<li><a href="https://docs.craftcms.com/v3/{{ shortName }}-fields">Tag Documentation</a></li>
+						{% else %}
+							{% set pluginHandle = craft.app.plugins.getPluginHandleByClass(fieldClass) %}
+							{% set plugin = pluginHandle ? craft.app.plugins.getPlugin(pluginHandle) %}
+							{% if plugin and plugin.documentationUrl %}
+								<li><a href="{{ plugin.documentationUrl }}">{{ plugin.name }} Documentation</a></li>
+							{% endif %}
 						{% endif %}
 							<li><a href="{{ cpUrl('/settings/fields/edit/' ~ field.id) }}">View In Control Panel</a></li>
 						</ul>
@@ -130,15 +136,17 @@
 
 					--------------------------------------------- #}
 
-					{{ attribute(csMacro, 'cs_' ~ field.type) is defined
-						? attribute(csMacro, 'cs_' ~ field.type, [
+					{% if csMacros[fieldClass] is defined %}
+						{{ view.renderTemplateMacro('_includes/fieldMacros.twig', csMacros[fieldClass], [
 							{
 								'sampleTag' : sampleTag ~ '.' ~ field.handle,
 								'field'     : field,
 								'whitespace': whitespace
-							}])
-						: '<p class="notice">There are no code samples available for this field type yet.</p>'
-					}}
+							}
+						])|raw }}
+					{% else %}
+						<p class="notice">There are no code samples available for this field type yet.</p>
+					{% endif %}
 
 				</div>
 
@@ -171,10 +179,9 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{{ remoteAssetRoot }}prism.min.js"></script>
-<script src="{{ resourceUrl('cheatsheet/js/scripts.js') }}"></script>
-<script>
+{% js %}
 	GameGenie.currentContext = '{{ sampleTag }}';
-</script>
+{% endjs %}
 
 <!-- ---------------------------------------------
 
