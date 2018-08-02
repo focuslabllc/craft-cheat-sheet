@@ -20,12 +20,12 @@
 	{% from _self import codeBlock %}
 
 	{{ codeBlock('Total number of assets', '
-		{{ ' ~ data.sampleTag ~ '|length }}'
+		{{ ' ~ data.sampleTag ~ '.count() }}'
 	)}}
 
 
 	{{ codeBlock('Common conditional', '
-		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		{% if ' ~ data.sampleTag ~ '.exists() %}\n'
 		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
 	)}}
@@ -34,7 +34,7 @@
 	{{ codeBlock('Loop through assets', '
 		{% for myAsset in '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endfor %}'
 	)}}
@@ -43,21 +43,21 @@
 	{{ codeBlock('Only return the first asset', '
 		{% set myAsset = '
 		~ data.sampleTag
-		~ '.first() %}\n{% if myAsset %}\n'
+		~ '.one() %}\n{% if myAsset %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endif %}'
 	)}}
 
 
 	{{ codeBlock('Adjusting the limit', '
-		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
+		{% for myAsset in ' ~ data.sampleTag ~ '.limit(5).all() %}'
 	)}}
 
 
 	{{ codeBlock('All asset variables', '
 		{% set myAsset = '
 		~ data.sampleTag
-		~ '.first() %}\n{% if myAsset %}\n'
+		~ '.one() %}\n{% if myAsset %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.dateCreated }}\n'
 		~ data.whitespace
@@ -91,9 +91,9 @@
 		~ data.whitespace
 		~ '{{ myAsset.size }}\n'
 		~ data.whitespace
-		~ '{{ myAsset.source }}\n'
+		~ '{{ myAsset.volume }}\n'
 		~ data.whitespace
-		~ '{{ myAsset.sourceId }}\n'
+		~ '{{ myAsset.volumeId }}\n'
 		~ data.whitespace
 		~ '{{ myAsset.url }}\n'
 		~ data.whitespace
@@ -104,7 +104,7 @@
 	{{ codeBlock('All asset methods', '
 		{% set myAsset = '
 		~ data.sampleTag
-		~ '.first() %}\n{% if myAsset %}\n'
+		~ '.one() %}\n{% if myAsset %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.getExtension() }}\n'
 		~ data.whitespace
@@ -137,7 +137,7 @@
 	{% from _self import codeBlock %}
 
 	{{ codeBlock('Check if entry has categories', '
-		{% if ' ~ data.sampleTag ~ '|length %}\n'
+		{% if ' ~ data.sampleTag ~ '.exists() %}\n'
 		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
 	)}}
@@ -146,7 +146,7 @@
 	{{ codeBlock('Rename for easier access', '
 		{% set categories = '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ '{% if categories|length %}\n'
 		~ data.whitespace ~ '<h3>My Categories<h3/>\n'
 		~ data.whitespace
@@ -157,15 +157,15 @@
 	)}}
 
 
-	{{ codeBlock('Pass parameters to the ElementCriteria Model', '
-		{% set myCategories = ' ~ data.sampleTag ~ '.order(\'name\') %}'
+	{{ codeBlock('Pass parameters to the category query', '
+		{% set myCategories = ' ~ data.sampleTag ~ '.order(\'name\').all() %}'
 	)}}
 
 
 	{{ codeBlock('Select just the first category', '
 		{% set myCategory = '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ '{% if myCategory %}\n'
 		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
@@ -232,8 +232,12 @@
 
 
 	{{ codeBlock('"If exists" conditional', '
-		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
 	)}}
+
+    {{ codeBlock('As rgb() syntax', '
+		{% if ' ~ data.sampleTag ~ '.rgb %} ... {% endif %}'
+    )}}
 
 {% endmacro -%}
 
@@ -296,7 +300,7 @@
 	{{ codeBlock('Does your entries field have any entries?', '
 		{% if '
 		~ data.sampleTag
-		~ '|length %}\n'
+		~ '.exists() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
@@ -306,7 +310,7 @@
 	{{ codeBlock('A simple loop for your entries', '
 		{% for myEntry in '
 		~ data.sampleTag
-		~ '|length %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
@@ -316,7 +320,7 @@
 	{{ codeBlock('Set variable, check for entries, then loop through them', '
 		{% set entries = '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ '{% if entries|length %}\n'
 		~ data.whitespace
 		~ '<h3>List of Entries</h3>\n'
@@ -333,7 +337,7 @@
 	{{ codeBlock('Just grab the first entry', '
 		{% set myEntry = '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ '{% if myEntry %}\n'
 		~ data.whitespace
 		~ '...\n'
@@ -355,24 +359,24 @@
 	{% from _self import codeBlock %}
 
 	{{ codeBlock('Total number of blocks', '
-		{{ ' ~ data.sampleTag ~ '|length }}'
+		{{ ' ~ data.sampleTag ~ '.count() }}'
 	)}}
 
 
 	{{ codeBlock('Loop through blocks', '
-		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+		{% for block in ' ~ data.sampleTag ~ '.all() %}\n'
 		~ data.whitespace ~ '...\n{'
 		~ '% endfor %}'
 	)}}
 
 
 	{{ codeBlock('Filtering by block type', '
-		{% for block in ' ~ data.sampleTag ~ '.type(\'text\') %}'
+		{% for block in ' ~ data.sampleTag ~ '.type(\'text\').all() %}'
 	)}}
 
 
 	{{ codeBlock('Adjusting the limit', '
-		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
+		{% for block in ' ~ data.sampleTag ~ '.limit(5).all() %}'
 	)}}
 
 
@@ -410,7 +414,7 @@
 
 
 	{{ codeBlock('All block types with fields', '
-		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+		{% for block in ' ~ data.sampleTag ~ '.all() %}\n'
 		~ data.whitespace ~ '{% switch block.type %}\n\n'
 		~ blockCode
 		~ data.whitespace ~ data.whitespace
@@ -492,7 +496,7 @@
 	)}}
 
 	{{ codeBlock('"If exists" conditional', '
-		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
 	)}}
 
 {% endmacro -%}
@@ -715,14 +719,14 @@
 
 
 	{{ codeBlock('Check if any tags exist', '
-		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+		{% if ' ~ data.sampleTag ~ '.exists() %} ... {% endif %}'
 	)}}
 
 
 	{{ codeBlock('Loop through the selected tags', '
 		{% for myTag in '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
@@ -730,14 +734,14 @@
 
 
 	{{ codeBlock('Order by parameters', '
-		{% set myTags = ' ~ data.sampleTag ~ '.order(\'title\') %}'
+		{% set myTags = ' ~ data.sampleTag ~ '.order(\'title\').all() %}'
 	)}}
 
 
 	{{ codeBlock('Avoid a loop if your field limits to 1 user', '
 		{% if '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
@@ -754,14 +758,14 @@
 
 
 	{{ codeBlock('Check if any users were selected', '
-		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+		{% if ' ~ data.sampleTag ~ '.exists() %} ... {% endif %}'
 	)}}
 
 
 	{{ codeBlock('Loop through the selected users', '
 		{% for myUser in '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
@@ -769,14 +773,14 @@
 
 
 	{{ codeBlock('Filter by parameters', '
-		{% set authors = ' ~ data.sampleTag ~ '.group(\'groupName\') %}'
+		{% set authors = ' ~ data.sampleTag ~ '.group(\'groupName\').all() %}'
 	)}}
 
 
 	{{ codeBlock('Avoid a loop if your field limits to 1 user', '
 		{% set myUser = '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ '{% if myUser %}\n'
 		~ data.whitespace
 		~ '...\n'
