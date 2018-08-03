@@ -11,14 +11,19 @@ var gulp    = require('gulp'),
     replace = require('gulp-replace');
 
 
+
+var srcDir = './src/assets/src',
+    distDir = './src/assets/dist';
+
+
 /*
  We occasionally need to delete the generated files
  so we have a 'clean' task to knock this out.
 */
 gulp.task('clean', function(){
 	del([
-		'./cheatsheet/resources/js/*.js',
-		'./cheatsheet/resources/css/*.css'
+		distDir+'/js/*.js',
+		distDir+'/css/*.css'
 		]);
 });
 
@@ -29,13 +34,13 @@ gulp.task('clean', function(){
  concatenate them by 2 line breaks
 */
 gulp.task('js', function(){
-	return gulp.src('./src/js/[!_]*.js')
+	return gulp.src(srcDir+'/js/[!_]*.js')
 	.pipe(plumber())
 	.pipe(jshint())
 	.pipe(jshint.reporter('jshint-stylish'))
 	.pipe(concat('scripts.js', { newLine: '\r\n\r\n' }))
 	.pipe(jsmin())
-	.pipe(gulp.dest('./cheatsheet/resources/js'))
+	.pipe(gulp.dest(distDir+'/js'))
 });
 
 
@@ -47,10 +52,10 @@ gulp.task('js', function(){
  samples and remove top-most comment blocks that follow a particular pattern.
 */
 gulp.task('fieldTypes', function(){
-	return gulp.src('./cheatsheet/templates/frontEnd/_includes/_fieldMacros/*.twig')
+	return gulp.src('./src/templates/frontEnd/_includes/_fieldMacros/*.twig')
 	.pipe(plumber())
 	.pipe(concat('fields.twig', { newLine: '\r\n\r\n' }))
-	.pipe(gulp.dest('./cheatsheet/templates/frontEnd/_includes/_coreMacros'))
+	.pipe(gulp.dest('./src/templates/frontEnd/_includes/_coreMacros'))
 	.on('end', function(){
 		gulp.start('buildMacro');
 	});
@@ -64,29 +69,29 @@ gulp.task('fieldTypes', function(){
  file that can be included in a single scope
 */
 gulp.task('buildMacro', function(){
-	return gulp.src('./cheatsheet/templates/frontEnd/_includes/_coreMacros/*.twig')
+	return gulp.src('./src/templates/frontEnd/_includes/_coreMacros/*.twig')
 	.pipe(plumber())
 	.pipe(concat('fieldMacros.twig', { newLine: '\r\n\r\n' }))
-	.pipe(gulp.dest('./cheatsheet/templates/frontEnd/_includes/'))
+	.pipe(gulp.dest('./src/templates/frontEnd/_includes/'))
 });
 
 
 
 // Nothin special here. Just good ole Sass compiling
 gulp.task('sass', function(){
-	return gulp.src('./src/sass/*.scss')
+	return gulp.src(srcDir+'/sass/*.scss')
 	.pipe(plumber())
 	.pipe(sass({outputStyle: 'expanded'}))
 	.pipe(rename('styles.css'))
-	.pipe(gulp.dest('./src/includes/'))
-	.pipe(gulp.dest('./cheatsheet/resources/css'))
+	.pipe(gulp.dest(srcDir+'/includes/'))
+	.pipe(gulp.dest(distDir+'/css'))
 });
 
 
 
 // Some files need to be placed on a remote server. Gather those.
 gulp.task('prod', function(){
-	gulp.src(['./src/js/vendor/*', './img/*'])
+	gulp.src([srcDir+'/js/vendor/*', './img/*'])
 	.pipe(plumber())
 	.pipe(gulp.dest('./remote_assets/'))
 	.pipe(notify('Production file prepped: <%= file.relative %>'));
@@ -96,9 +101,9 @@ gulp.task('prod', function(){
 
 // The magic of watching files for changes
 gulp.task('watch', function(){
-	gulp.watch('./src/js/[!_]*.js', ['js']);
-	gulp.watch('./src/sass/*.scss', ['sass']);
-	gulp.watch('./cheatsheet/templates/frontEnd/_includes/_fieldMacros/[!_]*.twig', ['fieldTypes']);
+	gulp.watch(srcDir+'/js/[!_]*.js', ['js']);
+	gulp.watch(srcDir+'/sass/*.scss', ['sass']);
+	gulp.watch('./src/templates/frontEnd/_includes/_fieldMacros/[!_]*.twig', ['fieldTypes']);
 });
 
 
