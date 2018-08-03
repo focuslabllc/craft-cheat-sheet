@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0
+## 2.0.0 - 2018-08-03
 
 ### Added
 - Initial Craft 3 compatibility
