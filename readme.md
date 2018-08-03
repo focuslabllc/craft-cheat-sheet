@@ -90,12 +90,16 @@ We originally created this as a self-serving tool while working on our own Craft
     - [Andy Fought](https://twitter.com/andyfought) on html/css
     - [Erik Reagan](https://twitter.com/erikreagan) on js/twig/craft
 - Community credits
-    - [Brandon Kelly](https://twitter.com/brandonkelly) who helped us wrap our heads around some of the data structure. Particularly Matrix.
+    - [Brandon Kelly](https://twitter.com/brandonkelly) who helped us wrap our heads around some of the data structure. Particularly Matrix. Brandon also helped the community out with the initial Craft 3 port.
     - [Ben Parizek](https://twitter.com/BenParizek) who originally inspired the "Cheat Sheet" idea through his awesome resources on [Straight up Craft](http://straightupcraft.com/search/results?q=cheat+sheet).
 
 
 
 ## Change Log
+
+**Aug 3rd, 2018: 2.0.0**
+
+- Initial Craft 3 compatibility
 
 **Mar 20th, 2017: 1.2.1**
 
