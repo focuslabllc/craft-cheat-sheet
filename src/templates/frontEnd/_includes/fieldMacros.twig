@@ -698,9 +698,20 @@
 				{%- for row, cols in data.field.settings.defaults -%}
 				<tr>
 					<td>{{ loop.index }}</td>
-					{%- for col in cols -%}
-					<td>{{ col }}</td>
-					{%- endfor -%}
+					{%- for colId, col in cols -%}
+					{%- switch data.field.settings.columns[colId].type -%}
+					{%- case 'checkbox' or 'lightswitch' -%}
+					<td><code>{{ col ? 'true' : 'false' }}</code></td>
+					{%- case 'color' -%}
+					<td><code>{{ col }}</code></td>
+					{%- case 'date' -%}
+					<td>{{ col ? col|date('short') }}</td>
+					{%- case 'time' -%}
+					<td>{{ col ? col|time('short') }}</td>
+                    {%- default -%}
+					<td>{{ col|nl2br }}</td>
+                    {%- endswitch -%}
+                    {%- endfor -%}
 				</tr>
 				{%- endfor -%}
 			</tbody>
