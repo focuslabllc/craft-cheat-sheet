@@ -664,7 +664,7 @@
 		{{-
 			data.whitespace ~ data.whitespace
 			~ '{{ row.' ~ col.handle ~ ' }} '
-			~ _self.strRepeat(' ', max(rowWhitespace) - col.handle|length)
+			~ macros.strRepeat(' ', max(rowWhitespace) - col.handle|length)
 			~ '{# ' ~ col.type ~ ' #}\n'
 		-}}
 	{%- endfor -%}
