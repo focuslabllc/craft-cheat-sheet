@@ -1,34 +1,35 @@
 {%- macro cs_Entries(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Set your entries to a variable', '
+	{{ macros.codeBlock('Set your entries to a variable', '
 		{% set entries = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ _self.codeBlock('Does your entries field have any entries?', '
+	{{ macros.codeBlock('Does your entries field have any entries?', '
 		{% if '
 		~ data.sampleTag
-		~ '|length %}\n'
+		~ '.exists() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ _self.codeBlock('A simple loop for your entries', '
+	{{ macros.codeBlock('A simple loop for your entries', '
 		{% for myEntry in '
 		~ data.sampleTag
-		~ '|length %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ _self.codeBlock('Set variable, check for entries, then loop through them', '
+	{{ macros.codeBlock('Set variable, check for entries, then loop through them', '
 		{% set entries = '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ '{% if entries|length %}\n'
 		~ data.whitespace
 		~ '<h3>List of Entries</h3>\n'
@@ -42,10 +43,10 @@
 	)}}
 
 
-	{{ _self.codeBlock('Just grab the first entry', '
+	{{ macros.codeBlock('Just grab the first entry', '
 		{% set myEntry = '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ '{% if myEntry %}\n'
 		~ data.whitespace
 		~ '...\n'

@@ -1,11 +1,12 @@
 {%- macro cs_PositionSelect(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Adding to a class name', '
+	{{ macros.codeBlock('Adding to a class name', '
 		<div class="block {{ ' ~ data.sampleTag ~ ' }}">'
 	)}}
 
 
-	{{ _self.codeBlock('Conditionals around position values', '
+	{{ macros.codeBlock('Conditionals around position values', '
 		{% if '
 		~ data.sampleTag
 		~ ' in [\'left\', \'right\'] %}\n'
@@ -20,7 +21,7 @@
 	)}}
 
 
-	{{ _self.codeBlock('Switch statement for all values', '
+	{{ macros.codeBlock('Switch statement for all values', '
 		{% switch '
 		~ data.sampleTag
 		~ ' %}\n'

@@ -1,45 +1,45 @@
 {%- macro cs_Assets(data) %}
+	{% import _self as macros %}
 
-
-	{{ _self.codeBlock('Total number of assets', '
-		{{ ' ~ data.sampleTag ~ '|length }}'
+	{{ macros.codeBlock('Total number of assets', '
+		{{ ' ~ data.sampleTag ~ '.count() }}'
 	)}}
 
 
-	{{ _self.codeBlock('Common conditional', '
-		{% if ' ~ data.sampleTag ~ '|length %}\n'
+	{{ macros.codeBlock('Common conditional', '
+		{% if ' ~ data.sampleTag ~ '.exists() %}\n'
 		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ _self.codeBlock('Loop through assets', '
+	{{ macros.codeBlock('Loop through assets', '
 		{% for myAsset in '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endfor %}'
 	)}}
 
 
-	{{ _self.codeBlock('Only return the first asset', '
+	{{ macros.codeBlock('Only return the first asset', '
 		{% set myAsset = '
 		~ data.sampleTag
-		~ '.first() %}\n{% if myAsset %}\n'
+		~ '.one() %}\n{% if myAsset %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.url }}\n{% endif %}'
 	)}}
 
 
-	{{ _self.codeBlock('Adjusting the limit', '
-		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
+	{{ macros.codeBlock('Adjusting the limit', '
+		{% for myAsset in ' ~ data.sampleTag ~ '.limit(5).all() %}'
 	)}}
 
 
-	{{ _self.codeBlock('All asset variables', '
+	{{ macros.codeBlock('All asset variables', '
 		{% set myAsset = '
 		~ data.sampleTag
-		~ '.first() %}\n{% if myAsset %}\n'
+		~ '.one() %}\n{% if myAsset %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.dateCreated }}\n'
 		~ data.whitespace
@@ -73,9 +73,9 @@
 		~ data.whitespace
 		~ '{{ myAsset.size }}\n'
 		~ data.whitespace
-		~ '{{ myAsset.source }}\n'
+		~ '{{ myAsset.volume }}\n'
 		~ data.whitespace
-		~ '{{ myAsset.sourceId }}\n'
+		~ '{{ myAsset.volumeId }}\n'
 		~ data.whitespace
 		~ '{{ myAsset.url }}\n'
 		~ data.whitespace
@@ -83,10 +83,10 @@
 	)}}
 
 
-	{{ _self.codeBlock('All asset methods', '
+	{{ macros.codeBlock('All asset methods', '
 		{% set myAsset = '
 		~ data.sampleTag
-		~ '.first() %}\n{% if myAsset %}\n'
+		~ '.one() %}\n{% if myAsset %}\n'
 		~ data.whitespace
 		~ '{{ myAsset.getExtension() }}\n'
 		~ data.whitespace

@@ -1,6 +1,7 @@
 {%- macro cs_SmartMap_Address(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Individual address fields', '
+	{{ macros.codeBlock('Individual address fields', '
 		{{ ' ~ data.sampleTag ~ '.street1 }}\n'
 		~ '{{ ' ~ data.sampleTag ~ '.street2 }}\n'
 		~ '{{ ' ~ data.sampleTag ~ '.city }}\n'
@@ -12,7 +13,7 @@
 		~ 'Found {{ ' ~ data.sampleTag ~ '.distance | number_format(1) }} miles away.\n'
 	)}}
 
-	{{ _self.codeBlock('Combined address output', '
+	{{ macros.codeBlock('Combined address output', '
 		{# On 3 lines #}\n'
 		~ '{{ '
 		~ data.sampleTag ~ '.format'
@@ -27,11 +28,11 @@
 		~ ' }}'
 	)}}
 
-	{{ _self.codeBlock('"If address is not empty" conditional', '
+	{{ macros.codeBlock('"If address is not empty" conditional', '
 		{% if not ' ~ data.sampleTag ~ '.isEmpty %} ... {% endif %}'
 	)}}
 
-	{{ _self.codeBlock('"If address has coordinates" conditional', '
+	{{ macros.codeBlock('"If address has coordinates" conditional', '
 		{% if ' ~ data.sampleTag ~ '.hasCoords %} ... {% endif %}'
 	)}}
 

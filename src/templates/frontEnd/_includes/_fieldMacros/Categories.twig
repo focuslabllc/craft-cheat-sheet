@@ -1,16 +1,17 @@
 {%- macro cs_Categories(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Check if entry has categories', '
-		{% if ' ~ data.sampleTag ~ '|length %}\n'
+	{{ macros.codeBlock('Check if entry has categories', '
+		{% if ' ~ data.sampleTag ~ '.exists() %}\n'
 		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
 	)}}
 
 
-	{{ _self.codeBlock('Rename for easier access', '
+	{{ macros.codeBlock('Rename for easier access', '
 		{% set categories = '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ '{% if categories|length %}\n'
 		~ data.whitespace ~ '<h3>My Categories<h3/>\n'
 		~ data.whitespace
@@ -21,15 +22,15 @@
 	)}}
 
 
-	{{ _self.codeBlock('Pass parameters to the ElementCriteria Model', '
-		{% set myCategories = ' ~ data.sampleTag ~ '.order(\'name\') %}'
+	{{ macros.codeBlock('Pass parameters to the category query', '
+		{% set myCategories = ' ~ data.sampleTag ~ '.order(\'name\').all() %}'
 	)}}
 
 
-	{{ _self.codeBlock('Select just the first category', '
+	{{ macros.codeBlock('Select just the first category', '
 		{% set myCategory = '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ '{% if myCategory %}\n'
 		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'

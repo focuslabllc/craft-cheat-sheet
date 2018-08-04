@@ -38,7 +38,6 @@ class RoutesController extends Controller
         $view = Craft::$app->view;
         $view->setTemplateMode(View::TEMPLATE_MODE_CP);
         $view->setTemplatesPath($plugin->getBasePath() . '/templates/frontEnd');
-
         $view->registerAssetBundle(CheatSheetAsset::class);
 
         $templateData = $plugin->fields->getTemplateData();

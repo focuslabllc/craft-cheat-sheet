@@ -1,6 +1,7 @@
 {%- macro cs_MultiSelect(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Loop through the <em>selected</em> options', '
+	{{ macros.codeBlock('Loop through the <em>selected</em> options', '
 		<ul>\n'
 		~ data.whitespace ~ '{% for option in '
 		~ data.sampleTag
@@ -13,7 +14,7 @@
 	)}}
 
 
-	{{ _self.codeBlock('Loop through <em>all</em> of the options', '
+	{{ macros.codeBlock('Loop through <em>all</em> of the options', '
 		<ul>\n'
 		~ data.whitespace ~ '{% for option in '
 		~ data.sampleTag
@@ -26,7 +27,7 @@
 	)}}
 
 
-	{{ _self.codeBlock('See if a specific option is selected', '
+	{{ macros.codeBlock('See if a specific option is selected', '
 		{% if '
 		~ data.sampleTag
 		~ '.contains(\'value\') %}\n'

@@ -1,24 +1,25 @@
 {%- macro cs_Matrix(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Total number of blocks', '
-		{{ ' ~ data.sampleTag ~ '|length }}'
+	{{ macros.codeBlock('Total number of blocks', '
+		{{ ' ~ data.sampleTag ~ '.count() }}'
 	)}}
 
 
-	{{ _self.codeBlock('Loop through blocks', '
-		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+	{{ macros.codeBlock('Loop through blocks', '
+		{% for block in ' ~ data.sampleTag ~ '.all() %}\n'
 		~ data.whitespace ~ '...\n{'
 		~ '% endfor %}'
 	)}}
 
 
-	{{ _self.codeBlock('Filtering by block type', '
-		{% for block in ' ~ data.sampleTag ~ '.type(\'text\') %}'
+	{{ macros.codeBlock('Filtering by block type', '
+		{% for block in ' ~ data.sampleTag ~ '.type(\'text\').all() %}'
 	)}}
 
 
-	{{ _self.codeBlock('Adjusting the limit', '
-		{% for block in ' ~ data.sampleTag ~ '.limit(5) %}'
+	{{ macros.codeBlock('Adjusting the limit', '
+		{% for block in ' ~ data.sampleTag ~ '.limit(5).all() %}'
 	)}}
 
 
@@ -29,7 +30,7 @@
 	#}
 	{%- set blockCode -%}
 
-		{%- for blockType in data.field.getFieldType().getSettings().getBlockTypes() -%}
+		{%- for blockType in data.field.getBlockTypes() -%}
 
 			{%- set blockFieldCode -%}
 
@@ -37,7 +38,7 @@
 					{{-
 						data.whitespace ~ data.whitespace ~ data.whitespace
 						~ '{{ block.' ~ matrixField.handle ~ ' }} '
-						~ '{# Type: ' ~ matrixField.type|replace('_', ' ')|replace('/(.)([A-Z])/', '$1 $2')|title ~ ' #}\n'
+						~ '{# Type: ' ~ matrixField.displayName ~ ' #}\n'
 					-}}
 				{%- endfor -%}
 
@@ -55,8 +56,8 @@
 	{%- endset -%}
 
 
-	{{ _self.codeBlock('All block types with fields', '
-		{% for block in ' ~ data.sampleTag ~ ' %}\n'
+	{{ macros.codeBlock('All block types with fields', '
+		{% for block in ' ~ data.sampleTag ~ '.all() %}\n'
 		~ data.whitespace ~ '{% switch block.type %}\n\n'
 		~ blockCode
 		~ data.whitespace ~ data.whitespace

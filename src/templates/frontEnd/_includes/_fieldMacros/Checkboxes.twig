@@ -1,16 +1,17 @@
 {%- macro cs_Checkboxes(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Field name', '
+	{{ macros.codeBlock('Field name', '
 		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ _self.codeBlock('Single checkbox conditional', '
+	{{ macros.codeBlock('Single checkbox conditional', '
 		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 
 
-	{{ _self.codeBlock('Loop through the *selected* options', '
+	{{ macros.codeBlock('Loop through the *selected* options', '
 		<ul>\n'
 		~ data.whitespace ~ '{% for option in '
 		~ data.sampleTag
@@ -23,7 +24,7 @@
 	)}}
 
 
-	{{ _self.codeBlock('Loop through <em>all</em> of the options', '
+	{{ macros.codeBlock('Loop through <em>all</em> of the options', '
 		<ul>\n'
 		~ data.whitespace ~ '{% for option in '
 		~ data.sampleTag
@@ -36,7 +37,7 @@
 	)}}
 
 
-	{{ _self.codeBlock('See if a specific option is selected', '
+	{{ macros.codeBlock('See if a specific option is selected', '
 		{% if '
 		~ data.sampleTag
 		~ '.contains(\'value\') %}\n'

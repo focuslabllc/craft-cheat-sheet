@@ -1,6 +1,7 @@
 {%- macro cs_Date(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Sample date formatting', '
+	{{ macros.codeBlock('Sample date formatting', '
 		{% if ' ~ data.sampleTag ~ ' %}\n'
 		~ data.whitespace
 		~ '{{ ' ~ data.sampleTag ~ ' | date(\'M j, Y\') }}\n'
@@ -8,7 +9,7 @@
 	)}}
 
 
-	{{ _self.codeBlock('Get the Unix timestamp of the date', '
+	{{ macros.codeBlock('Get the Unix timestamp of the date', '
 		{{ ' ~ data.sampleTag ~ '.getTimestamp() }}'
 	)}}
 

@@ -1,34 +1,35 @@
 {%- macro cs_Users(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Set a variable for future template use', '
+	{{ macros.codeBlock('Set a variable for future template use', '
 		{% set myUsers = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ _self.codeBlock('Check if any users were selected', '
-		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	{{ macros.codeBlock('Check if any users were selected', '
+		{% if ' ~ data.sampleTag ~ '.exists() %} ... {% endif %}'
 	)}}
 
 
-	{{ _self.codeBlock('Loop through the selected users', '
+	{{ macros.codeBlock('Loop through the selected users', '
 		{% for myUser in '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ _self.codeBlock('Filter by parameters', '
-		{% set authors = ' ~ data.sampleTag ~ '.group(\'groupName\') %}'
+	{{ macros.codeBlock('Filter by parameters', '
+		{% set authors = ' ~ data.sampleTag ~ '.group(\'groupName\').all() %}'
 	)}}
 
 
-	{{ _self.codeBlock('Avoid a loop if your field limits to 1 user', '
+	{{ macros.codeBlock('Avoid a loop if your field limits to 1 user', '
 		{% set myUser = '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ '{% if myUser %}\n'
 		~ data.whitespace
 		~ '...\n'

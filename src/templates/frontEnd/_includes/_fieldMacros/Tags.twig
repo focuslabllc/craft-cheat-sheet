@@ -1,34 +1,35 @@
 {%- macro cs_Tags(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('Set a variable for future template use', '
+	{{ macros.codeBlock('Set a variable for future template use', '
 		{% set myTags = ' ~ data.sampleTag ~ ' %}'
 	)}}
 
 
-	{{ _self.codeBlock('Check if any tags exist', '
-		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
+	{{ macros.codeBlock('Check if any tags exist', '
+		{% if ' ~ data.sampleTag ~ '.exists() %} ... {% endif %}'
 	)}}
 
 
-	{{ _self.codeBlock('Loop through the selected tags', '
+	{{ macros.codeBlock('Loop through the selected tags', '
 		{% for myTag in '
 		~ data.sampleTag
-		~ ' %}\n'
+		~ '.all() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endfor %}'
 	)}}
 
 
-	{{ _self.codeBlock('Order by parameters', '
-		{% set myTags = ' ~ data.sampleTag ~ '.order(\'title\') %}'
+	{{ macros.codeBlock('Order by parameters', '
+		{% set myTags = ' ~ data.sampleTag ~ '.order(\'title\').all() %}'
 	)}}
 
 
-	{{ _self.codeBlock('Avoid a loop if your field limits to 1 user', '
+	{{ macros.codeBlock('Avoid a loop if your field limits to 1 user', '
 		{% if '
 		~ data.sampleTag
-		~ '.first() %}\n'
+		~ '.one() %}\n'
 		~ data.whitespace
 		~ '...\n'
 		~ '{% endif %}'

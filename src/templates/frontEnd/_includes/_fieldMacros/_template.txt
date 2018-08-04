@@ -26,17 +26,18 @@
 #}
 
 {%- macro cs_YourFieldType(data) %}
+	{% import _self as macros %}
 
 	<div class="extra">
 		<p>You can setup extra info below your snippets.</p>
 	</div>
 
-	{{ _self.codeBlock('Field name', '
+	{{ macros.codeBlock('Field name', '
 		{{ ' ~ data.sampleTag ~ ' }}'
 	), 'This is an example of code-block specific additional text if you need to prefix the sample code with anything.'}}
 
 
-	{{ _self.codeBlock('"If exists" conditional', '
+	{{ macros.codeBlock('"If exists" conditional', '
 		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
 	)}}
 

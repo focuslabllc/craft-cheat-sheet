@@ -1,4 +1,5 @@
 {%- macro cs_Table(data) %}
+	{% import _self as macros %}
 
 	{#
 	   Some whitespace setup code so we can use the previously defined
@@ -20,14 +21,14 @@
 		{{-
 			data.whitespace ~ data.whitespace
 			~ '{{ row.' ~ col.handle ~ ' }} '
-			~ _self.strRepeat(' ', max(rowWhitespace) - col.handle|length)
+			~ macros.strRepeat(' ', max(rowWhitespace) - col.handle|length)
 			~ '{# ' ~ col.type ~ ' #}\n'
 		-}}
 	{%- endfor -%}
 	{%- endset -%}
 
 
-	{{ _self.codeBlock('Table Structure', '
+	{{ macros.codeBlock('Table Structure', '
 		{% if ' ~ data.sampleTag ~ '|length %}\n'
 		~ data.whitespace
 		~ '{% for row in ' ~ data.sampleTag ~ ' %}\n'
@@ -54,8 +55,19 @@
 				{%- for row, cols in data.field.settings.defaults -%}
 				<tr>
 					<td>{{ loop.index }}</td>
-					{%- for col in cols -%}
-					<td>{{ col }}</td>
+					{%- for colId, col in cols -%}
+						{%- switch data.field.settings.columns[colId].type -%}
+							{%- case 'checkbox' or 'lightswitch' -%}
+								<td><code>{{ col ? 'true' : 'false' }}</code></td>
+							{%- case 'color' -%}
+								<td><code>{{ col }}</code></td>
+							{%- case 'date' -%}
+								<td>{{ col ? col|date('short') }}</td>
+							{%- case 'time' -%}
+								<td>{{ col ? col|time('short') }}</td>
+							{%- default -%}
+								<td>{{ col|nl2br }}</td>
+						{%- endswitch -%}
 					{%- endfor -%}
 				</tr>
 				{%- endfor -%}

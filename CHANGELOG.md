@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.1 - 2018-08-04
+
+### Changed
+
+- Updated the default table formatting display
+
+### Fixed
+
+- Fixed a bug where macros weren't loaded in the correct way ([#55](https://github.com/focuslabllc/craft-cheat-sheet/issues/55))
+
 ## 2.0.0 - 2018-08-03
 
 ### Added

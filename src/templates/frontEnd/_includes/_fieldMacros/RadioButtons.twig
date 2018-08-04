@@ -1,16 +1,17 @@
 {%- macro cs_RadioButtons(data) %}
+	{% import _self as macros %}
 
-	{{ _self.codeBlock('The Selected value\'s option', '
+	{{ macros.codeBlock('The Selected value\'s option', '
 		{{ ' ~ data.sampleTag ~ ' }}'
 	)}}
 
 
-	{{ _self.codeBlock('The Selected value\'s label', '
+	{{ macros.codeBlock('The Selected value\'s label', '
 		{{ ' ~ data.sampleTag ~ '.label }}'
 	)}}
 
 
-	{{ _self.codeBlock('Loop through all available options', '
+	{{ macros.codeBlock('Loop through all available options', '
 		<ul>\n'
 		~ data.whitespace ~ '{% for option in '
 		~ data.sampleTag
