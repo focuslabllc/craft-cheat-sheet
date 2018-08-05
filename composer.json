@@ -1,7 +1,7 @@
 {
   "name": "focuslabllc/craft-cheat-sheet",
   "description": "A fast and customized set of instantly usable Field code samples.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "type": "craft-plugin",
   "keywords": [
     "craftcms",
@@ -37,7 +37,7 @@
   "extra": {
     "name": "Craft Cheat Sheet",
     "handle": "cheat-sheet",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "documentationUrl": "https://github.com/focuslabllc/craft-cheat-sheet/blob/master/readme.md"
   }
 }

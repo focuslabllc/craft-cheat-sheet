@@ -4,7 +4,7 @@
 --------------------------------------------- #}
 {%- macro codeBlock(title, code, helpText) %}
 	<div class="code_block">
-		<h3>{{ title }}</h3>
+		<h3>{{ title|raw}}</h3>
 		{% if helpText %}
 		<div class="description">
 			<p>{{ helpText|md }}</p>
@@ -169,7 +169,7 @@
 		~ '{% if myCategory %}\n'
 		~ data.whitespace ~ '...\n'
 		~ '{% endif %}'
-	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the "first" one.')}}
+	, 'This is mostly used in a scenario where you only expect one category to be selected. The result is still a "set" of categories so we just grab the first one.')}}
 
 {% endmacro -%}
 
@@ -186,7 +186,7 @@
 	)}}
 
 
-	{{ macros.codeBlock('Loop through the *selected* options', '
+	{{ macros.codeBlock('Loop through the <em>selected</em> options', '
 		<ul>\n'
 		~ data.whitespace ~ '{% for option in '
 		~ data.sampleTag
@@ -232,6 +232,25 @@
 
 	{{ macros.codeBlock('If exists" conditional', '
 		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
+	)}}
+
+	{{ macros.codeBlock('Adding to page style rules', '
+		{% if '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace
+		~ '<style type="text/css">\n'
+		~ data.whitespace ~ data.whitespace
+		~ '.content a {\n'
+		~ data.whitespace ~ data.whitespace ~ data.whitespace
+		~ 'color: {{ '
+		~ data.sampleTag
+		~ '.getHex() }};\n'
+		~ data.whitespace ~ data.whitespace
+		~ '}\n'
+		~ data.whitespace
+		~ '</style>\n'
+		~ '{% endif %}'
 	)}}
 
 	{{ macros.codeBlock('As rgb() syntax', '
@@ -284,6 +303,19 @@
 		~ '<li>{{ option }}</li>\n'
 		~ data.whitespace
 		~ '{% endfor %}\n</ul>'
+	)}}
+
+{% endmacro -%}
+
+{%- macro cs_Email(data) %}
+	{% import _self as macros %}
+
+	{{ macros.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+	{{ macros.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
 	)}}
 
 {% endmacro -%}
@@ -583,6 +615,19 @@
 
 {% endmacro -%}
 
+{%- macro cs_Redactor(data) %}
+	{% import _self as macros %}
+
+	{{ macros.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+	{{ macros.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}
+
 {%- macro cs_RichText(data) %}
 	{% import _self as macros %}
 
@@ -748,7 +793,7 @@
 	)}}
 
 
-	{{ macros.codeBlock('Avoid a loop if your field limits to 1 user', '
+	{{ macros.codeBlock('Avoid a loop if your field limits to 1 tag', '
 		{% if '
 		~ data.sampleTag
 		~ '.one() %}\n'

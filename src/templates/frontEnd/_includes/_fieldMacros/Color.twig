@@ -9,6 +9,25 @@
 		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
 	)}}
 
+	{{ macros.codeBlock('Adding to page style rules', '
+		{% if '
+		~ data.sampleTag
+		~ ' %}\n'
+		~ data.whitespace
+		~ '<style type="text/css">\n'
+		~ data.whitespace ~ data.whitespace
+		~ '.content a {\n'
+		~ data.whitespace ~ data.whitespace ~ data.whitespace
+		~ 'color: {{ '
+		~ data.sampleTag
+		~ '.getHex() }};\n'
+		~ data.whitespace ~ data.whitespace
+		~ '}\n'
+		~ data.whitespace
+		~ '</style>\n'
+		~ '{% endif %}'
+	)}}
+
 	{{ macros.codeBlock('As rgb() syntax', '
 		{{ ' ~ data.sampleTag ~ '.rgb }}'
 	)}}

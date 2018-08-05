@@ -31,7 +31,7 @@ use yii\base\BaseObject;
  * @copyright  Copyright (c) 2016, Focus Lab, LLC
  * @see        https://github.com/focuslabllc/craft-cheat-sheet
  * @package    cheatsheet
- * @version    2.0.0
+ * @version    2.0.2
  */
 class Fields extends BaseObject
 {
@@ -62,19 +62,19 @@ class Fields extends BaseObject
         $whitespace = str_replace('\t', '	', $whitespace);
 
         return [
-            'pageTitle' => 'Field Cheat Sheet',
-            'version' => $plugin->version,
-            'whitespace' => $whitespace,
-            'groups' => $fieldsService->getAllGroups(),
-            'fields' => $fieldsService->getAllFields(),
+            'pageTitle'      => 'Field Cheat Sheet',
+            'version'        => $plugin->version,
+            'whitespace'     => $whitespace,
+            'groups'         => $fieldsService->getAllGroups(),
+            'fields'         => $fieldsService->getAllFields(),
             'currentContext' => $currentContext,
-            'tagContexts' => [
-                'asset' => ['title' => 'Assets', 'tag' => 'asset'],
-                'cat' => ['title' => 'Categories', 'tag' => 'category'],
-                'entry' => ['title' => 'Entries', 'tag' => 'entry'],
+            'tagContexts'    => [
+                'asset'  => ['title' => 'Assets', 'tag' => 'asset'],
+                'cat'    => ['title' => 'Categories', 'tag' => 'category'],
+                'entry'  => ['title' => 'Entries', 'tag' => 'entry'],
                 'global' => ['title' => 'Globals', 'tag' => 'globalSet'],
-                'tag' => ['title' => 'Tags', 'tag' => 'tag'],
-                'user' => ['title' => 'Users', 'tag' => 'user']
+                'tag'    => ['title' => 'Tags', 'tag' => 'tag'],
+                'user'   => ['title' => 'Users', 'tag' => 'user']
             ],
             'nativeFieldTypes' => [
                 Assets::class,
@@ -104,6 +104,7 @@ class Fields extends BaseObject
                 Color::class => 'cs_Color',
                 Date::class => 'cs_Date',
                 Dropdown::class => 'cs_Dropdown',
+                Email::class => 'cs_Email',
                 Entries::class => 'cs_Entries',
                 Lightswitch::class => 'cs_Lightswitch',
                 Matrix::class => 'cs_Matrix',

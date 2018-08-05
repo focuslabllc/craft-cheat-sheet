@@ -1,0 +1,12 @@
+{%- macro cs_Email(data) %}
+	{% import _self as macros %}
+
+	{{ macros.codeBlock('Field name', '
+		{{ ' ~ data.sampleTag ~ ' }}'
+	)}}
+
+	{{ macros.codeBlock('"If exists" conditional', '
+		{% if ' ~ data.sampleTag ~ ' %} ... {% endif %}'
+	)}}
+
+{% endmacro -%}

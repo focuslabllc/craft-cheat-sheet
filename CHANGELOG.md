@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.2 - 2018-08-05
+
+### Changed
+
+- Made a few additional corrections and improvements to code samples
+
+### Fixed
+
+- Fixed a bug some plugins confliced with a macro loader in twig ([#54](https://github.com/focuslabllc/craft-cheat-sheet/issues/54))
+
 ## 2.0.1 - 2018-08-04
 
 ### Changed

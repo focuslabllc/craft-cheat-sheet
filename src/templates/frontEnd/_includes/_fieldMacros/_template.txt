@@ -32,14 +32,16 @@
 		<p>You can setup extra info below your snippets.</p>
 	</div>
 
-	{{ macros.codeBlock('Field name', '
+	{{ macros.codeBlock(
+		'Field name', '
 		{{ ' ~ data.sampleTag ~ ' }}'
-	), 'This is an example of code-block specific additional text if you need to prefix the sample code with anything.'}}
+		'This is an example of code-block specific additional text if you need to prefix the sample code with anything.'
+	) }}
 
 
 	{{ macros.codeBlock('"If exists" conditional', '
 		{% if ' ~ data.sampleTag ~ '|length %} ... {% endif %}'
-	)}}
+	) }}
 
 	<div class="extra">
 		<p>Or you can setup extra info below your snippets.</p>

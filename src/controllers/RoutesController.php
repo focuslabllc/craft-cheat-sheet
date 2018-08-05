@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
  * @copyright  Copyright (c) 2016, Focus Lab, LLC
  * @see        https://github.com/focuslabllc/craft-cheat-sheet
  * @package    cheatsheet
- * @version    2.0.0
+ * @version    2.0.2
  */
 class RoutesController extends Controller
 {
