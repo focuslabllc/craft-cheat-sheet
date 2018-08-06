@@ -1,6 +1,6 @@
 {
   "name": "cheat-sheet",
-  "version": "0.1.0",
+  "version": "2.0.2",
   "description": "Build process for Craft Cheat Sheet micro project",
   "main": "gulpfile.js",
   "devDependencies": {
@@ -25,5 +25,5 @@
   "bugs": {
     "url": "https://github.com/focuslabllc/craft-field-cheat-sheet/issues"
   },
-  "homepage": "https://github.com/focuslabllc/craft-field-cheat-sheet",
+  "homepage": "https://github.com/focuslabllc/craft-field-cheat-sheet"
 }
