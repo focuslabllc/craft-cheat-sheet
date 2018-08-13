@@ -21,10 +21,10 @@ var srcDir = './src/assets/src',
  so we have a 'clean' task to knock this out.
 */
 gulp.task('clean', function(){
-	del([
-		distDir+'/js/*.js',
-		distDir+'/css/*.css'
-		]);
+	return del([
+		distDir + '/js/*.js',
+		distDir + '/css/*.css'
+	]);
 });
 
 
@@ -34,13 +34,13 @@ gulp.task('clean', function(){
  concatenate them by 2 line breaks
 */
 gulp.task('js', function(){
-	return gulp.src(srcDir+'/js/[!_]*.js')
+	return gulp.src([srcDir + '/js/vendor/[!_]*.js', srcDir + '/js/[!_]*.js'])
 	.pipe(plumber())
 	.pipe(jshint())
 	.pipe(jshint.reporter('jshint-stylish'))
 	.pipe(concat('scripts.js', { newLine: '\r\n\r\n' }))
 	.pipe(jsmin())
-	.pipe(gulp.dest(distDir+'/js'))
+	.pipe(gulp.dest(distDir + '/js'))
 });
 
 
@@ -57,7 +57,7 @@ gulp.task('fieldTypes', function(){
 	.pipe(concat('fields.twig', { newLine: '\r\n\r\n' }))
 	.pipe(gulp.dest('./src/templates/frontEnd/_includes/_coreMacros'))
 	.on('end', function(){
-		gulp.start('buildMacro');
+		gulp.series('buildMacro');
 	});
 });
 
@@ -79,45 +79,33 @@ gulp.task('buildMacro', function(){
 
 // Nothin special here. Just good ole Sass compiling
 gulp.task('sass', function(){
-	return gulp.src(srcDir+'/sass/*.scss')
+	return gulp.src(srcDir + '/sass/*.scss')
 	.pipe(plumber())
 	.pipe(sass({outputStyle: 'expanded'}))
 	.pipe(rename('styles.css'))
-	.pipe(gulp.dest(srcDir+'/includes/'))
-	.pipe(gulp.dest(distDir+'/css'))
-});
-
-
-
-// Some files need to be placed on a remote server. Gather those.
-gulp.task('prod', function(){
-	gulp.src([srcDir+'/js/vendor/*', './img/*'])
-	.pipe(plumber())
-	.pipe(gulp.dest('./remote_assets/'))
-	.pipe(notify('Production file prepped: <%= file.relative %>'));
+	.pipe(gulp.dest(srcDir + '/includes/'))
+	.pipe(gulp.dest(distDir + '/css'))
 });
 
 
 
 // The magic of watching files for changes
 gulp.task('watch', function(){
-	gulp.watch(srcDir+'/js/[!_]*.js', ['js']);
-	gulp.watch(srcDir+'/sass/*.scss', ['sass']);
-	gulp.watch('./src/templates/frontEnd/_includes/_fieldMacros/[!_]*.twig', ['fieldTypes']);
+	gulp.watch(srcDir + '/js/[!_]*.js', gulp.parallel(['js']));
+	gulp.watch(srcDir + '/sass/*.scss', gulp.parallel(['sass']));
+	gulp.watch('./src/templates/frontEnd/_includes/_fieldMacros/[!_]*.twig', gulp.parallel(['fieldTypes']));
 });
 
 
 
 // Just a simple build-only task
-gulp.task('build', ['clean'], function(){
-	gulp.start('js', 'sass', 'fieldTypes');
-});
+gulp.task('build', gulp.parallel('clean', 'js', 'sass', 'fieldTypes', function(done){
+	done();
+}));
 
 
 /*
  Default is to run our tasks as though they've never been run before,
  then watch for changes as we go.
 */
-gulp.task('default', function(){
-	gulp.start('build', 'watch');
-});
+gulp.task('default', gulp.series('build', 'watch'));

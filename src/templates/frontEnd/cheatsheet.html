@@ -31,7 +31,7 @@
 								<div class="contain">
 									<ul>
 										{% for key, context in tagContexts %}
-										<li><a class="context{% if key == currentContext %} activeContext{% endif %}" href="{{ craft.app.request.absoluteUrl }}?context={{ key }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
+										<li><a class="context{% if key == currentContext %} activeContext{% endif %}" href="{{ url(craft.app.request.fullPath ~ '?context=' ~ key) }}" data-tag="{{ context.tag }}">{{ context.title }}</a></li>
 										{% endfor %}
 									</ul>
 								</div>
@@ -136,7 +136,7 @@
 					--------------------------------------------- #}
 
 					{% if csMacros[fieldClass] is defined %}
-						{{ view.renderTemplateMacro('_includes/fieldMacros.twig', csMacros[fieldClass], [
+						{{ view.renderTemplateMacro('cheat-sheet/frontEnd/_includes/fieldMacros.twig', csMacros[fieldClass], [
 							{
 								'sampleTag' : sampleTag ~ '.' ~ field.handle,
 								'field'     : field,
@@ -171,13 +171,11 @@
 	<footer>
 		<div class="contain">
 			<div class="footer_content">
-				<p>{{ pageTitle }} {{ version }}<br>Provided by your friends at <a href="http://focuslabllc.com">Focus Lab</a></p>
+				<p>{{ pageTitle }} {{ version }}<br>Provided by your friends at <a href="https://focuslabllc.com">Focus Lab</a></p>
 			</div>
 		</div>
 	</footer>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="{{ remoteAssetRoot }}prism.min.js"></script>
 {% js %}
 	GameGenie.currentContext = '{{ sampleTag }}';
 {% endjs %}

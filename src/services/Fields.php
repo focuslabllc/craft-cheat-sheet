@@ -62,7 +62,7 @@ class Fields extends BaseObject
         $whitespace = str_replace('\t', '	', $whitespace);
 
         return [
-            'pageTitle'      => 'Field Cheat Sheet',
+            'pageTitle'      => 'Cheat Sheet',
             'version'        => $plugin->version,
             'whitespace'     => $whitespace,
             'groups'         => $fieldsService->getAllGroups(),
